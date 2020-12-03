@@ -502,8 +502,7 @@ namespace VariousTest
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.Description = "Select target directory...";
-                try { dlg.SelectedPath = Path.GetDirectoryName(inFile); }
-                catch { }
+                try { dlg.SelectedPath = Path.GetDirectoryName(inFile); } catch {}
                 if (dlg.ShowDialog() != DialogResult.OK)
                     return;
 
@@ -766,7 +765,7 @@ namespace VariousTest
             {
                 dlg.Filter = "XML files (*.xml)|*.xml|All files (*.*) |*.*";
                 dlg.FilterIndex = 1;
-			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfile.Text); } catch { }
+			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfile.Text); } catch {}
 			    if (dlg.ShowDialog() != DialogResult.OK)
 				    return;
 
@@ -839,7 +838,10 @@ namespace VariousTest
             listLINQxml.Columns.Add("ZIP", 80);
             listLINQxml.Columns.Add("Country", -2);
 
-            rbLINQxml_Click(null, null);
+            if ( !rbLINQxmlAll.Checked )
+                rbLINQxmlAll.Checked = true;
+            else
+                onLINQxml_Changed(null, null);
 
             // LINQ to Objects
             tbLINQobj.Text = Directory.GetCurrentDirectory();
@@ -848,28 +850,32 @@ namespace VariousTest
 //            // LINQ to DataSet
 //            UpdateLINQtoDataSet();
         }
-        private void rbLINQxml_Click(object sender, EventArgs e)
+        private void onLINQxml_Changed(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
             listLINQxml.BeginUpdate();
             try
             {
                 listLINQxml.Items.Clear();
+                if ( string.IsNullOrEmpty(tbLINQxml.Text) )
+                    return;
 
-                XElement root = XElement.Load(tbLINQxml.Text);
+                XElement root = XElement.Parse(tbLINQxml.Text);
                 IEnumerable<XElement> addrQ;
-                if ( rbLINQxmlAccnt.Checked )
-                    addrQ = from a in root.Elements("Address") where (string)a.Attribute("Type")=="F" orderby (string)a.Element("Name") select a;
-                else if ( rbLINQxmlDeliv.Checked ) 
+                if ( rbLINQxmlDeliv.Checked ) 
                     addrQ = from a in root.Elements("Address") where (string)a.Attribute("Type")=="D" orderby (string)a.Element("Name") select a;
+                else if ( rbLINQxmlAccnt.Checked )
+                    addrQ = root.Elements("Address").Where(a=>(a.Attribute("Type").Value=="A")).OrderBy(a=>(string)a.Element("Name"));
                 else
-                    addrQ = from a in root.Elements("Address") orderby (string)a.Element("Name") select a;
+                    addrQ = root.Elements("Address").OrderBy(a=>a.Element("Name").Value);
+
                 foreach(var a in addrQ )
-                    listLINQxml.Items.Add(new ListViewItem(new string[] {(string)a.Element("Name"), (string)a.Element("Street"), (string)a.Element("City"), (string)a.Element("ZIP"), (string)a.Element("Country")}));
+                    listLINQxml.Items.Add(new ListViewItem(new string[] {a.Element("Name").Value, (string)a.Element("Street"), (string)a.Element("City"), (string)a.Element("Zip"), (string)a.Element("Country")}));
             }
             catch(Exception ex)
             {
-                GM.ShowErrorMessageBox(this, "Error occured when running LINQ to XML", ex);
+                if ( !tbLINQxml.Focused )
+                    GM.ShowErrorMessageBox(this, "Error occured when running LINQ to XML", ex);
             }
             finally 
             {
@@ -881,14 +887,16 @@ namespace VariousTest
 		{
 			using ( OpenFileDialog dlg = new OpenFileDialog() )
             {
-			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbLINQxml.Text); } catch { }
+                dlg.Filter = "XML files (*.xml)|*.xml|All files (*.*) |*.*";
+                dlg.FilterIndex = 1;
+			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbLINQxml.Text); } catch {}
 			    if (dlg.ShowDialog() != DialogResult.OK)
 				    return;
 
 			    tbLINQxml.Text = dlg.FileName;
             }
 
-            rbLINQxml_Click(null,null);
+            onLINQxml_Changed(null,null);
 		}
         private void btnLINQselObj_Click(object sender, EventArgs e)
         {
@@ -1459,6 +1467,6 @@ namespace VariousTest
                 GM.ShowErrorMessageBox(this, string.Format("Error occured when trying to handle window for the process '{0}'", tbOtherProcName.Text), ex);
             }
         }
-#endregion
+        #endregion
     }
 }
