@@ -124,6 +124,8 @@ namespace VariousTest
             System.Windows.Forms.Button btnLINQselObj;
             System.Windows.Forms.Label lblLINQobj;
             System.Windows.Forms.TableLayoutPanel pnlLINQ;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbLINQxml = new System.Windows.Forms.TextBox();
             this.rbLINQxmlAccnt = new System.Windows.Forms.RadioButton();
             this.rbLINQxmlDeliv = new System.Windows.Forms.RadioButton();
@@ -203,10 +205,13 @@ namespace VariousTest
             this.btnIOunzip = new System.Windows.Forms.Button();
             this.listIO = new System.Windows.Forms.ListView();
             this.tabLINQ = new System.Windows.Forms.TabPage();
-            this.tabXMLread = new System.Windows.Forms.TabPage();
-            this.listXMLitems = new System.Windows.Forms.ListView();
-            this.tbXMLFile = new System.Windows.Forms.TextBox();
-            this.btnXMLSel = new System.Windows.Forms.Button();
+            this.tabXML = new System.Windows.Forms.TabPage();
+            this.dgXmlItems = new System.Windows.Forms.DataGridView();
+            this.colXmlItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colXmlItemIPaddr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colXmlItemIPport = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbXmlFile = new System.Windows.Forms.TextBox();
+            this.btnXmlFileSel = new System.Windows.Forms.Button();
             this.tabLang = new System.Windows.Forms.TabPage();
             this.tabUI = new System.Windows.Forms.TabPage();
             this.tabMail = new System.Windows.Forms.TabPage();
@@ -336,7 +341,8 @@ namespace VariousTest
             this.gbIOzip.SuspendLayout();
             this.panelIOzip.SuspendLayout();
             this.tabLINQ.SuspendLayout();
-            this.tabXMLread.SuspendLayout();
+            this.tabXML.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgXmlItems)).BeginInit();
             this.tabLang.SuspendLayout();
             this.tabUI.SuspendLayout();
             this.tabMail.SuspendLayout();
@@ -359,7 +365,7 @@ namespace VariousTest
             // 
             lblUItree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUItree.AutoSize = true;
-            lblUItree.Location = new System.Drawing.Point(436, 7);
+            lblUItree.Location = new System.Drawing.Point(391, 7);
             lblUItree.Name = "lblUItree";
             lblUItree.Size = new System.Drawing.Size(116, 13);
             lblUItree.TabIndex = 2;
@@ -369,9 +375,9 @@ namespace VariousTest
             // 
             gbLINQtoXML.Controls.Add(splitContainer1);
             gbLINQtoXML.Dock = System.Windows.Forms.DockStyle.Fill;
-            gbLINQtoXML.Location = new System.Drawing.Point(433, 3);
+            gbLINQtoXML.Location = new System.Drawing.Point(388, 3);
             gbLINQtoXML.Name = "gbLINQtoXML";
-            gbLINQtoXML.Size = new System.Drawing.Size(424, 470);
+            gbLINQtoXML.Size = new System.Drawing.Size(379, 492);
             gbLINQtoXML.TabIndex = 0;
             gbLINQtoXML.TabStop = false;
             gbLINQtoXML.Text = "LINQ to XML";
@@ -397,8 +403,8 @@ namespace VariousTest
             splitContainer1.Panel2.Controls.Add(this.rbLINQxmlAll);
             splitContainer1.Panel2.Controls.Add(this.listLINQxml);
             splitContainer1.Panel2MinSize = 100;
-            splitContainer1.Size = new System.Drawing.Size(418, 451);
-            splitContainer1.SplitterDistance = 174;
+            splitContainer1.Size = new System.Drawing.Size(373, 473);
+            splitContainer1.SplitterDistance = 182;
             splitContainer1.SplitterWidth = 6;
             splitContainer1.TabIndex = 1;
             // 
@@ -421,7 +427,7 @@ namespace VariousTest
             this.tbLINQxml.Multiline = true;
             this.tbLINQxml.Name = "tbLINQxml";
             this.tbLINQxml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLINQxml.Size = new System.Drawing.Size(418, 153);
+            this.tbLINQxml.Size = new System.Drawing.Size(373, 161);
             this.tbLINQxml.TabIndex = 1;
             this.tbLINQxml.Text = resources.GetString("tbLINQxml.Text");
             this.tbLINQxml.TextChanged += new System.EventHandler(this.onLINQxml_Changed);
@@ -478,7 +484,7 @@ namespace VariousTest
             this.listLINQxml.HideSelection = false;
             this.listLINQxml.Location = new System.Drawing.Point(0, 26);
             this.listLINQxml.Name = "listLINQxml";
-            this.listLINQxml.Size = new System.Drawing.Size(418, 240);
+            this.listLINQxml.Size = new System.Drawing.Size(373, 246);
             this.listLINQxml.TabIndex = 7;
             this.listLINQxml.UseCompatibleStateImageBehavior = false;
             this.listLINQxml.View = System.Windows.Forms.View.Details;
@@ -494,34 +500,34 @@ namespace VariousTest
             // 
             // btnXmlSerialize
             // 
-            btnXmlSerialize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            btnXmlSerialize.Location = new System.Drawing.Point(706, 502);
+            btnXmlSerialize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnXmlSerialize.Location = new System.Drawing.Point(600, 48);
             btnXmlSerialize.Name = "btnXmlSerialize";
             btnXmlSerialize.Size = new System.Drawing.Size(160, 36);
             btnXmlSerialize.TabIndex = 6;
-            btnXmlSerialize.Text = "Serialize items to file";
+            btnXmlSerialize.Text = "Save - serialize items to file";
             btnXmlSerialize.UseVisualStyleBackColor = true;
             btnXmlSerialize.Click += new System.EventHandler(this.btnXmlSerialize_Click);
             // 
             // btnXMLParse
             // 
-            btnXMLParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            btnXMLParse.Location = new System.Drawing.Point(541, 502);
+            btnXMLParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnXMLParse.Location = new System.Drawing.Point(434, 48);
             btnXMLParse.Name = "btnXMLParse";
             btnXMLParse.Size = new System.Drawing.Size(160, 36);
             btnXMLParse.TabIndex = 5;
-            btnXMLParse.Text = "Parse items from file";
+            btnXMLParse.Text = "Load - parse items from file";
             btnXMLParse.UseVisualStyleBackColor = true;
             btnXMLParse.Click += new System.EventHandler(this.btnXMLParse_Click);
             // 
             // lblXmlItems
             // 
             lblXmlItems.AutoSize = true;
-            lblXmlItems.Location = new System.Drawing.Point(5, 55);
+            lblXmlItems.Location = new System.Drawing.Point(3, 72);
             lblXmlItems.Name = "lblXmlItems";
-            lblXmlItems.Size = new System.Drawing.Size(59, 13);
+            lblXmlItems.Size = new System.Drawing.Size(125, 13);
             lblXmlItems.TabIndex = 3;
-            lblXmlItems.Text = "XML items:";
+            lblXmlItems.Text = "XML items (F2 - edit cell):";
             // 
             // gbIOfileWatch
             // 
@@ -537,7 +543,7 @@ namespace VariousTest
             gbIOfileWatch.Controls.Add(lblIOfileContent);
             gbIOfileWatch.Location = new System.Drawing.Point(0, 214);
             gbIOfileWatch.Name = "gbIOfileWatch";
-            gbIOfileWatch.Size = new System.Drawing.Size(866, 268);
+            gbIOfileWatch.Size = new System.Drawing.Size(776, 290);
             gbIOfileWatch.TabIndex = 2;
             gbIOfileWatch.TabStop = false;
             gbIOfileWatch.Text = "File watcher";
@@ -545,7 +551,7 @@ namespace VariousTest
             // btnIOfileSel
             // 
             this.btnIOfileSel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIOfileSel.Location = new System.Drawing.Point(830, 18);
+            this.btnIOfileSel.Location = new System.Drawing.Point(740, 18);
             this.btnIOfileSel.Name = "btnIOfileSel";
             this.btnIOfileSel.Size = new System.Drawing.Size(28, 21);
             this.btnIOfileSel.TabIndex = 2;
@@ -557,7 +563,7 @@ namespace VariousTest
             // 
             lblIOfileLastWrite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblIOfileLastWrite.AutoSize = true;
-            lblIOfileLastWrite.Location = new System.Drawing.Point(623, 44);
+            lblIOfileLastWrite.Location = new System.Drawing.Point(533, 44);
             lblIOfileLastWrite.Name = "lblIOfileLastWrite";
             lblIOfileLastWrite.Size = new System.Drawing.Size(55, 13);
             lblIOfileLastWrite.TabIndex = 4;
@@ -574,7 +580,7 @@ namespace VariousTest
             this.tbIOfileContent.Name = "tbIOfileContent";
             this.tbIOfileContent.ReadOnly = true;
             this.tbIOfileContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbIOfileContent.Size = new System.Drawing.Size(855, 196);
+            this.tbIOfileContent.Size = new System.Drawing.Size(765, 218);
             this.tbIOfileContent.TabIndex = 6;
             // 
             // dtIOfileModified
@@ -583,7 +589,7 @@ namespace VariousTest
             this.dtIOfileModified.CustomFormat = "\"d.M.yyy HH:mm:ss\"";
             this.dtIOfileModified.Enabled = false;
             this.dtIOfileModified.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtIOfileModified.Location = new System.Drawing.Point(684, 40);
+            this.dtIOfileModified.Location = new System.Drawing.Point(594, 40);
             this.dtIOfileModified.Name = "dtIOfileModified";
             this.dtIOfileModified.Size = new System.Drawing.Size(147, 20);
             this.dtIOfileModified.TabIndex = 5;
@@ -606,7 +612,7 @@ namespace VariousTest
             this.tbIOfile.Location = new System.Drawing.Point(90, 19);
             this.tbIOfile.Name = "tbIOfile";
             this.tbIOfile.ReadOnly = true;
-            this.tbIOfile.Size = new System.Drawing.Size(741, 20);
+            this.tbIOfile.Size = new System.Drawing.Size(651, 20);
             this.tbIOfile.TabIndex = 1;
             this.tbIOfile.Text = "C:\\AUTOEXEC.BAT ";
             // 
@@ -631,7 +637,7 @@ namespace VariousTest
             // btnWWWDownload
             // 
             btnWWWDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            btnWWWDownload.Location = new System.Drawing.Point(777, 19);
+            btnWWWDownload.Location = new System.Drawing.Point(687, 19);
             btnWWWDownload.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             btnWWWDownload.Name = "btnWWWDownload";
             btnWWWDownload.Size = new System.Drawing.Size(81, 22);
@@ -644,9 +650,9 @@ namespace VariousTest
             // 
             btnMailMAPIsend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            btnMailMAPIsend.Location = new System.Drawing.Point(6, 310);
+            btnMailMAPIsend.Location = new System.Drawing.Point(6, 332);
             btnMailMAPIsend.Name = "btnMailMAPIsend";
-            btnMailMAPIsend.Size = new System.Drawing.Size(850, 32);
+            btnMailMAPIsend.Size = new System.Drawing.Size(760, 32);
             btnMailMAPIsend.TabIndex = 7;
             btnMailMAPIsend.Text = "Send mail by simple MAPI";
             btnMailMAPIsend.UseVisualStyleBackColor = true;
@@ -656,7 +662,7 @@ namespace VariousTest
             // 
             lblUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUser.AutoSize = true;
-            lblUser.Location = new System.Drawing.Point(366, 522);
+            lblUser.Location = new System.Drawing.Point(366, 541);
             lblUser.Name = "lblUser";
             lblUser.Size = new System.Drawing.Size(67, 13);
             lblUser.TabIndex = 2;
@@ -666,7 +672,7 @@ namespace VariousTest
             // 
             lblComputer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblComputer.AutoSize = true;
-            lblComputer.Location = new System.Drawing.Point(143, 522);
+            lblComputer.Location = new System.Drawing.Point(143, 541);
             lblComputer.Name = "lblComputer";
             lblComputer.Size = new System.Drawing.Size(84, 13);
             lblComputer.TabIndex = 4;
@@ -676,7 +682,7 @@ namespace VariousTest
             // 
             lblUImbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUImbox.AutoSize = true;
-            lblUImbox.Location = new System.Drawing.Point(3, 233);
+            lblUImbox.Location = new System.Drawing.Point(3, 244);
             lblUImbox.Name = "lblUImbox";
             lblUImbox.Size = new System.Drawing.Size(100, 13);
             lblUImbox.TabIndex = 4;
@@ -705,16 +711,16 @@ namespace VariousTest
             panelUI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             panelUI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             panelUI.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            panelUI.Size = new System.Drawing.Size(866, 482);
+            panelUI.Size = new System.Drawing.Size(776, 504);
             panelUI.TabIndex = 0;
             // 
             // btnUImbox
             // 
             this.btnUImbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUImbox.Location = new System.Drawing.Point(3, 452);
+            this.btnUImbox.Location = new System.Drawing.Point(3, 474);
             this.btnUImbox.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.btnUImbox.Name = "btnUImbox";
-            this.btnUImbox.Size = new System.Drawing.Size(427, 27);
+            this.btnUImbox.Size = new System.Drawing.Size(382, 27);
             this.btnUImbox.TabIndex = 6;
             this.btnUImbox.Text = "Call message box";
             this.btnUImbox.UseVisualStyleBackColor = true;
@@ -726,10 +732,10 @@ namespace VariousTest
             this.listUImbox.FullRowSelect = true;
             this.listUImbox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listUImbox.HideSelection = false;
-            this.listUImbox.Location = new System.Drawing.Point(3, 249);
+            this.listUImbox.Location = new System.Drawing.Point(3, 260);
             this.listUImbox.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.listUImbox.Name = "listUImbox";
-            this.listUImbox.Size = new System.Drawing.Size(427, 203);
+            this.listUImbox.Size = new System.Drawing.Size(382, 214);
             this.listUImbox.TabIndex = 5;
             this.listUImbox.UseCompatibleStateImageBehavior = false;
             this.listUImbox.View = System.Windows.Forms.View.Details;
@@ -740,7 +746,7 @@ namespace VariousTest
             // 
             this.treeUI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeUI.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeUI.Location = new System.Drawing.Point(436, 23);
+            this.treeUI.Location = new System.Drawing.Point(391, 23);
             this.treeUI.Name = "treeUI";
             treeNode1.Name = "Node1";
             treeNode1.Text = "Subpoložka 1";
@@ -757,7 +763,7 @@ namespace VariousTest
             this.treeUI.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode6});
-            this.treeUI.Size = new System.Drawing.Size(427, 200);
+            this.treeUI.Size = new System.Drawing.Size(382, 211);
             this.treeUI.TabIndex = 3;
             this.treeUI.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeUI_DrawNode);
             // 
@@ -779,7 +785,7 @@ namespace VariousTest
             listViewItem2});
             this.listUI.Location = new System.Drawing.Point(3, 23);
             this.listUI.Name = "listUI";
-            this.listUI.Size = new System.Drawing.Size(427, 200);
+            this.listUI.Size = new System.Drawing.Size(382, 211);
             this.listUI.SmallImageList = this.imageList;
             this.listUI.TabIndex = 1;
             this.listUI.UseCompatibleStateImageBehavior = false;
@@ -810,7 +816,7 @@ namespace VariousTest
             // 
             label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(436, 233);
+            label1.Location = new System.Drawing.Point(391, 244);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(227, 13);
             label1.TabIndex = 7;
@@ -822,9 +828,9 @@ namespace VariousTest
             panelUITreeBox.Controls.Add(this.chbUITreeBoxEnabled);
             panelUITreeBox.Controls.Add(this.tbUI);
             panelUITreeBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelUITreeBox.Location = new System.Drawing.Point(436, 249);
+            panelUITreeBox.Location = new System.Drawing.Point(391, 260);
             panelUITreeBox.Name = "panelUITreeBox";
-            panelUITreeBox.Size = new System.Drawing.Size(427, 200);
+            panelUITreeBox.Size = new System.Drawing.Size(382, 211);
             panelUITreeBox.TabIndex = 9;
             // 
             // chbUITreeBoxEditable
@@ -856,7 +862,7 @@ namespace VariousTest
             this.tbUI.DropDownHeight = 250;
             this.tbUI.Location = new System.Drawing.Point(0, 0);
             this.tbUI.Name = "tbUI";
-            this.tbUI.Size = new System.Drawing.Size(427, 21);
+            this.tbUI.Size = new System.Drawing.Size(382, 21);
             this.tbUI.TabIndex = 8;
             this.tbUI.TextEditable = false;
             this.tbUI.TextValue = "XXX";
@@ -883,7 +889,7 @@ namespace VariousTest
             // 
             lblAlgWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblAlgWrap.AutoSize = true;
-            lblAlgWrap.Location = new System.Drawing.Point(751, 17);
+            lblAlgWrap.Location = new System.Drawing.Point(661, 17);
             lblAlgWrap.Name = "lblAlgWrap";
             lblAlgWrap.Size = new System.Drawing.Size(104, 13);
             lblAlgWrap.TabIndex = 2;
@@ -938,7 +944,7 @@ namespace VariousTest
             // 
             lblAlgAdZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblAlgAdZip.AutoSize = true;
-            lblAlgAdZip.Location = new System.Drawing.Point(660, 64);
+            lblAlgAdZip.Location = new System.Drawing.Point(570, 64);
             lblAlgAdZip.Name = "lblAlgAdZip";
             lblAlgAdZip.Size = new System.Drawing.Size(25, 13);
             lblAlgAdZip.TabIndex = 10;
@@ -975,7 +981,7 @@ namespace VariousTest
             // 
             lblOtherAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblOtherAppProdVer.AutoSize = true;
-            lblOtherAppProdVer.Location = new System.Drawing.Point(624, 58);
+            lblOtherAppProdVer.Location = new System.Drawing.Point(534, 58);
             lblOtherAppProdVer.Name = "lblOtherAppProdVer";
             lblOtherAppProdVer.Size = new System.Drawing.Size(137, 13);
             lblOtherAppProdVer.TabIndex = 6;
@@ -984,10 +990,10 @@ namespace VariousTest
             // btnLangDelgGUItest
             // 
             btnLangDelgGUItest.Dock = System.Windows.Forms.DockStyle.Fill;
-            btnLangDelgGUItest.Location = new System.Drawing.Point(425, 0);
+            btnLangDelgGUItest.Location = new System.Drawing.Point(380, 0);
             btnLangDelgGUItest.Margin = new System.Windows.Forms.Padding(0);
             btnLangDelgGUItest.Name = "btnLangDelgGUItest";
-            btnLangDelgGUItest.Size = new System.Drawing.Size(426, 30);
+            btnLangDelgGUItest.Size = new System.Drawing.Size(381, 30);
             btnLangDelgGUItest.TabIndex = 1;
             btnLangDelgGUItest.Text = "Control.BeginInvoke - GUI test";
             btnLangDelgGUItest.UseVisualStyleBackColor = true;
@@ -999,7 +1005,7 @@ namespace VariousTest
             btnLangDelgTest.Location = new System.Drawing.Point(0, 0);
             btnLangDelgTest.Margin = new System.Windows.Forms.Padding(0);
             btnLangDelgTest.Name = "btnLangDelgTest";
-            btnLangDelgTest.Size = new System.Drawing.Size(425, 30);
+            btnLangDelgTest.Size = new System.Drawing.Size(380, 30);
             btnLangDelgTest.TabIndex = 0;
             btnLangDelgTest.Text = "Delegate\'s BeginInvoke test";
             btnLangDelgTest.UseVisualStyleBackColor = true;
@@ -1021,7 +1027,7 @@ namespace VariousTest
             gbLangDelg.Controls.Add(panelLangDelg);
             gbLangDelg.Location = new System.Drawing.Point(0, 83);
             gbLangDelg.Name = "gbLangDelg";
-            gbLangDelg.Size = new System.Drawing.Size(866, 93);
+            gbLangDelg.Size = new System.Drawing.Size(776, 93);
             gbLangDelg.TabIndex = 0;
             gbLangDelg.TabStop = false;
             gbLangDelg.Text = "Delegates";
@@ -1044,16 +1050,16 @@ namespace VariousTest
             panelLangDelg.RowCount = 2;
             panelLangDelg.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             panelLangDelg.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            panelLangDelg.Size = new System.Drawing.Size(851, 61);
+            panelLangDelg.Size = new System.Drawing.Size(761, 61);
             panelLangDelg.TabIndex = 15;
             // 
             // btnLangDelgLambda
             // 
             this.btnLangDelgLambda.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLangDelgLambda.Location = new System.Drawing.Point(425, 30);
+            this.btnLangDelgLambda.Location = new System.Drawing.Point(380, 30);
             this.btnLangDelgLambda.Margin = new System.Windows.Forms.Padding(0);
             this.btnLangDelgLambda.Name = "btnLangDelgLambda";
-            this.btnLangDelgLambda.Size = new System.Drawing.Size(426, 31);
+            this.btnLangDelgLambda.Size = new System.Drawing.Size(381, 31);
             this.btnLangDelgLambda.TabIndex = 3;
             this.btnLangDelgLambda.Text = "Delegate realized as lambda expression";
             this.btnLangDelgLambda.UseVisualStyleBackColor = true;
@@ -1064,7 +1070,7 @@ namespace VariousTest
             this.btnLangDelgAnonymous.Location = new System.Drawing.Point(0, 30);
             this.btnLangDelgAnonymous.Margin = new System.Windows.Forms.Padding(0);
             this.btnLangDelgAnonymous.Name = "btnLangDelgAnonymous";
-            this.btnLangDelgAnonymous.Size = new System.Drawing.Size(425, 31);
+            this.btnLangDelgAnonymous.Size = new System.Drawing.Size(380, 31);
             this.btnLangDelgAnonymous.TabIndex = 2;
             this.btnLangDelgAnonymous.Text = "Anonymous delegate";
             this.btnLangDelgAnonymous.UseVisualStyleBackColor = true;
@@ -1083,7 +1089,7 @@ namespace VariousTest
             gbLangRefl.Controls.Add(lblLangRefl2);
             gbLangRefl.Location = new System.Drawing.Point(0, 0);
             gbLangRefl.Name = "gbLangRefl";
-            gbLangRefl.Size = new System.Drawing.Size(866, 90);
+            gbLangRefl.Size = new System.Drawing.Size(776, 90);
             gbLangRefl.TabIndex = 0;
             gbLangRefl.TabStop = false;
             gbLangRefl.Text = "Reflection";
@@ -1091,7 +1097,7 @@ namespace VariousTest
             // tbLangReflParam2
             // 
             this.tbLangReflParam2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLangReflParam2.Location = new System.Drawing.Point(672, 18);
+            this.tbLangReflParam2.Location = new System.Drawing.Point(582, 18);
             this.tbLangReflParam2.Name = "tbLangReflParam2";
             this.tbLangReflParam2.Size = new System.Drawing.Size(77, 20);
             this.tbLangReflParam2.TabIndex = 3;
@@ -1101,7 +1107,7 @@ namespace VariousTest
             // 
             lblLangRefl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl4.AutoSize = true;
-            lblLangRefl4.Location = new System.Drawing.Point(847, 19);
+            lblLangRefl4.Location = new System.Drawing.Point(757, 19);
             lblLangRefl4.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl4.Name = "lblLangRefl4";
             lblLangRefl4.Size = new System.Drawing.Size(10, 13);
@@ -1115,14 +1121,14 @@ namespace VariousTest
             this.cbLangReflParam1.FormattingEnabled = true;
             this.cbLangReflParam1.Location = new System.Drawing.Point(83, 19);
             this.cbLangReflParam1.Name = "cbLangReflParam1";
-            this.cbLangReflParam1.Size = new System.Drawing.Size(570, 21);
+            this.cbLangReflParam1.Size = new System.Drawing.Size(480, 21);
             this.cbLangReflParam1.TabIndex = 1;
             // 
             // lblLangRefl3
             // 
             lblLangRefl3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl3.AutoSize = true;
-            lblLangRefl3.Location = new System.Drawing.Point(752, 22);
+            lblLangRefl3.Location = new System.Drawing.Point(662, 22);
             lblLangRefl3.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl3.Name = "lblLangRefl3";
             lblLangRefl3.Size = new System.Drawing.Size(18, 13);
@@ -1147,7 +1153,7 @@ namespace VariousTest
             this.tbLangReflResult.Name = "tbLangReflResult";
             this.tbLangReflResult.ReadOnly = true;
             this.tbLangReflResult.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.tbLangReflResult.Size = new System.Drawing.Size(761, 33);
+            this.tbLangReflResult.Size = new System.Drawing.Size(671, 33);
             this.tbLangReflResult.TabIndex = 7;
             // 
             // cbLangReflType
@@ -1155,7 +1161,7 @@ namespace VariousTest
             this.cbLangReflType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLangReflType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLangReflType.FormattingEnabled = true;
-            this.cbLangReflType.Location = new System.Drawing.Point(773, 18);
+            this.cbLangReflType.Location = new System.Drawing.Point(683, 18);
             this.cbLangReflType.Name = "cbLangReflType";
             this.cbLangReflType.Size = new System.Drawing.Size(71, 21);
             this.cbLangReflType.TabIndex = 5;
@@ -1164,7 +1170,7 @@ namespace VariousTest
             // 
             lblLangRefl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl2.AutoSize = true;
-            lblLangRefl2.Location = new System.Drawing.Point(653, 21);
+            lblLangRefl2.Location = new System.Drawing.Point(563, 21);
             lblLangRefl2.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl2.Name = "lblLangRefl2";
             lblLangRefl2.Size = new System.Drawing.Size(18, 13);
@@ -1200,7 +1206,7 @@ namespace VariousTest
             gbOtherProcess.Controls.Add(panelOtherProc);
             gbOtherProcess.Location = new System.Drawing.Point(0, 148);
             gbOtherProcess.Name = "gbOtherProcess";
-            gbOtherProcess.Size = new System.Drawing.Size(866, 67);
+            gbOtherProcess.Size = new System.Drawing.Size(776, 67);
             gbOtherProcess.TabIndex = 12;
             gbOtherProcess.TabStop = false;
             gbOtherProcess.Text = "Process";
@@ -1211,9 +1217,9 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbOtherProc.Location = new System.Drawing.Point(57, 24);
             this.tbOtherProc.Name = "tbOtherProc";
-            this.tbOtherProc.Size = new System.Drawing.Size(422, 20);
+            this.tbOtherProc.Size = new System.Drawing.Size(332, 20);
             this.tbOtherProc.TabIndex = 1;
-            this.tbOtherProc.Text = "firefox";
+            this.tbOtherProc.Text = "google chrome";
             // 
             // lblOtherProc
             // 
@@ -1236,7 +1242,7 @@ namespace VariousTest
             panelOtherProc.Controls.Add(this.btnOtherMaximizeProcWnd, 1, 0);
             panelOtherProc.Controls.Add(this.btnOtherCloseProcWnd, 3, 0);
             panelOtherProc.Controls.Add(this.btnOtherRestoreProcWnd, 2, 0);
-            panelOtherProc.Location = new System.Drawing.Point(485, 17);
+            panelOtherProc.Location = new System.Drawing.Point(395, 17);
             panelOtherProc.Name = "panelOtherProc";
             panelOtherProc.RowCount = 1;
             panelOtherProc.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1305,14 +1311,14 @@ namespace VariousTest
             gbAlgNum.Controls.Add(this.tbAlgNumText);
             gbAlgNum.Location = new System.Drawing.Point(0, 63);
             gbAlgNum.Name = "gbAlgNum";
-            gbAlgNum.Size = new System.Drawing.Size(870, 53);
+            gbAlgNum.Size = new System.Drawing.Size(776, 53);
             gbAlgNum.TabIndex = 1;
             gbAlgNum.TabStop = false;
             // 
             // btnAlgNumToText
             // 
             this.btnAlgNumToText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlgNumToText.Location = new System.Drawing.Point(755, 15);
+            this.btnAlgNumToText.Location = new System.Drawing.Point(661, 15);
             this.btnAlgNumToText.Name = "btnAlgNumToText";
             this.btnAlgNumToText.Size = new System.Drawing.Size(104, 27);
             this.btnAlgNumToText.TabIndex = 2;
@@ -1346,7 +1352,7 @@ namespace VariousTest
             this.tbAlgNumText.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tbAlgNumText.Name = "tbAlgNumText";
             this.tbAlgNumText.ReadOnly = true;
-            this.tbAlgNumText.Size = new System.Drawing.Size(653, 20);
+            this.tbAlgNumText.Size = new System.Drawing.Size(559, 20);
             this.tbAlgNumText.TabIndex = 1;
             // 
             // gbWrapText
@@ -1360,14 +1366,14 @@ namespace VariousTest
             gbWrapText.Controls.Add(lblAlgWrap);
             gbWrapText.Location = new System.Drawing.Point(0, 109);
             gbWrapText.Name = "gbWrapText";
-            gbWrapText.Size = new System.Drawing.Size(866, 125);
+            gbWrapText.Size = new System.Drawing.Size(776, 125);
             gbWrapText.TabIndex = 2;
             gbWrapText.TabStop = false;
             // 
             // nudAlgWrap
             // 
             this.nudAlgWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudAlgWrap.Location = new System.Drawing.Point(751, 31);
+            this.nudAlgWrap.Location = new System.Drawing.Point(661, 31);
             this.nudAlgWrap.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1391,7 +1397,7 @@ namespace VariousTest
             this.tbAlgWrap.Multiline = true;
             this.tbAlgWrap.Name = "tbAlgWrap";
             this.tbAlgWrap.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbAlgWrap.Size = new System.Drawing.Size(733, 46);
+            this.tbAlgWrap.Size = new System.Drawing.Size(643, 46);
             this.tbAlgWrap.TabIndex = 0;
             this.tbAlgWrap.Text = "Text needed to be wrapped to specified line \r\nlength. 123456890123456879012345678" +
     "901234568790\r\nxxx\r\n";
@@ -1406,13 +1412,13 @@ namespace VariousTest
             this.tbAlgWrapText.Name = "tbAlgWrapText";
             this.tbAlgWrapText.ReadOnly = true;
             this.tbAlgWrapText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbAlgWrapText.Size = new System.Drawing.Size(733, 46);
+            this.tbAlgWrapText.Size = new System.Drawing.Size(643, 46);
             this.tbAlgWrapText.TabIndex = 1;
             // 
             // btnAlgWrapText
             // 
             this.btnAlgWrapText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlgWrapText.Location = new System.Drawing.Point(751, 53);
+            this.btnAlgWrapText.Location = new System.Drawing.Point(661, 53);
             this.btnAlgWrapText.Name = "btnAlgWrapText";
             this.btnAlgWrapText.Size = new System.Drawing.Size(104, 33);
             this.btnAlgWrapText.TabIndex = 4;
@@ -1443,7 +1449,7 @@ namespace VariousTest
             gbServiceAccnt.Controls.Add(this.btnServiceInstall);
             gbServiceAccnt.Location = new System.Drawing.Point(8, 85);
             gbServiceAccnt.Name = "gbServiceAccnt";
-            gbServiceAccnt.Size = new System.Drawing.Size(858, 113);
+            gbServiceAccnt.Size = new System.Drawing.Size(768, 113);
             gbServiceAccnt.TabIndex = 5;
             gbServiceAccnt.TabStop = false;
             gbServiceAccnt.Text = "Login account";
@@ -1463,7 +1469,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbServiceUser.Location = new System.Drawing.Point(72, 54);
             this.tbServiceUser.Name = "tbServiceUser";
-            this.tbServiceUser.Size = new System.Drawing.Size(587, 20);
+            this.tbServiceUser.Size = new System.Drawing.Size(497, 20);
             this.tbServiceUser.TabIndex = 3;
             // 
             // cbServiceAccount
@@ -1474,7 +1480,7 @@ namespace VariousTest
             this.cbServiceAccount.FormattingEnabled = true;
             this.cbServiceAccount.Location = new System.Drawing.Point(72, 16);
             this.cbServiceAccount.Name = "cbServiceAccount";
-            this.cbServiceAccount.Size = new System.Drawing.Size(587, 21);
+            this.cbServiceAccount.Size = new System.Drawing.Size(497, 21);
             this.cbServiceAccount.TabIndex = 1;
             // 
             // lblServiceAccount
@@ -1502,13 +1508,13 @@ namespace VariousTest
             this.tbServicePwd.Location = new System.Drawing.Point(72, 80);
             this.tbServicePwd.Name = "tbServicePwd";
             this.tbServicePwd.PasswordChar = '*';
-            this.tbServicePwd.Size = new System.Drawing.Size(587, 20);
+            this.tbServicePwd.Size = new System.Drawing.Size(497, 20);
             this.tbServicePwd.TabIndex = 5;
             // 
             // btnServiceUninstall
             // 
             this.btnServiceUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnServiceUninstall.Location = new System.Drawing.Point(673, 62);
+            this.btnServiceUninstall.Location = new System.Drawing.Point(583, 62);
             this.btnServiceUninstall.Name = "btnServiceUninstall";
             this.btnServiceUninstall.Size = new System.Drawing.Size(177, 40);
             this.btnServiceUninstall.TabIndex = 7;
@@ -1519,7 +1525,7 @@ namespace VariousTest
             // btnServiceInstall
             // 
             this.btnServiceInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnServiceInstall.Location = new System.Drawing.Point(673, 16);
+            this.btnServiceInstall.Location = new System.Drawing.Point(583, 16);
             this.btnServiceInstall.Name = "btnServiceInstall";
             this.btnServiceInstall.Size = new System.Drawing.Size(177, 40);
             this.btnServiceInstall.TabIndex = 6;
@@ -1560,9 +1566,9 @@ namespace VariousTest
             gbMailSMTP.Controls.Add(this.tbMailSMTPserver);
             gbMailSMTP.Controls.Add(btnMailSMTPsend);
             gbMailSMTP.Controls.Add(lblMailSMTPserver);
-            gbMailSMTP.Location = new System.Drawing.Point(0, 348);
+            gbMailSMTP.Location = new System.Drawing.Point(0, 370);
             gbMailSMTP.Name = "gbMailSMTP";
-            gbMailSMTP.Size = new System.Drawing.Size(866, 131);
+            gbMailSMTP.Size = new System.Drawing.Size(776, 131);
             gbMailSMTP.TabIndex = 8;
             gbMailSMTP.TabStop = false;
             gbMailSMTP.Text = "SMTP usage";
@@ -1570,7 +1576,7 @@ namespace VariousTest
             // nudMailSMPTport
             // 
             this.nudMailSMPTport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMailSMPTport.Location = new System.Drawing.Point(752, 38);
+            this.nudMailSMPTport.Location = new System.Drawing.Point(662, 38);
             this.nudMailSMPTport.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -1589,7 +1595,7 @@ namespace VariousTest
             // 
             lblMailSMPTport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblMailSMPTport.AutoSize = true;
-            lblMailSMPTport.Location = new System.Drawing.Point(717, 42);
+            lblMailSMPTport.Location = new System.Drawing.Point(627, 42);
             lblMailSMPTport.Name = "lblMailSMPTport";
             lblMailSMPTport.Size = new System.Drawing.Size(29, 13);
             lblMailSMPTport.TabIndex = 4;
@@ -1601,7 +1607,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMailFrom.Location = new System.Drawing.Point(79, 15);
             this.tbMailFrom.Name = "tbMailFrom";
-            this.tbMailFrom.Size = new System.Drawing.Size(779, 20);
+            this.tbMailFrom.Size = new System.Drawing.Size(689, 20);
             this.tbMailFrom.TabIndex = 1;
             this.tbMailFrom.Text = "hermann@jetsoft.cz";
             // 
@@ -1617,7 +1623,7 @@ namespace VariousTest
             // tbMailSMTPpwd
             // 
             this.tbMailSMTPpwd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMailSMTPpwd.Location = new System.Drawing.Point(651, 61);
+            this.tbMailSMTPpwd.Location = new System.Drawing.Point(561, 61);
             this.tbMailSMTPpwd.Name = "tbMailSMTPpwd";
             this.tbMailSMTPpwd.PasswordChar = '*';
             this.tbMailSMTPpwd.Size = new System.Drawing.Size(207, 20);
@@ -1628,7 +1634,7 @@ namespace VariousTest
             // 
             lblMailSMTPpwd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblMailSMTPpwd.AutoSize = true;
-            lblMailSMTPpwd.Location = new System.Drawing.Point(589, 64);
+            lblMailSMTPpwd.Location = new System.Drawing.Point(499, 64);
             lblMailSMTPpwd.Name = "lblMailSMTPpwd";
             lblMailSMTPpwd.Size = new System.Drawing.Size(56, 13);
             lblMailSMTPpwd.TabIndex = 8;
@@ -1637,7 +1643,7 @@ namespace VariousTest
             // tbMailSMTPuser
             // 
             this.tbMailSMTPuser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMailSMTPuser.Location = new System.Drawing.Point(361, 61);
+            this.tbMailSMTPuser.Location = new System.Drawing.Point(271, 61);
             this.tbMailSMTPuser.Name = "tbMailSMTPuser";
             this.tbMailSMTPuser.Size = new System.Drawing.Size(222, 20);
             this.tbMailSMTPuser.TabIndex = 7;
@@ -1657,7 +1663,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMailSMTPserver.Location = new System.Drawing.Point(79, 38);
             this.tbMailSMTPserver.Name = "tbMailSMTPserver";
-            this.tbMailSMTPserver.Size = new System.Drawing.Size(632, 20);
+            this.tbMailSMTPserver.Size = new System.Drawing.Size(542, 20);
             this.tbMailSMTPserver.TabIndex = 3;
             this.tbMailSMTPserver.Text = "localhost";
             // 
@@ -1667,7 +1673,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             btnMailSMTPsend.Location = new System.Drawing.Point(8, 91);
             btnMailSMTPsend.Name = "btnMailSMTPsend";
-            btnMailSMTPsend.Size = new System.Drawing.Size(850, 32);
+            btnMailSMTPsend.Size = new System.Drawing.Size(760, 32);
             btnMailSMTPsend.TabIndex = 10;
             btnMailSMTPsend.Text = "Send mail by SMTP";
             btnMailSMTPsend.UseVisualStyleBackColor = true;
@@ -1736,7 +1742,7 @@ namespace VariousTest
             gbLINQobj.Dock = System.Windows.Forms.DockStyle.Fill;
             gbLINQobj.Location = new System.Drawing.Point(3, 3);
             gbLINQobj.Name = "gbLINQobj";
-            gbLINQobj.Size = new System.Drawing.Size(424, 470);
+            gbLINQobj.Size = new System.Drawing.Size(379, 492);
             gbLINQobj.TabIndex = 0;
             gbLINQobj.TabStop = false;
             gbLINQobj.Text = "LINQ to Objects";
@@ -1744,7 +1750,7 @@ namespace VariousTest
             // btnLINQselObj
             // 
             btnLINQselObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            btnLINQselObj.Location = new System.Drawing.Point(390, 31);
+            btnLINQselObj.Location = new System.Drawing.Point(345, 31);
             btnLINQselObj.Name = "btnLINQselObj";
             btnLINQselObj.Size = new System.Drawing.Size(28, 20);
             btnLINQselObj.TabIndex = 2;
@@ -1760,7 +1766,7 @@ namespace VariousTest
             this.tbLINQobj.Location = new System.Drawing.Point(6, 31);
             this.tbLINQobj.Name = "tbLINQobj";
             this.tbLINQobj.ReadOnly = true;
-            this.tbLINQobj.Size = new System.Drawing.Size(384, 20);
+            this.tbLINQobj.Size = new System.Drawing.Size(339, 20);
             this.tbLINQobj.TabIndex = 1;
             // 
             // lblLINQobj
@@ -1781,7 +1787,7 @@ namespace VariousTest
             this.listLINQobj.IntegralHeight = false;
             this.listLINQobj.Location = new System.Drawing.Point(5, 53);
             this.listLINQobj.Name = "listLINQobj";
-            this.listLINQobj.Size = new System.Drawing.Size(413, 411);
+            this.listLINQobj.Size = new System.Drawing.Size(368, 433);
             this.listLINQobj.TabIndex = 3;
             // 
             // pnlLINQ
@@ -1796,17 +1802,20 @@ namespace VariousTest
             pnlLINQ.Name = "pnlLINQ";
             pnlLINQ.RowCount = 1;
             pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 476F));
-            pnlLINQ.Size = new System.Drawing.Size(860, 476);
+            pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 498F));
+            pnlLINQ.Size = new System.Drawing.Size(770, 498);
             pnlLINQ.TabIndex = 1;
             // 
             // tabPanel
             // 
+            this.tabPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabPanel.Controls.Add(this.tabAlg);
             this.tabPanel.Controls.Add(this.tabService);
             this.tabPanel.Controls.Add(this.tabFileIO);
             this.tabPanel.Controls.Add(this.tabLINQ);
-            this.tabPanel.Controls.Add(this.tabXMLread);
+            this.tabPanel.Controls.Add(this.tabXML);
             this.tabPanel.Controls.Add(this.tabLang);
             this.tabPanel.Controls.Add(this.tabUI);
             this.tabPanel.Controls.Add(this.tabMail);
@@ -1815,7 +1824,7 @@ namespace VariousTest
             this.tabPanel.Location = new System.Drawing.Point(0, 5);
             this.tabPanel.Name = "tabPanel";
             this.tabPanel.SelectedIndex = 0;
-            this.tabPanel.Size = new System.Drawing.Size(874, 508);
+            this.tabPanel.Size = new System.Drawing.Size(784, 530);
             this.tabPanel.TabIndex = 0;
             // 
             // tabAlg
@@ -1827,7 +1836,7 @@ namespace VariousTest
             this.tabAlg.Location = new System.Drawing.Point(4, 22);
             this.tabAlg.Name = "tabAlg";
             this.tabAlg.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAlg.Size = new System.Drawing.Size(866, 482);
+            this.tabAlg.Size = new System.Drawing.Size(776, 504);
             this.tabAlg.TabIndex = 11;
             this.tabAlg.Text = "Algorithms";
             this.tabAlg.UseVisualStyleBackColor = true;
@@ -1841,7 +1850,7 @@ namespace VariousTest
             this.gbAlgCutDiactric.Controls.Add(this.btnAlgCutDiactric);
             this.gbAlgCutDiactric.Location = new System.Drawing.Point(0, 0);
             this.gbAlgCutDiactric.Name = "gbAlgCutDiactric";
-            this.gbAlgCutDiactric.Size = new System.Drawing.Size(866, 71);
+            this.gbAlgCutDiactric.Size = new System.Drawing.Size(776, 71);
             this.gbAlgCutDiactric.TabIndex = 0;
             this.gbAlgCutDiactric.TabStop = false;
             // 
@@ -1852,7 +1861,7 @@ namespace VariousTest
             this.tbAlgDiactric.Location = new System.Drawing.Point(12, 18);
             this.tbAlgDiactric.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.tbAlgDiactric.Name = "tbAlgDiactric";
-            this.tbAlgDiactric.Size = new System.Drawing.Size(733, 20);
+            this.tbAlgDiactric.Size = new System.Drawing.Size(643, 20);
             this.tbAlgDiactric.TabIndex = 0;
             this.tbAlgDiactric.Text = "123 ìšèøøžýáí ÌŠÈØŽÝÁÍ";
             // 
@@ -1864,13 +1873,13 @@ namespace VariousTest
             this.tbAlgDiactricCut.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tbAlgDiactricCut.Name = "tbAlgDiactricCut";
             this.tbAlgDiactricCut.ReadOnly = true;
-            this.tbAlgDiactricCut.Size = new System.Drawing.Size(733, 20);
+            this.tbAlgDiactricCut.Size = new System.Drawing.Size(643, 20);
             this.tbAlgDiactricCut.TabIndex = 1;
             // 
             // btnAlgCutDiactric
             // 
             this.btnAlgCutDiactric.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlgCutDiactric.Location = new System.Drawing.Point(751, 18);
+            this.btnAlgCutDiactric.Location = new System.Drawing.Point(661, 18);
             this.btnAlgCutDiactric.Name = "btnAlgCutDiactric";
             this.btnAlgCutDiactric.Size = new System.Drawing.Size(104, 39);
             this.btnAlgCutDiactric.TabIndex = 2;
@@ -1898,14 +1907,14 @@ namespace VariousTest
             this.gbAlgCID.Controls.Add(lblAlgAdStreet);
             this.gbAlgCID.Location = new System.Drawing.Point(0, 227);
             this.gbAlgCID.Name = "gbAlgCID";
-            this.gbAlgCID.Size = new System.Drawing.Size(866, 96);
+            this.gbAlgCID.Size = new System.Drawing.Size(776, 96);
             this.gbAlgCID.TabIndex = 3;
             this.gbAlgCID.TabStop = false;
             // 
             // btnAlgCIDValidity
             // 
             this.btnAlgCIDValidity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlgCIDValidity.Location = new System.Drawing.Point(753, 17);
+            this.btnAlgCIDValidity.Location = new System.Drawing.Point(663, 17);
             this.btnAlgCIDValidity.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnAlgCIDValidity.Name = "btnAlgCIDValidity";
             this.btnAlgCIDValidity.Size = new System.Drawing.Size(102, 32);
@@ -1925,7 +1934,7 @@ namespace VariousTest
             // tbAlgAdZip
             // 
             this.tbAlgAdZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAlgAdZip.Location = new System.Drawing.Point(693, 61);
+            this.tbAlgAdZip.Location = new System.Drawing.Point(603, 61);
             this.tbAlgAdZip.Name = "tbAlgAdZip";
             this.tbAlgAdZip.ReadOnly = true;
             this.tbAlgAdZip.Size = new System.Drawing.Size(54, 20);
@@ -1934,7 +1943,7 @@ namespace VariousTest
             // btnAlgAres
             // 
             this.btnAlgAres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAlgAres.Location = new System.Drawing.Point(753, 49);
+            this.btnAlgAres.Location = new System.Drawing.Point(663, 49);
             this.btnAlgAres.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.btnAlgAres.Name = "btnAlgAres";
             this.btnAlgAres.Size = new System.Drawing.Size(102, 32);
@@ -1950,7 +1959,7 @@ namespace VariousTest
             this.tbAlgAdCity.Location = new System.Drawing.Point(202, 60);
             this.tbAlgAdCity.Name = "tbAlgAdCity";
             this.tbAlgAdCity.ReadOnly = true;
-            this.tbAlgAdCity.Size = new System.Drawing.Size(452, 20);
+            this.tbAlgAdCity.Size = new System.Drawing.Size(362, 20);
             this.tbAlgAdCity.TabIndex = 9;
             // 
             // tbAlgAdVAT
@@ -1968,7 +1977,7 @@ namespace VariousTest
             this.tbAlgAdStreet.Location = new System.Drawing.Point(202, 39);
             this.tbAlgAdStreet.Name = "tbAlgAdStreet";
             this.tbAlgAdStreet.ReadOnly = true;
-            this.tbAlgAdStreet.Size = new System.Drawing.Size(545, 20);
+            this.tbAlgAdStreet.Size = new System.Drawing.Size(455, 20);
             this.tbAlgAdStreet.TabIndex = 7;
             // 
             // tbAlgAdName
@@ -1978,7 +1987,7 @@ namespace VariousTest
             this.tbAlgAdName.Location = new System.Drawing.Point(202, 18);
             this.tbAlgAdName.Name = "tbAlgAdName";
             this.tbAlgAdName.ReadOnly = true;
-            this.tbAlgAdName.Size = new System.Drawing.Size(545, 20);
+            this.tbAlgAdName.Size = new System.Drawing.Size(455, 20);
             this.tbAlgAdName.TabIndex = 5;
             // 
             // tabService
@@ -1996,7 +2005,7 @@ namespace VariousTest
             this.tabService.Location = new System.Drawing.Point(4, 22);
             this.tabService.Name = "tabService";
             this.tabService.Padding = new System.Windows.Forms.Padding(3);
-            this.tabService.Size = new System.Drawing.Size(866, 482);
+            this.tabService.Size = new System.Drawing.Size(776, 504);
             this.tabService.TabIndex = 1;
             this.tabService.Text = "Windows service";
             this.tabService.UseVisualStyleBackColor = true;
@@ -2010,13 +2019,13 @@ namespace VariousTest
             this.tbServiceStatus.Multiline = true;
             this.tbServiceStatus.Name = "tbServiceStatus";
             this.tbServiceStatus.ReadOnly = true;
-            this.tbServiceStatus.Size = new System.Drawing.Size(584, 86);
+            this.tbServiceStatus.Size = new System.Drawing.Size(494, 86);
             this.tbServiceStatus.TabIndex = 7;
             // 
             // btnServiceStop
             // 
             this.btnServiceStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnServiceStop.Location = new System.Drawing.Point(681, 267);
+            this.btnServiceStop.Location = new System.Drawing.Point(591, 267);
             this.btnServiceStop.Name = "btnServiceStop";
             this.btnServiceStop.Size = new System.Drawing.Size(177, 40);
             this.btnServiceStop.TabIndex = 0;
@@ -2027,7 +2036,7 @@ namespace VariousTest
             // btnServiceStart
             // 
             this.btnServiceStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnServiceStart.Location = new System.Drawing.Point(681, 222);
+            this.btnServiceStart.Location = new System.Drawing.Point(591, 222);
             this.btnServiceStart.Name = "btnServiceStart";
             this.btnServiceStart.Size = new System.Drawing.Size(177, 40);
             this.btnServiceStart.TabIndex = 8;
@@ -2041,7 +2050,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbServiceName.Location = new System.Drawing.Point(80, 50);
             this.tbServiceName.Name = "tbServiceName";
-            this.tbServiceName.Size = new System.Drawing.Size(748, 20);
+            this.tbServiceName.Size = new System.Drawing.Size(658, 20);
             this.tbServiceName.TabIndex = 4;
             this.tbServiceName.Text = "TestService";
             this.tbServiceName.TextChanged += new System.EventHandler(this.tbServiceName_TextChanged);
@@ -2055,14 +2064,14 @@ namespace VariousTest
             this.tbServiceFile.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.tbServiceFile.Name = "tbServiceFile";
             this.tbServiceFile.ReadOnly = true;
-            this.tbServiceFile.Size = new System.Drawing.Size(748, 20);
+            this.tbServiceFile.Size = new System.Drawing.Size(658, 20);
             this.tbServiceFile.TabIndex = 1;
             this.tbServiceFile.Text = ".\\WinServiceTest.exe";
             // 
             // btnServiceSel
             // 
             this.btnServiceSel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnServiceSel.Location = new System.Drawing.Point(830, 22);
+            this.btnServiceSel.Location = new System.Drawing.Point(740, 22);
             this.btnServiceSel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnServiceSel.Name = "btnServiceSel";
             this.btnServiceSel.Size = new System.Drawing.Size(28, 22);
@@ -2080,7 +2089,7 @@ namespace VariousTest
             this.tabFileIO.Location = new System.Drawing.Point(4, 22);
             this.tabFileIO.Name = "tabFileIO";
             this.tabFileIO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFileIO.Size = new System.Drawing.Size(866, 482);
+            this.tabFileIO.Size = new System.Drawing.Size(776, 504);
             this.tabFileIO.TabIndex = 7;
             this.tabFileIO.Text = "File IO";
             this.tabFileIO.UseVisualStyleBackColor = true;
@@ -2092,7 +2101,7 @@ namespace VariousTest
             this.gbIOzip.Controls.Add(this.panelIOzip);
             this.gbIOzip.Location = new System.Drawing.Point(0, 155);
             this.gbIOzip.Name = "gbIOzip";
-            this.gbIOzip.Size = new System.Drawing.Size(866, 64);
+            this.gbIOzip.Size = new System.Drawing.Size(776, 64);
             this.gbIOzip.TabIndex = 3;
             this.gbIOzip.TabStop = false;
             this.gbIOzip.Text = "Zip test";
@@ -2111,7 +2120,7 @@ namespace VariousTest
             this.panelIOzip.Name = "panelIOzip";
             this.panelIOzip.RowCount = 1;
             this.panelIOzip.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panelIOzip.Size = new System.Drawing.Size(847, 36);
+            this.panelIOzip.Size = new System.Drawing.Size(757, 36);
             this.panelIOzip.TabIndex = 2;
             // 
             // btnIOzip
@@ -2119,7 +2128,7 @@ namespace VariousTest
             this.btnIOzip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnIOzip.Location = new System.Drawing.Point(3, 3);
             this.btnIOzip.Name = "btnIOzip";
-            this.btnIOzip.Size = new System.Drawing.Size(417, 30);
+            this.btnIOzip.Size = new System.Drawing.Size(372, 30);
             this.btnIOzip.TabIndex = 0;
             this.btnIOzip.Text = "Zip file...";
             this.btnIOzip.UseVisualStyleBackColor = true;
@@ -2128,9 +2137,9 @@ namespace VariousTest
             // btnIOunzip
             // 
             this.btnIOunzip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnIOunzip.Location = new System.Drawing.Point(426, 3);
+            this.btnIOunzip.Location = new System.Drawing.Point(381, 3);
             this.btnIOunzip.Name = "btnIOunzip";
-            this.btnIOunzip.Size = new System.Drawing.Size(418, 30);
+            this.btnIOunzip.Size = new System.Drawing.Size(373, 30);
             this.btnIOunzip.TabIndex = 1;
             this.btnIOunzip.Text = "Unzip file...";
             this.btnIOunzip.UseVisualStyleBackColor = true;
@@ -2146,7 +2155,7 @@ namespace VariousTest
             this.listIO.HideSelection = false;
             this.listIO.Location = new System.Drawing.Point(0, 22);
             this.listIO.Name = "listIO";
-            this.listIO.Size = new System.Drawing.Size(866, 127);
+            this.listIO.Size = new System.Drawing.Size(776, 127);
             this.listIO.TabIndex = 1;
             this.listIO.UseCompatibleStateImageBehavior = false;
             this.listIO.View = System.Windows.Forms.View.Details;
@@ -2157,70 +2166,106 @@ namespace VariousTest
             this.tabLINQ.Location = new System.Drawing.Point(4, 22);
             this.tabLINQ.Name = "tabLINQ";
             this.tabLINQ.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLINQ.Size = new System.Drawing.Size(866, 482);
+            this.tabLINQ.Size = new System.Drawing.Size(776, 504);
             this.tabLINQ.TabIndex = 10;
             this.tabLINQ.Text = "LINQ";
             this.tabLINQ.UseVisualStyleBackColor = true;
             // 
-            // tabXMLread
+            // tabXML
             // 
-            this.tabXMLread.Controls.Add(lblXmlItems);
-            this.tabXMLread.Controls.Add(this.listXMLitems);
-            this.tabXMLread.Controls.Add(this.tbXMLFile);
-            this.tabXMLread.Controls.Add(btnXMLParse);
-            this.tabXMLread.Controls.Add(btnXmlSerialize);
-            this.tabXMLread.Controls.Add(lblXML);
-            this.tabXMLread.Controls.Add(this.btnXMLSel);
-            this.tabXMLread.Location = new System.Drawing.Point(4, 22);
-            this.tabXMLread.Name = "tabXMLread";
-            this.tabXMLread.Size = new System.Drawing.Size(866, 482);
-            this.tabXMLread.TabIndex = 3;
-            this.tabXMLread.Text = "XML reader";
-            this.tabXMLread.UseVisualStyleBackColor = true;
+            this.tabXML.Controls.Add(this.dgXmlItems);
+            this.tabXML.Controls.Add(lblXmlItems);
+            this.tabXML.Controls.Add(this.tbXmlFile);
+            this.tabXML.Controls.Add(btnXMLParse);
+            this.tabXML.Controls.Add(btnXmlSerialize);
+            this.tabXML.Controls.Add(lblXML);
+            this.tabXML.Controls.Add(this.btnXmlFileSel);
+            this.tabXML.Location = new System.Drawing.Point(4, 22);
+            this.tabXML.Name = "tabXML";
+            this.tabXML.Size = new System.Drawing.Size(776, 504);
+            this.tabXML.TabIndex = 3;
+            this.tabXML.Text = "XML";
+            this.tabXML.UseVisualStyleBackColor = true;
             // 
-            // listXMLitems
+            // dgXmlItems
             // 
-            this.listXMLitems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgXmlItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgXmlItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listXMLitems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.listXMLitems.FullRowSelect = true;
-            this.listXMLitems.GridLines = true;
-            this.listXMLitems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listXMLitems.HideSelection = false;
-            this.listXMLitems.HoverSelection = true;
-            this.listXMLitems.Location = new System.Drawing.Point(3, 70);
-            this.listXMLitems.MultiSelect = false;
-            this.listXMLitems.Name = "listXMLitems";
-            this.listXMLitems.Size = new System.Drawing.Size(863, 409);
-            this.listXMLitems.TabIndex = 4;
-            this.listXMLitems.UseCompatibleStateImageBehavior = false;
-            this.listXMLitems.View = System.Windows.Forms.View.Details;
+            this.dgXmlItems.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgXmlItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgXmlItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colXmlItemName,
+            this.colXmlItemIPaddr,
+            this.colXmlItemIPport});
+            this.dgXmlItems.Location = new System.Drawing.Point(5, 88);
+            this.dgXmlItems.Margin = new System.Windows.Forms.Padding(0);
+            this.dgXmlItems.MultiSelect = false;
+            this.dgXmlItems.Name = "dgXmlItems";
+            this.dgXmlItems.RowHeadersWidth = 24;
+            this.dgXmlItems.RowTemplate.Height = 30;
+            this.dgXmlItems.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgXmlItems.Size = new System.Drawing.Size(766, 416);
+            this.dgXmlItems.TabIndex = 30;
+            this.dgXmlItems.TabStop = false;
+            this.dgXmlItems.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgXMLItems_CellEndEdit);
+            this.dgXmlItems.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgXMLItems_CellMouseDown);
+            this.dgXmlItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgXMLItems_DataError);
             // 
-            // tbXMLFile
+            // colXmlItemName
             // 
-            this.tbXMLFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.colXmlItemName.DataPropertyName = "Name";
+            this.colXmlItemName.HeaderText = "Name";
+            this.colXmlItemName.MinimumWidth = 80;
+            this.colXmlItemName.Name = "colXmlItemName";
+            // 
+            // colXmlItemIPaddr
+            // 
+            this.colXmlItemIPaddr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colXmlItemIPaddr.DataPropertyName = "IPaddr";
+            this.colXmlItemIPaddr.HeaderText = "IP address";
+            this.colXmlItemIPaddr.MinimumWidth = 50;
+            this.colXmlItemIPaddr.Name = "colXmlItemIPaddr";
+            // 
+            // colXmlItemIPport
+            // 
+            this.colXmlItemIPport.DataPropertyName = "IPport";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.colXmlItemIPport.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colXmlItemIPport.HeaderText = "IP port";
+            this.colXmlItemIPport.MinimumWidth = 100;
+            this.colXmlItemIPport.Name = "colXmlItemIPport";
+            this.colXmlItemIPport.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colXmlItemIPport.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // tbXmlFile
+            // 
+            this.tbXmlFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbXMLFile.BackColor = System.Drawing.SystemColors.Window;
-            this.tbXMLFile.Location = new System.Drawing.Point(74, 23);
-            this.tbXMLFile.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.tbXMLFile.Name = "tbXMLFile";
-            this.tbXMLFile.ReadOnly = true;
-            this.tbXMLFile.Size = new System.Drawing.Size(746, 20);
-            this.tbXMLFile.TabIndex = 1;
-            this.tbXMLFile.Text = "C:\\TestData.xml";
+            this.tbXmlFile.BackColor = System.Drawing.SystemColors.Window;
+            this.tbXmlFile.Location = new System.Drawing.Point(74, 23);
+            this.tbXmlFile.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.tbXmlFile.Name = "tbXmlFile";
+            this.tbXmlFile.ReadOnly = true;
+            this.tbXmlFile.Size = new System.Drawing.Size(656, 20);
+            this.tbXmlFile.TabIndex = 1;
+            this.tbXmlFile.Text = "C:\\TestData.xml";
             // 
-            // btnXMLSel
+            // btnXmlFileSel
             // 
-            this.btnXMLSel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXMLSel.Location = new System.Drawing.Point(820, 22);
-            this.btnXMLSel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.btnXMLSel.Name = "btnXMLSel";
-            this.btnXMLSel.Size = new System.Drawing.Size(28, 22);
-            this.btnXMLSel.TabIndex = 2;
-            this.btnXMLSel.Text = "...";
-            this.btnXMLSel.UseVisualStyleBackColor = true;
-            this.btnXMLSel.Click += new System.EventHandler(this.btnXMLSel_Click);
+            this.btnXmlFileSel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXmlFileSel.Location = new System.Drawing.Point(730, 22);
+            this.btnXmlFileSel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.btnXmlFileSel.Name = "btnXmlFileSel";
+            this.btnXmlFileSel.Size = new System.Drawing.Size(28, 22);
+            this.btnXmlFileSel.TabIndex = 2;
+            this.btnXmlFileSel.Text = "...";
+            this.btnXmlFileSel.UseVisualStyleBackColor = true;
+            this.btnXmlFileSel.Click += new System.EventHandler(this.btnXMLSel_Click);
             // 
             // tabLang
             // 
@@ -2230,7 +2275,7 @@ namespace VariousTest
             this.tabLang.Controls.Add(btnLangMemberAccess);
             this.tabLang.Location = new System.Drawing.Point(4, 22);
             this.tabLang.Name = "tabLang";
-            this.tabLang.Size = new System.Drawing.Size(866, 482);
+            this.tabLang.Size = new System.Drawing.Size(776, 504);
             this.tabLang.TabIndex = 4;
             this.tabLang.Text = "C# features";
             this.tabLang.UseVisualStyleBackColor = true;
@@ -2240,7 +2285,7 @@ namespace VariousTest
             this.tabUI.Controls.Add(panelUI);
             this.tabUI.Location = new System.Drawing.Point(4, 22);
             this.tabUI.Name = "tabUI";
-            this.tabUI.Size = new System.Drawing.Size(866, 482);
+            this.tabUI.Size = new System.Drawing.Size(776, 504);
             this.tabUI.TabIndex = 6;
             this.tabUI.Text = "UI & controls";
             this.tabUI.UseVisualStyleBackColor = true;
@@ -2259,7 +2304,7 @@ namespace VariousTest
             this.tabMail.Location = new System.Drawing.Point(4, 22);
             this.tabMail.Name = "tabMail";
             this.tabMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMail.Size = new System.Drawing.Size(866, 482);
+            this.tabMail.Size = new System.Drawing.Size(776, 504);
             this.tabMail.TabIndex = 0;
             this.tabMail.Text = "MAPI & SMTP";
             this.tabMail.UseVisualStyleBackColor = true;
@@ -2272,7 +2317,7 @@ namespace VariousTest
             this.tbMailBody.Location = new System.Drawing.Point(8, 95);
             this.tbMailBody.Multiline = true;
             this.tbMailBody.Name = "tbMailBody";
-            this.tbMailBody.Size = new System.Drawing.Size(850, 209);
+            this.tbMailBody.Size = new System.Drawing.Size(760, 231);
             this.tbMailBody.TabIndex = 6;
             this.tbMailBody.Text = "Mail from test application.\r\n\r\nP.H.";
             // 
@@ -2282,7 +2327,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMailSubject.Location = new System.Drawing.Point(73, 69);
             this.tbMailSubject.Name = "tbMailSubject";
-            this.tbMailSubject.Size = new System.Drawing.Size(785, 20);
+            this.tbMailSubject.Size = new System.Drawing.Size(695, 20);
             this.tbMailSubject.TabIndex = 5;
             this.tbMailSubject.Text = "Test mail";
             // 
@@ -2292,7 +2337,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMailCopy.Location = new System.Drawing.Point(73, 43);
             this.tbMailCopy.Name = "tbMailCopy";
-            this.tbMailCopy.Size = new System.Drawing.Size(785, 20);
+            this.tbMailCopy.Size = new System.Drawing.Size(695, 20);
             this.tbMailCopy.TabIndex = 3;
             // 
             // tbMailRcp
@@ -2301,7 +2346,7 @@ namespace VariousTest
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMailRcp.Location = new System.Drawing.Point(73, 17);
             this.tbMailRcp.Name = "tbMailRcp";
-            this.tbMailRcp.Size = new System.Drawing.Size(785, 20);
+            this.tbMailRcp.Size = new System.Drawing.Size(695, 20);
             this.tbMailRcp.TabIndex = 1;
             this.tbMailRcp.Text = "hermann@jetsoft.cz";
             // 
@@ -2314,7 +2359,7 @@ namespace VariousTest
             this.tabWeb.Controls.Add(this.tbWWWContent);
             this.tabWeb.Location = new System.Drawing.Point(4, 22);
             this.tabWeb.Name = "tabWeb";
-            this.tabWeb.Size = new System.Drawing.Size(866, 482);
+            this.tabWeb.Size = new System.Drawing.Size(776, 504);
             this.tabWeb.TabIndex = 8;
             this.tabWeb.Text = "Web";
             this.tabWeb.UseVisualStyleBackColor = true;
@@ -2326,7 +2371,7 @@ namespace VariousTest
             this.tbWWWURL.Location = new System.Drawing.Point(46, 20);
             this.tbWWWURL.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.tbWWWURL.Name = "tbWWWURL";
-            this.tbWWWURL.Size = new System.Drawing.Size(731, 20);
+            this.tbWWWURL.Size = new System.Drawing.Size(641, 20);
             this.tbWWWURL.TabIndex = 1;
             this.tbWWWURL.Text = "http://www.jetsoft.cz/index.php";
             // 
@@ -2339,7 +2384,7 @@ namespace VariousTest
             this.tbWWWContent.Multiline = true;
             this.tbWWWContent.Name = "tbWWWContent";
             this.tbWWWContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbWWWContent.Size = new System.Drawing.Size(866, 418);
+            this.tbWWWContent.Size = new System.Drawing.Size(776, 440);
             this.tbWWWContent.TabIndex = 4;
             // 
             // tabOther
@@ -2359,7 +2404,7 @@ namespace VariousTest
             this.tabOther.Controls.Add(lblOtherNow);
             this.tabOther.Location = new System.Drawing.Point(4, 22);
             this.tabOther.Name = "tabOther";
-            this.tabOther.Size = new System.Drawing.Size(866, 482);
+            this.tabOther.Size = new System.Drawing.Size(776, 504);
             this.tabOther.TabIndex = 9;
             this.tabOther.Text = "Other tests";
             this.tabOther.UseVisualStyleBackColor = true;
@@ -2368,7 +2413,7 @@ namespace VariousTest
             // 
             this.tbOtherAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbOtherAppProdVer.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherAppProdVer.Location = new System.Drawing.Point(767, 55);
+            this.tbOtherAppProdVer.Location = new System.Drawing.Point(677, 55);
             this.tbOtherAppProdVer.Name = "tbOtherAppProdVer";
             this.tbOtherAppProdVer.ReadOnly = true;
             this.tbOtherAppProdVer.Size = new System.Drawing.Size(90, 20);
@@ -2382,7 +2427,7 @@ namespace VariousTest
             this.tbOtherAppProdName.Location = new System.Drawing.Point(145, 55);
             this.tbOtherAppProdName.Name = "tbOtherAppProdName";
             this.tbOtherAppProdName.ReadOnly = true;
-            this.tbOtherAppProdName.Size = new System.Drawing.Size(473, 20);
+            this.tbOtherAppProdName.Size = new System.Drawing.Size(383, 20);
             this.tbOtherAppProdName.TabIndex = 5;
             // 
             // tbOtherAppPathExe
@@ -2393,7 +2438,7 @@ namespace VariousTest
             this.tbOtherAppPathExe.Location = new System.Drawing.Point(145, 11);
             this.tbOtherAppPathExe.Name = "tbOtherAppPathExe";
             this.tbOtherAppPathExe.ReadOnly = true;
-            this.tbOtherAppPathExe.Size = new System.Drawing.Size(712, 20);
+            this.tbOtherAppPathExe.Size = new System.Drawing.Size(622, 20);
             this.tbOtherAppPathExe.TabIndex = 1;
             // 
             // tbOtherAppPathStartup
@@ -2404,7 +2449,7 @@ namespace VariousTest
             this.tbOtherAppPathStartup.Location = new System.Drawing.Point(145, 32);
             this.tbOtherAppPathStartup.Name = "tbOtherAppPathStartup";
             this.tbOtherAppPathStartup.ReadOnly = true;
-            this.tbOtherAppPathStartup.Size = new System.Drawing.Size(712, 20);
+            this.tbOtherAppPathStartup.Size = new System.Drawing.Size(622, 20);
             this.tbOtherAppPathStartup.TabIndex = 3;
             // 
             // tbOtherDTtoday
@@ -2429,7 +2474,7 @@ namespace VariousTest
             // 
             this.chbOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chbOnTop.AutoSize = true;
-            this.chbOnTop.Location = new System.Drawing.Point(12, 519);
+            this.chbOnTop.Location = new System.Drawing.Point(9, 539);
             this.chbOnTop.Name = "chbOnTop";
             this.chbOnTop.Size = new System.Drawing.Size(109, 17);
             this.chbOnTop.TabIndex = 1;
@@ -2441,18 +2486,20 @@ namespace VariousTest
             // 
             this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUser.Enabled = false;
-            this.tbUser.Location = new System.Drawing.Point(438, 519);
+            this.tbUser.BackColor = System.Drawing.SystemColors.Window;
+            this.tbUser.Location = new System.Drawing.Point(438, 537);
             this.tbUser.Name = "tbUser";
-            this.tbUser.Size = new System.Drawing.Size(405, 20);
+            this.tbUser.ReadOnly = true;
+            this.tbUser.Size = new System.Drawing.Size(315, 20);
             this.tbUser.TabIndex = 3;
             // 
             // tbComputer
             // 
             this.tbComputer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbComputer.Enabled = false;
-            this.tbComputer.Location = new System.Drawing.Point(233, 519);
+            this.tbComputer.BackColor = System.Drawing.SystemColors.Window;
+            this.tbComputer.Location = new System.Drawing.Point(233, 537);
             this.tbComputer.Name = "tbComputer";
+            this.tbComputer.ReadOnly = true;
             this.tbComputer.Size = new System.Drawing.Size(126, 20);
             this.tbComputer.TabIndex = 5;
             // 
@@ -2470,7 +2517,7 @@ namespace VariousTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(874, 539);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.tbComputer);
             this.Controls.Add(lblComputer);
             this.Controls.Add(this.tbUser);
@@ -2482,6 +2529,7 @@ namespace VariousTest
             this.Name = "FormMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Test application";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             gbLINQtoXML.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
@@ -2530,8 +2578,9 @@ namespace VariousTest
             this.gbIOzip.ResumeLayout(false);
             this.panelIOzip.ResumeLayout(false);
             this.tabLINQ.ResumeLayout(false);
-            this.tabXMLread.ResumeLayout(false);
-            this.tabXMLread.PerformLayout();
+            this.tabXML.ResumeLayout(false);
+            this.tabXML.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgXmlItems)).EndInit();
             this.tabLang.ResumeLayout(false);
             this.tabUI.ResumeLayout(false);
             this.tabMail.ResumeLayout(false);
@@ -2562,10 +2611,9 @@ namespace VariousTest
         private System.Windows.Forms.RadioButton rbLINQxmlAccnt;
         private System.Windows.Forms.TextBox tbLINQxml;
         private System.Windows.Forms.ListView listLINQxml;
-        private System.Windows.Forms.TabPage tabXMLread;
-        private System.Windows.Forms.ListView listXMLitems;
-        private System.Windows.Forms.TextBox tbXMLFile;
-        private System.Windows.Forms.Button btnXMLSel;
+        private System.Windows.Forms.TabPage tabXML;
+        private System.Windows.Forms.TextBox tbXmlFile;
+        private System.Windows.Forms.Button btnXmlFileSel;
         private System.Windows.Forms.TabPage tabFileIO;
         private System.Windows.Forms.Button btnIOfileSel;
         private System.Windows.Forms.TextBox tbIOfileContent;
@@ -2652,6 +2700,10 @@ namespace VariousTest
         private System.Windows.Forms.TextBox tbLINQobj;
         private System.Windows.Forms.ListBox listLINQobj;
         private System.Windows.Forms.RadioButton rbLINQxmlAll;
+        private System.Windows.Forms.DataGridView dgXmlItems;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemIPaddr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemIPport;
     }    
 }
 

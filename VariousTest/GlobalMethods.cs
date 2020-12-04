@@ -3,6 +3,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
+using System.Xml.Linq;
+using System.Globalization;
 
 namespace VariousTest
 {
@@ -122,6 +124,94 @@ namespace VariousTest
 
             string sep = System.Globalization.CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalSeparator;
             return decimal.Parse(s.Replace(",", sep).Replace(".", sep).Replace(" ", ""), System.Globalization.CultureInfo.InvariantCulture); // ensure decimal separator
+        }
+        #endregion
+
+#region XML handling
+/*        public static XElement GetXElement(XElement parent, params XName[] path)
+        {
+            XElement elHlp = parent;
+            foreach (XName name in path)
+            {
+                if (elHlp == null)
+                    break;
+                elHlp = elHlp.Element(name);
+            }
+            return elHlp;
+        }
+        public static string GetElementValue(XElement parent, bool required, params XName[] path)
+        {
+            XElement elHlp = GetXElement(parent, path);
+            if (elHlp != null)
+                return elHlp.Value;
+            else if (required)
+                throw new Exception(String.Format("Tag '{0}' does not contain subtag '{1}'", parent.Name, path));
+
+            return "";
+        }
+*/
+        public static string GetXElementValue(XElement parent, string elName, bool required = true)
+        {
+            XElement elHlp = parent.Element(elName);
+            if (elHlp != null)
+                return elHlp.Value;
+            else if (required)
+                throw new Exception(String.Format("Tag '{0}' does not contain subtag '{1}'", parent.Name, elName));
+
+            return "";
+        }
+        public static Guid GetXElementGuid(XElement parent, string elName, bool required = true)
+        {
+            String s = GetXElementValue(parent, elName, required);
+            if (string.IsNullOrEmpty(s))
+                return Guid.Empty;
+
+            return new Guid(s);
+        }
+        public static int GetXElementInt(XElement parent, string elName, bool required = true)
+        {
+            String s = GetXElementValue(parent, elName, required);
+            if (string.IsNullOrEmpty(s))
+                return 0;
+
+            return int.Parse(s);
+        }
+        public static decimal GetXElementDecimal(XElement parent, string elName, bool required = true)
+        {
+            return GetXElementDecimal(GetXElementValue(parent, elName, required));
+        }
+        public static decimal GetXElementDecimal(String s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return 0m;
+
+            try
+            {
+                string sep = System.Globalization.CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalSeparator;
+                return decimal.Parse(s.Replace(",", sep).Replace(".", sep).Replace(" ", ""), System.Globalization.CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                decimal d;
+                if (decimal.TryParse(s, out d) ||         // ve FLEK vraci cislo bez desetinneho odelovace, napr. 1,0000 -> 10000
+                     decimal.TryParse(s.Replace('.', ','), out d) ||
+                     decimal.TryParse(s.Replace(',', '.'), out d))
+                    return d;
+            }
+
+            return 0m;
+        }
+        public static DateTime GetXElementDateTime(XElement parent, string elName, bool required = true)
+        {
+            String s = GetXElementValue(parent, elName, required);
+            if (string.IsNullOrEmpty(s))
+                return DateTime.MinValue;
+
+            DateTime dt = DateTime.ParseExact(s, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+            if (dt <= new DateTime(1970, 1, 2)) return DateTime.MinValue;
+            else if (dt >= new DateTime(2900, 12, 30)) return DateTime.MaxValue;
+
+            return dt;
         }
 #endregion
     }

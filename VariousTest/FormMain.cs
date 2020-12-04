@@ -6,7 +6,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
-using System.Collections;
 using System.Xml.Serialization;
 using Win32Mapi;
 using System.Net;
@@ -21,12 +20,13 @@ using System.Configuration.Install;
 using System.ServiceProcess;
 using System.Management;
 
-
 namespace VariousTest
 {
 	public partial class FormMain : Form
 	{
-		public FormMain()
+        private AppSetting appCfg;
+
+        public FormMain()
 		{
 			InitializeComponent();
 		}
@@ -41,12 +41,49 @@ namespace VariousTest
             initTabOther();
             initTabService();
 
-            chbOnTop_CheckedChanged(null, null);
+            tbComputer.Text = Environment.MachineName;
+            tbUser.Text = Environment.UserName; //= System.Environment.GetEnvironmentVariable("USERNAME");
+                                                //          tbUser.Text = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();   // computername/username
+            try 
+            {
+                appCfg = AppSetting.Load();
 
-            tbComputer.Text = System.Environment.MachineName;
-            tbUser.Text = System.Environment.UserName; //= System.Environment.GetEnvironmentVariable("USERNAME");
-//          tbUser.Text = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();   // computername/username
-		}
+                // restore window position
+                if (appCfg.WindowPosition != Rectangle.Empty)
+                {
+                    DesktopBounds = appCfg.WindowPosition;
+                    if (appCfg.WindowState == FormWindowState.Maximized)
+                        WindowState = FormWindowState.Maximized;
+                    else
+                        WindowState = FormWindowState.Normal;
+                }
+
+                if ( chbOnTop.Checked == appCfg.AlwaysOnTop )
+                    chbOnTop_CheckedChanged(null, null);
+                else
+                    chbOnTop.Checked = appCfg.AlwaysOnTop;  // envoke chbOnTop_CheckedChanged automatically
+            }
+            catch (Exception ex) { GM.ShowErrorMessageBox(this, "Applying application setting failed!", ex); }
+        }
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            { 
+                bsXmlItems.EndEdit();
+                dgXmlItems.EndEdit();
+
+                // save window position
+                if ( appCfg == null )
+                    appCfg = new AppSetting();
+
+                appCfg.WindowPosition = (WindowState == FormWindowState.Normal) ? DesktopBounds : RestoreBounds;
+                appCfg.WindowState = WindowState;
+                appCfg.AlwaysOnTop = chbOnTop.Checked;
+                appCfg.Save();
+            }
+            catch {}
+        }
+    
         private void chbOnTop_CheckedChanged(object sender, EventArgs e)
         {
  			TopMost = chbOnTop.Checked;
@@ -706,60 +743,65 @@ namespace VariousTest
 #endregion
 
 #region XML related methods
-	    public class XmlItemData
+	    public class XmlTestItem
 	    {
-		    public XmlItemData() : this("none", "192.168.1.1", 815)
+            public string Name { get; set; }
+            public string IPaddr { get; set; }
+            public int IPport { get; set; }
+
+            public XmlTestItem() : this("none", "192.168.1.1", 815)
 		    {
 		    }
-		    public XmlItemData(string name, string addr, int port)
+		    public XmlTestItem(string name, string addr, int port)
             {
 		        Name   = name;
 		        IPaddr = addr;
 		        IPport = port;
             }
-
-		    public string Name;
-		    public string IPaddr;
-		    public int IPport;
 	    }
 	    public class XmlTestData
 	    {
-		    public XmlTestData()
+            public string Name;
+
+//		    [XmlElement( typeof(XmlItemData) )]
+//          public ArrayList ArrItems = new ArrayList();
+		    [XmlElement(ElementName = "Item")]
+            public List<XmlTestItem> ArrItems = new List<XmlTestItem>();
+
+            public XmlTestData()
 		    {
 		    }
+            public void Reset()
+            {
+                Name = "TestData";
+                ArrItems.Clear();
+            }
+        }
 
-		    public string Name = "Test data";
-    //		public DispData [] ArrItems = null;
-		    [XmlElement( typeof(XmlItemData) )]
-		    public ArrayList ArrItems = new ArrayList();
-	    }
+        private XmlTestData xmlData;
+        private BindingSource bsXmlItems;
 
         private void initTabXML()
         {
-            listXMLitems.Columns.Add("Name", 250);
-            listXMLitems.Columns.Add("IP address", 130);
-            listXMLitems.Columns.Add("IP port", -2);
+            tbXmlFile.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "TestData.xml");
 
-        // enter some data to list
-            ListViewItem lvi;
-            XmlItemData itm;
-            ////
-            itm = new XmlItemData("Test name 1", "192.168.1.1", 815);
-            lvi = new ListViewItem(new string[] {itm.Name, itm.IPaddr, itm.IPport.ToString()});
-            lvi.Tag = itm;
-            listXMLitems.Items.Add(lvi);
-            ////
-            itm = new XmlItemData("Test name 2", "192.168.10.100", 850);
-            lvi = new ListViewItem(new string[] {itm.Name, itm.IPaddr, itm.IPport.ToString()});
-            lvi.Tag = itm;
-            listXMLitems.Items.Add(lvi);
-            ////
-            itm = new XmlItemData("Test name 3", "192.168.10.202", 900);
-            lvi = new ListViewItem(new string[] {itm.Name, itm.IPaddr, itm.IPport.ToString()});
-            lvi.Tag = itm;
-            listXMLitems.Items.Add(lvi);
+            // init default data
+            xmlData =  new XmlTestData();
+            xmlData.ArrItems.Add(new XmlTestItem("Test name 1", "192.168.1.1", 815));
+            xmlData.ArrItems.Add(new XmlTestItem("Test name 2", "192.168.10.100", 850));
+            xmlData.ArrItems.Add(new XmlTestItem("Test name 3", "192.168.10.202", 900));
+
+            bsXmlItems = new BindingSource(xmlData.ArrItems, "");  // ~ bsLines = new BindingSource(); bsLines.DataSource = xmlData.ArrItems;
+            dgXmlItems.AutoGenerateColumns = false;
+            dgXmlItems.DataSource = bsXmlItems;
+            // style 
+            dgXmlItems.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
+            dgXmlItems.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(238)));
+
+            foreach (DataGridViewColumn col in dgXmlItems.Columns)
+                col.HeaderCell.Style.Alignment = col.DefaultCellStyle.Alignment;  // ensure right alignment for headers
         }
-		private void btnXMLSel_Click(object sender, EventArgs e)
+        private void btnXMLSel_Click(object sender, EventArgs e)
 		{
 			using ( OpenFileDialog dlg = new OpenFileDialog() )
             {
@@ -769,64 +811,152 @@ namespace VariousTest
 			    if (dlg.ShowDialog() != DialogResult.OK)
 				    return;
 
-			    tbXMLFile.Text = dlg.FileName;
+			    tbXmlFile.Text = dlg.FileName;
             }
 		}
 		private void btnXMLParse_Click(object sender, EventArgs e)
 		{
-            listXMLitems.Items.Clear();
+            if ( String.IsNullOrEmpty(tbXmlFile.Text) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter XML file path!");
+                tbXmlFile.Focus();
+                return;
+            }
+            if ( !File.Exists(tbXmlFile.Text) )
+            {
+                GM.ShowErrorMessageBox(this, string.Format("File '{0}' doesn't exist!", tbXmlFile.Text));
+                tbXmlFile.Focus();
+                return;
+            }
 
-			try
-			{
-                XmlItemData itmData;
-				using (StreamReader stream = new StreamReader(tbXMLFile.Text))
-				{
-					XmlDocument doc = new XmlDocument();
-					doc.Load(stream);
-					foreach (XmlNode node in doc.SelectNodes("XmlTestData/ArrItems"))
-					{
-//						s = Convert.ToString(node.Attributes["OP_id"].Value);
+            bsXmlItems.EndEdit();
+            dgXmlItems.EndEdit();
 
-                        itmData = new XmlItemData();
-                        itmData.Name   = Convert.ToString(node.SelectSingleNode("Name").FirstChild.Value);
+            if (xmlData.ArrItems.Count > 0 && GM.ShowQuestionMessageBox(this, "Really to delete current data and load new from file?") != DialogResult.Yes)
+                return;
+
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                dgXmlItems.DataSource = null;
+
+                bsXmlItems.SuspendBinding();
+                xmlData.Reset();
+
+                XElement elRoot = XElement.Load(tbXmlFile.Text);
+                foreach(XElement elItem in elRoot.Elements())
+                    xmlData.ArrItems.Add(new XmlTestItem
+                    {
+                        Name   = GM.GetXElementValue(elItem, "Name"),
+                        IPaddr = GM.GetXElementValue(elItem, "IPaddr"),
+                        IPport = GM.GetXElementInt(elItem, "IPport")
+                    });
+
+/* version with DOM objects
+              XmlTestItem itmData;
+                using (StreamReader stream = new StreamReader(tbXmlFile.Text))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(stream);
+                    foreach (XmlNode node in doc.SelectNodes("XmlTestData/Item"))
+                    {
+                        itmData = new XmlTestItem();
+                        itmData.Name = Convert.ToString(node.SelectSingleNode("Name").FirstChild.Value);
                         itmData.IPaddr = Convert.ToString(node.SelectSingleNode("IPaddr").FirstChild.Value);
                         itmData.IPport = Convert.ToInt32(node.SelectSingleNode("IPport").FirstChild.Value);
-                        ListViewItem lvi = new ListViewItem(new string[] {itmData.Name, itmData.IPaddr, itmData.IPport.ToString()});
-                        lvi.Tag = itmData;
 
-                        listXMLitems.Items.Add(lvi);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				GM.ShowErrorMessageBox(this, string.Format("Error occured during parsing XML file '{0}'!", tbXMLFile.Text), ex);
-			}
-		}
+                        xmlData.ArrItems.Add(itmData);
+                    }
+                }
+*/            }
+            catch (Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during parsing XML file '{0}'!", tbXmlFile.Text), ex); }
+            finally 
+            {
+                bsXmlItems.ResumeBinding();
+                dgXmlItems.DataSource = bsXmlItems;
 
-		private void btnXmlSerialize_Click(object sender, EventArgs e)
+                dgXmlItems.Refresh();
+                dgXmlItems.Focus();
+
+                Cursor = Cursors.Default; 
+            }
+        }
+
+        private void btnXmlSerialize_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				XmlSerializer xml = new XmlSerializer(typeof(XmlTestData));
-				using ( StreamWriter sw = new StreamWriter(tbXMLFile.Text) ) 
+                bsXmlItems.EndEdit();
+                dgXmlItems.EndEdit();
+                if (bsXmlItems.Count == dgXmlItems.Rows.Count)
+                    bsXmlItems.RemoveAt(bsXmlItems.Count - 1);
+
+                if (bsXmlItems.Count < 1)
+                {
+                    GM.ShowErrorMessageBox(this, "No data to save!");
+                    dgXmlItems.Focus();
+                    return;
+                }
+
+                XmlSerializer xml = new XmlSerializer(typeof(XmlTestData));
+				using ( StreamWriter sw = new StreamWriter(tbXmlFile.Text) ) 
 				{
-					XmlTestData td = new XmlTestData();
-
-                    foreach(ListViewItem lvi in listXMLitems.Items)
-                        td.ArrItems.Add(lvi.Tag);
-
-					xml.Serialize(sw, td);
-
-    				GM.ShowInfoMessageBox(this, string.Format("XML file '{0}' saved successfully!", tbXMLFile.Text));
+					xml.Serialize(sw, xmlData);
+    				GM.ShowInfoMessageBox(this, string.Format("XML file '{0}' saved successfully!", tbXmlFile.Text));
 				}
 			}
-			catch(Exception ex)
-			{
-				GM.ShowErrorMessageBox(this, string.Format("Error occured during serializing to XML file '{0}'!", tbXMLFile.Text), ex);
-			}
+			catch(Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during serializing to XML file '{0}'!", tbXmlFile.Text), ex); }
         }
-#endregion	
+        private void dgXMLItems_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridViewColumn col = dgXmlItems.Columns[e.ColumnIndex];
+            if (col.DefaultCellStyle.Format == "N0" || col == colXmlItemIPport)
+            {
+                DataGridViewCell c = dgXmlItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (c != null)
+                {
+                    string strValue = c.EditedFormattedValue.ToString();
+                    int ipPort = 0;
+
+                    if (!int.TryParse(strValue, out ipPort))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < strValue.Length; i++)
+                            if (Char.IsDigit(strValue[i]))
+                                sb.Append(strValue[i]);
+                        if (sb.Length > 0)
+                            int.TryParse(sb.ToString(), out ipPort);
+                    }
+
+                    c.Value = ipPort;
+                    return;
+                }
+            }
+            e.ThrowException = true;
+        }
+        private void dgXMLItems_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // set selection after right mouse click - to hightlight row
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView dg = sender as DataGridView;
+                if (!dg.Focused)
+                    dg.Focus();
+                if (dg != null && e.RowIndex >= 0 && e.RowIndex < dg.Rows.Count && !dg.Rows[e.RowIndex].Selected) // already selected 
+                    dg.CurrentCell = dg.Rows[e.RowIndex].Cells[0];
+            }
+        }
+
+        private void dgXMLItems_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < xmlData.ArrItems.Count() && (e.ColumnIndex == dgXmlItems.Columns.Count))
+            {
+                XmlTestItem itm = xmlData.ArrItems[e.RowIndex];
+
+//                UpdateGridLines(e.RowIndex);
+            }
+        }
+#endregion
 
 #region LINQ related methods
         private void initTabLINQ()
