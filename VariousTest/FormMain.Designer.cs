@@ -145,7 +145,6 @@ namespace VariousTest
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.chbUITreeBoxEditable = new System.Windows.Forms.CheckBox();
             this.chbUITreeBoxEnabled = new System.Windows.Forms.CheckBox();
-            this.tbUI = new XXX.TreeBox();
             this.btnLangDelgLambda = new System.Windows.Forms.Button();
             this.btnLangDelgAnonymous = new System.Windows.Forms.Button();
             this.tbLangReflParam2 = new System.Windows.Forms.TextBox();
@@ -178,6 +177,10 @@ namespace VariousTest
             this.listLINQobj = new System.Windows.Forms.ListBox();
             this.tabPanel = new System.Windows.Forms.TabControl();
             this.tabAlg = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbAlgEmailRegex = new System.Windows.Forms.TextBox();
+            this.cbAlgEmail = new System.Windows.Forms.ComboBox();
+            this.btnAlgEmailRegexValidate = new System.Windows.Forms.Button();
             this.gbAlgCutDiactric = new System.Windows.Forms.GroupBox();
             this.tbAlgDiactric = new System.Windows.Forms.TextBox();
             this.tbAlgDiactricCut = new System.Windows.Forms.TextBox();
@@ -234,6 +237,7 @@ namespace VariousTest
             this.tbComputer = new System.Windows.Forms.TextBox();
             this.tbOtherProcName = new System.Windows.Forms.TextBox();
             this.serviceController = new System.ServiceProcess.ServiceController();
+            this.tbUI = new XXX.TreeBox();
             lblUIlist = new System.Windows.Forms.Label();
             lblUItree = new System.Windows.Forms.Label();
             gbLINQtoXML = new System.Windows.Forms.GroupBox();
@@ -334,6 +338,7 @@ namespace VariousTest
             pnlLINQ.SuspendLayout();
             this.tabPanel.SuspendLayout();
             this.tabAlg.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.gbAlgCutDiactric.SuspendLayout();
             this.gbAlgCID.SuspendLayout();
             this.tabService.SuspendLayout();
@@ -484,7 +489,7 @@ namespace VariousTest
             this.listLINQxml.HideSelection = false;
             this.listLINQxml.Location = new System.Drawing.Point(0, 26);
             this.listLINQxml.Name = "listLINQxml";
-            this.listLINQxml.Size = new System.Drawing.Size(373, 246);
+            this.listLINQxml.Size = new System.Drawing.Size(373, 242);
             this.listLINQxml.TabIndex = 7;
             this.listLINQxml.UseCompatibleStateImageBehavior = false;
             this.listLINQxml.View = System.Windows.Forms.View.Details;
@@ -855,18 +860,6 @@ namespace VariousTest
             this.chbUITreeBoxEnabled.UseVisualStyleBackColor = true;
             this.chbUITreeBoxEnabled.CheckedChanged += new System.EventHandler(this.chbUITreeBoxEnabled_CheckedChanged);
             // 
-            // tbUI
-            // 
-            this.tbUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUI.DropDownHeight = 250;
-            this.tbUI.Location = new System.Drawing.Point(0, 0);
-            this.tbUI.Name = "tbUI";
-            this.tbUI.Size = new System.Drawing.Size(382, 21);
-            this.tbUI.TabIndex = 8;
-            this.tbUI.TextEditable = false;
-            this.tbUI.TextValue = "XXX";
-            // 
             // lblOtherToday
             // 
             lblOtherToday.AutoSize = true;
@@ -907,7 +900,7 @@ namespace VariousTest
             // lblAlgAdVAT
             // 
             lblAlgAdVAT.AutoSize = true;
-            lblAlgAdVAT.Location = new System.Drawing.Point(9, 63);
+            lblAlgAdVAT.Location = new System.Drawing.Point(32, 59);
             lblAlgAdVAT.Name = "lblAlgAdVAT";
             lblAlgAdVAT.Size = new System.Drawing.Size(45, 13);
             lblAlgAdVAT.TabIndex = 2;
@@ -916,7 +909,7 @@ namespace VariousTest
             // lblAlgAdName
             // 
             lblAlgAdName.AutoSize = true;
-            lblAlgAdName.Location = new System.Drawing.Point(158, 21);
+            lblAlgAdName.Location = new System.Drawing.Point(179, 21);
             lblAlgAdName.Name = "lblAlgAdName";
             lblAlgAdName.Size = new System.Drawing.Size(38, 13);
             lblAlgAdName.TabIndex = 4;
@@ -925,7 +918,7 @@ namespace VariousTest
             // lblAlgAdStreet
             // 
             lblAlgAdStreet.AutoSize = true;
-            lblAlgAdStreet.Location = new System.Drawing.Point(158, 42);
+            lblAlgAdStreet.Location = new System.Drawing.Point(179, 42);
             lblAlgAdStreet.Name = "lblAlgAdStreet";
             lblAlgAdStreet.Size = new System.Drawing.Size(38, 13);
             lblAlgAdStreet.TabIndex = 6;
@@ -934,7 +927,7 @@ namespace VariousTest
             // lblAlgAdCity
             // 
             lblAlgAdCity.AutoSize = true;
-            lblAlgAdCity.Location = new System.Drawing.Point(169, 63);
+            lblAlgAdCity.Location = new System.Drawing.Point(190, 63);
             lblAlgAdCity.Name = "lblAlgAdCity";
             lblAlgAdCity.Size = new System.Drawing.Size(27, 13);
             lblAlgAdCity.TabIndex = 8;
@@ -944,7 +937,7 @@ namespace VariousTest
             // 
             lblAlgAdZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblAlgAdZip.AutoSize = true;
-            lblAlgAdZip.Location = new System.Drawing.Point(570, 64);
+            lblAlgAdZip.Location = new System.Drawing.Point(571, 64);
             lblAlgAdZip.Name = "lblAlgAdZip";
             lblAlgAdZip.Size = new System.Drawing.Size(25, 13);
             lblAlgAdZip.TabIndex = 10;
@@ -1352,7 +1345,7 @@ namespace VariousTest
             this.tbAlgNumText.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tbAlgNumText.Name = "tbAlgNumText";
             this.tbAlgNumText.ReadOnly = true;
-            this.tbAlgNumText.Size = new System.Drawing.Size(559, 20);
+            this.tbAlgNumText.Size = new System.Drawing.Size(558, 20);
             this.tbAlgNumText.TabIndex = 1;
             // 
             // gbWrapText
@@ -1829,6 +1822,7 @@ namespace VariousTest
             // 
             // tabAlg
             // 
+            this.tabAlg.Controls.Add(this.groupBox1);
             this.tabAlg.Controls.Add(this.gbAlgCutDiactric);
             this.tabAlg.Controls.Add(gbAlgNum);
             this.tabAlg.Controls.Add(gbWrapText);
@@ -1840,6 +1834,63 @@ namespace VariousTest
             this.tabAlg.TabIndex = 11;
             this.tabAlg.Text = "Algorithms";
             this.tabAlg.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.tbAlgEmailRegex);
+            this.groupBox1.Controls.Add(this.cbAlgEmail);
+            this.groupBox1.Controls.Add(this.btnAlgEmailRegexValidate);
+            this.groupBox1.Location = new System.Drawing.Point(0, 321);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(776, 183);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "E-mail validation using by RegEx";
+            // 
+            // tbAlgEmailRegex
+            // 
+            this.tbAlgEmailRegex.Location = new System.Drawing.Point(12, 19);
+            this.tbAlgEmailRegex.Multiline = true;
+            this.tbAlgEmailRegex.Name = "tbAlgEmailRegex";
+            this.tbAlgEmailRegex.Size = new System.Drawing.Size(462, 86);
+            this.tbAlgEmailRegex.TabIndex = 19;
+            this.tbAlgEmailRegex.Text = "^(?(\")(\".+?(?<!\\\\)\"@)|(([0-9a-z]((\\.(?!\\.))|[-!#\\$%&\'\\*\\+/=\\?\\^`\\{\\}\\|~\\w])*)(?<=" +
+    "[0-9a-z])@))(?(\\[)(\\[(\\d{1,3}\\.){3}\\d{1,3}\\])|(([0-9a-z][-\\w]*[0-9a-z]*\\.)+[a-z0" +
+    "-9][\\-a-z0-9]{0,22}[a-z0-9]))$";
+            // 
+            // cbAlgEmail
+            // 
+            this.cbAlgEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbAlgEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cbAlgEmail.FormattingEnabled = true;
+            this.cbAlgEmail.Items.AddRange(new object[] {
+            "hermann@post.cz",
+            "pavel.hermann@post.cz",
+            ".hermann@post.cz",
+            "@post.cz",
+            "603603603@post.cz",
+            "603603603@192.168.10.202",
+            "cz@.cz",
+            "cz@cz.cz",
+            "cz@cz.cz.cz.cz.cz"});
+            this.cbAlgEmail.Location = new System.Drawing.Point(480, 20);
+            this.cbAlgEmail.Name = "cbAlgEmail";
+            this.cbAlgEmail.Size = new System.Drawing.Size(175, 150);
+            this.cbAlgEmail.TabIndex = 18;
+            // 
+            // btnAlgEmailRegexValidate
+            // 
+            this.btnAlgEmailRegexValidate.Location = new System.Drawing.Point(666, 19);
+            this.btnAlgEmailRegexValidate.Name = "btnAlgEmailRegexValidate";
+            this.btnAlgEmailRegexValidate.Size = new System.Drawing.Size(102, 32);
+            this.btnAlgEmailRegexValidate.TabIndex = 17;
+            this.btnAlgEmailRegexValidate.Text = "Validate email";
+            this.btnAlgEmailRegexValidate.UseVisualStyleBackColor = true;
+            this.btnAlgEmailRegexValidate.Click += new System.EventHandler(this.btnAlgValidateEmail_Click);
             // 
             // gbAlgCutDiactric
             // 
@@ -1907,7 +1958,7 @@ namespace VariousTest
             this.gbAlgCID.Controls.Add(lblAlgAdStreet);
             this.gbAlgCID.Location = new System.Drawing.Point(0, 227);
             this.gbAlgCID.Name = "gbAlgCID";
-            this.gbAlgCID.Size = new System.Drawing.Size(776, 96);
+            this.gbAlgCID.Size = new System.Drawing.Size(776, 101);
             this.gbAlgCID.TabIndex = 3;
             this.gbAlgCID.TabStop = false;
             // 
@@ -1925,16 +1976,16 @@ namespace VariousTest
             // 
             // tbAlgCID
             // 
-            this.tbAlgCID.Location = new System.Drawing.Point(84, 17);
+            this.tbAlgCID.Location = new System.Drawing.Point(83, 17);
             this.tbAlgCID.Name = "tbAlgCID";
-            this.tbAlgCID.Size = new System.Drawing.Size(68, 20);
+            this.tbAlgCID.Size = new System.Drawing.Size(87, 20);
             this.tbAlgCID.TabIndex = 1;
             this.tbAlgCID.Text = "69368457";
             // 
             // tbAlgAdZip
             // 
             this.tbAlgAdZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAlgAdZip.Location = new System.Drawing.Point(603, 61);
+            this.tbAlgAdZip.Location = new System.Drawing.Point(601, 61);
             this.tbAlgAdZip.Name = "tbAlgAdZip";
             this.tbAlgAdZip.ReadOnly = true;
             this.tbAlgAdZip.Size = new System.Drawing.Size(54, 20);
@@ -1956,38 +2007,38 @@ namespace VariousTest
             // 
             this.tbAlgAdCity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAlgAdCity.Location = new System.Drawing.Point(202, 60);
+            this.tbAlgAdCity.Location = new System.Drawing.Point(221, 60);
             this.tbAlgAdCity.Name = "tbAlgAdCity";
             this.tbAlgAdCity.ReadOnly = true;
-            this.tbAlgAdCity.Size = new System.Drawing.Size(362, 20);
+            this.tbAlgAdCity.Size = new System.Drawing.Size(343, 20);
             this.tbAlgAdCity.TabIndex = 9;
             // 
             // tbAlgAdVAT
             // 
-            this.tbAlgAdVAT.Location = new System.Drawing.Point(69, 60);
+            this.tbAlgAdVAT.Location = new System.Drawing.Point(83, 56);
             this.tbAlgAdVAT.Name = "tbAlgAdVAT";
             this.tbAlgAdVAT.ReadOnly = true;
-            this.tbAlgAdVAT.Size = new System.Drawing.Size(83, 20);
+            this.tbAlgAdVAT.Size = new System.Drawing.Size(87, 20);
             this.tbAlgAdVAT.TabIndex = 3;
             // 
             // tbAlgAdStreet
             // 
             this.tbAlgAdStreet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAlgAdStreet.Location = new System.Drawing.Point(202, 39);
+            this.tbAlgAdStreet.Location = new System.Drawing.Point(221, 39);
             this.tbAlgAdStreet.Name = "tbAlgAdStreet";
             this.tbAlgAdStreet.ReadOnly = true;
-            this.tbAlgAdStreet.Size = new System.Drawing.Size(455, 20);
+            this.tbAlgAdStreet.Size = new System.Drawing.Size(434, 20);
             this.tbAlgAdStreet.TabIndex = 7;
             // 
             // tbAlgAdName
             // 
             this.tbAlgAdName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAlgAdName.Location = new System.Drawing.Point(202, 18);
+            this.tbAlgAdName.Location = new System.Drawing.Point(221, 18);
             this.tbAlgAdName.Name = "tbAlgAdName";
             this.tbAlgAdName.ReadOnly = true;
-            this.tbAlgAdName.Size = new System.Drawing.Size(455, 20);
+            this.tbAlgAdName.Size = new System.Drawing.Size(434, 20);
             this.tbAlgAdName.TabIndex = 5;
             // 
             // tabService
@@ -2513,6 +2564,18 @@ namespace VariousTest
             this.tbOtherProcName.TabIndex = 1;
             this.tbOtherProcName.Text = "firefox";
             // 
+            // tbUI
+            // 
+            this.tbUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbUI.DropDownHeight = 250;
+            this.tbUI.Location = new System.Drawing.Point(0, 0);
+            this.tbUI.Name = "tbUI";
+            this.tbUI.Size = new System.Drawing.Size(382, 21);
+            this.tbUI.TabIndex = 8;
+            this.tbUI.TextEditable = false;
+            this.tbUI.TextValue = "XXX";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2567,6 +2630,8 @@ namespace VariousTest
             pnlLINQ.ResumeLayout(false);
             this.tabPanel.ResumeLayout(false);
             this.tabAlg.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.gbAlgCutDiactric.ResumeLayout(false);
             this.gbAlgCutDiactric.PerformLayout();
             this.gbAlgCID.ResumeLayout(false);
@@ -2704,6 +2769,10 @@ namespace VariousTest
         private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemIPaddr;
         private System.Windows.Forms.DataGridViewTextBoxColumn colXmlItemIPport;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tbAlgEmailRegex;
+        private System.Windows.Forms.ComboBox cbAlgEmail;
+        private System.Windows.Forms.Button btnAlgEmailRegexValidate;
     }    
 }
 

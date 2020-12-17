@@ -19,6 +19,7 @@ using System.Net.Mail;
 using System.Configuration.Install;
 using System.ServiceProcess;
 using System.Management;
+using System.Text.RegularExpressions;
 
 namespace VariousTest
 {
@@ -95,6 +96,8 @@ namespace VariousTest
             btnAlgCutDiactric_Click(null, null);
             btnAlgNumToText_Click(null, null);
             btnAlgWrapText_Click(null, null);
+
+//            tbAlgEmailRegex.Text = (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]);
         }
 
         private void btnAlgCutDiactric_Click(object sender, EventArgs e)
@@ -217,6 +220,39 @@ namespace VariousTest
                 Cursor = Cursors.Default;
             }
         }
+
+        private void btnAlgValidateEmail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Regex emailRegex = new Regex(tbAlgEmailRegex.Text);
+                if (emailRegex.IsMatch(cbAlgEmail.Text))
+                    GM.ShowInfoMessageBox(this, string.Format("'{0}' is valid e-mail address", cbAlgEmail.Text));
+                else
+                {
+                    string s = cbAlgEmail.Text;
+                    int idx = s.IndexOf('@');
+                    if (idx >= 0)
+                        try
+                        {
+                            s = s.Substring(idx + 1);
+                            if (IPAddress.TryParse(s, out IPAddress ip) || Dns.GetHostAddresses(s) != null)
+                            {
+                                GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address for domain: '{1}'", cbAlgEmail.Text, s));
+                                return;
+                            }
+                        }
+                        catch { }
+
+                    GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address", cbAlgEmail.Text));
+                }
+            }
+            catch (Exception ex)
+            {
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when validating '{0}'", cbAlgEmail.Text), ex);
+            }
+        }
+
         private XElement GetXElement(XElement parent, params XName[] path)
         {
             XElement elHlp = parent;
