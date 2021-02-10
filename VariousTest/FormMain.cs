@@ -20,6 +20,8 @@ using System.Configuration.Install;
 using System.ServiceProcess;
 using System.Management;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace VariousTest
 {
@@ -30,6 +32,8 @@ namespace VariousTest
         public FormMain()
 		{
 			InitializeComponent();
+
+            Text = Application.ProductName;
 		}
 		private void FormMain_Load(object sender, EventArgs e)
 		{
@@ -72,8 +76,23 @@ namespace VariousTest
             { 
                 bsXmlItems.EndEdit();
                 dgXmlItems.EndEdit();
-
-                // save window position
+            }
+            catch {}
+            try
+            {
+                fileWatcher.EnableRaisingEvents = false;
+                fileWatcher.Dispose();
+            }
+            catch { }
+            try
+            {
+                dirWatcher.EnableRaisingEvents = false;
+                dirWatcher.Dispose();
+            }
+            catch { }
+            // save window position
+            try
+            {
                 if ( appCfg == null )
                     appCfg = new AppSetting();
 
@@ -82,14 +101,34 @@ namespace VariousTest
                 appCfg.AlwaysOnTop = chbOnTop.Checked;
                 appCfg.Save();
             }
-            catch {}
+            catch { }
         }
     
         private void chbOnTop_CheckedChanged(object sender, EventArgs e)
         {
  			TopMost = chbOnTop.Checked;
         }
+        private void menuItem_Click(object sender, EventArgs e)
+        {
+            if ( sender == miAppExit )   Application.Exit();
+            else if ( sender == miHlpAbout )
+            {
+                using ( DlgAbout dlg = new DlgAbout() )
+                    dlg.ShowDialog(this);
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+            case Keys.F1:
+                menuItem_Click(miHlpAbout, null);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
+ 
 #region useful algoritms
         private void initTabAlgoritms()
         {
@@ -102,7 +141,15 @@ namespace VariousTest
 
         private void btnAlgCutDiactric_Click(object sender, EventArgs e)
         {
-            tbAlgDiactricCut.Text = GM.CutDiactric(tbAlgDiactric.Text);
+            string strDiacr = tbAlgDiactric.Text.Trim();
+            if ( string.IsNullOrEmpty(strDiacr) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter text to cut diacritics!");
+                tbAlgDiactric.Focus();
+                return;
+            }
+
+            tbAlgDiactricCut.Text = GM.CutDiactric(strDiacr);
         }
         private void btnAlgNumToText_Click(object sender, EventArgs e)
         {
@@ -110,48 +157,58 @@ namespace VariousTest
         }
         private void btnAlgWrapText_Click(object sender, EventArgs e)
         {
-            string s = "";
-            foreach (string sLine in GM.WrapText(tbAlgWrap.Text, (int)nudAlgWrap.Value))
+            string strWrap = tbAlgWrap.Text.Trim();
+            if ( string.IsNullOrEmpty(strWrap) )
             {
-                if (!string.IsNullOrEmpty(s))
-                    s += Environment.NewLine;
-                s += sLine;
+                GM.ShowErrorMessageBox(this, "Enter text wrap first!");
+                tbAlgWrap.Focus();
+                return;
             }
-            tbAlgWrapText.Text = s;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (string strLine in GM.WrapText(strWrap, (int)nudAlgWrap.Value))
+            {
+                if ( sb.Length == 0 )
+                    sb.Append(Environment.NewLine);
+                sb.Append(strLine);
+            }
+            tbAlgWrapText.Text = sb.ToString();
         }
         private void btnAlgCIDValidity_Click(object sender, EventArgs e)
         {
-            if ( string.IsNullOrEmpty(tbAlgCID.Text) )
+            string strCID = tbAlgCID.Text.Trim();
+            if ( string.IsNullOrEmpty(strCID) )
             {
-                GM.ShowErrorMessageBox(this, "Enter CID first!");
+                GM.ShowErrorMessageBox(this, "Enter Company ID!");
                 tbAlgCID.Focus();
                 return;
             }
-            if ( GM.CheckCID(tbAlgCID.Text) )
-                GM.ShowInfoMessageBox(this, string.Format("'{0}' complies Company ID validation algorithm!", tbAlgCID.Text));
+            if ( GM.CheckCID(strCID) )
+                GM.ShowInfoMessageBox(this, string.Format("'{0}' complies Company ID validation algorithm!", strCID));
             else
-                GM.ShowErrorMessageBox(this, string.Format("'{0}' doesn't comply Company ID validation algorithm!", tbAlgCID.Text));
+                GM.ShowErrorMessageBox(this, string.Format("'{0}' doesn't comply Company ID validation algorithm!", strCID));
         }
         private void btnAlgAres_Click(object sender, EventArgs e)
         {
             tbAlgAdName.Text = tbAlgAdCity.Text = tbAlgAdStreet.Text = tbAlgAdZip.Text = tbAlgAdVAT.Text = "";
 
         // check ICO
-            if ( string.IsNullOrEmpty(tbAlgCID.Text) )
+            string strCID = tbAlgCID.Text.Trim();
+            if ( string.IsNullOrEmpty(strCID) )
             {
-                GM.ShowErrorMessageBox(this, "Enter Company ID first!");
+                GM.ShowErrorMessageBox(this, "Enter Company ID!");
                 tbAlgCID.Focus();
                 return;
             }
-            if ( !GM.CheckCID(tbAlgCID.Text) && GM.ShowQuestionMessageBox(this, string.Format("'{0}' doesn't comply Company ID validation algorithm. Continue anyway?", tbAlgCID.Text)) != DialogResult.Yes )
+            if ( !GM.CheckCID(strCID) && GM.ShowQuestionMessageBox(this, string.Format("'{0}' doesn't comply Company ID validation algorithm. Continue anyway?", strCID)) != DialogResult.Yes )
             {
-                tbAlgCID.Select(0, tbAlgCID.Text.Length);
+                tbAlgCID.Select(0, strCID.Length);
                 tbAlgCID.Focus();
                 return;
             }
 
         // get address from ARES
-            string strUrl = string.Format("http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico={0}&aktivni=false", tbAlgCID.Text);
+            string strUrl = string.Format("http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico={0}&aktivni=false", strCID);
 
             Cursor = Cursors.WaitCursor;
             try
@@ -168,7 +225,7 @@ namespace VariousTest
                 XElement elAddr = GetXElement(elRoot, new XName[] {are + "Odpoved", are + "Zaznam"});
                 if ( elAddr == null )
                 {
-                    GM.ShowErrorMessageBox(this, string.Format("No address found in ARES for CID: {0}", tbAlgCID.Text));
+                    GM.ShowErrorMessageBox(this, string.Format("No address found in ARES for CID: {0}", strCID));
                     return;
                 }
 
@@ -199,7 +256,7 @@ namespace VariousTest
                 s = GetXElementValue(elRoot, new XName[] {are+"Odpoved", are+"Zaznam", are+"Priznaky_subjektu"});
                 if ( s != null && s.Length > 5 && (s[5] == 'A' || s[5] == 'a') )
                 {
-                    strUrl = string.Format("http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi?ico={0}&aktivni=false", tbAlgCID.Text);
+                    strUrl = string.Format("http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi?ico={0}&aktivni=false", strCID);
                     using ( WebClient webCli = new WebClient() )
                         using ( StreamReader r = new StreamReader(webCli.OpenRead(strUrl)))
                             s = r.ReadToEnd();
@@ -223,33 +280,39 @@ namespace VariousTest
 
         private void btnAlgValidateEmail_Click(object sender, EventArgs e)
         {
+            string strEmail = cbAlgEmail.Text.Trim();
+            if ( string.IsNullOrEmpty(strEmail) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter e-mail address first!");
+                cbAlgEmail.Focus();
+                return;
+            }
             try
             {
                 Regex emailRegex = new Regex(tbAlgEmailRegex.Text);
-                if (emailRegex.IsMatch(cbAlgEmail.Text))
-                    GM.ShowInfoMessageBox(this, string.Format("'{0}' is valid e-mail address", cbAlgEmail.Text));
+                if (emailRegex.IsMatch(strEmail))
+                    GM.ShowInfoMessageBox(this, string.Format("'{0}' is valid e-mail address", strEmail));
                 else
                 {
-                    string s = cbAlgEmail.Text;
-                    int idx = s.IndexOf('@');
+                    int idx = strEmail.IndexOf('@');
                     if (idx >= 0)
                         try
                         {
-                            s = s.Substring(idx + 1);
-                            if (IPAddress.TryParse(s, out IPAddress ip) || Dns.GetHostAddresses(s) != null)
+                            string strDomain = strEmail.Substring(idx + 1);
+                            if (IPAddress.TryParse(strDomain, out IPAddress ip) || Dns.GetHostAddresses(strDomain) != null)
                             {
-                                GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address for domain: '{1}'", cbAlgEmail.Text, s));
+                                GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address for domain: '{1}'", strEmail, strDomain));
                                 return;
                             }
                         }
                         catch { }
 
-                    GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address", cbAlgEmail.Text));
+                    GM.ShowErrorMessageBox(this, string.Format("'{0}' is not valid e-mail address", strEmail));
                 }
             }
             catch (Exception ex)
             {
-                GM.ShowErrorMessageBox(this, string.Format("Error occured when validating '{0}'", cbAlgEmail.Text), ex);
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when validating '{0}'", strEmail), ex);
             }
         }
 
@@ -492,8 +555,11 @@ namespace VariousTest
 
 #region IO, file system usage
         delegate void DelgUpdateFile();
+		private readonly FileSystemWatcher fileWatcher = new FileSystemWatcher();
 
-		private FileSystemWatcher fileWatcher = new FileSystemWatcher();
+        delegate void DelgDirWatchEvent(string fullPath, WatcherChangeTypes eventType, string descr);
+        private readonly FileSystemWatcher dirWatcher = new FileSystemWatcher();
+        private DataTable tblDirWatch;
 
         private void initTabIO()
         {
@@ -550,13 +616,33 @@ namespace VariousTest
             listIO.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             listIO.Columns[0].Width += 10;
             listIO.Columns[1].Width = -1;
-    #endregion        
+            #endregion
 
-        // file watcher initialization
-		    fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
+            // file watcher initialization
+            fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
 		    fileWatcher.Changed += new FileSystemEventHandler(fileWatch_Changed);
-
+            
+            tbIOfileWatch.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "TestData.xml");
 		    WatchedFileChanged(false);
+
+            // dir watcher initialization
+            dirWatcher.IncludeSubdirectories = true;
+            dirWatcher.EnableRaisingEvents = false;
+            dirWatcher.Filter = "*.*";
+            dirWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName; // NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            dirWatcher.Created += delegate(object sender,FileSystemEventArgs e) { addDirWatchEvent(e.FullPath, e.ChangeType, e.Name); };
+            dirWatcher.Deleted += delegate(object sender,FileSystemEventArgs e) { addDirWatchEvent(e.FullPath, e.ChangeType, e.Name); };
+            dirWatcher.Renamed += delegate(object sender,RenamedEventArgs e)    { addDirWatchEvent(e.FullPath, e.ChangeType, e.OldName+" -> "+e.Name); };
+            dirWatcher.Changed += delegate(object sender,FileSystemEventArgs e) { addDirWatchEvent(e.FullPath, e.ChangeType, e.Name); };
+
+            tblDirWatch = new DataTable();
+            tblDirWatch.Columns.Add("Event", typeof(String));
+            tblDirWatch.Columns.Add("Time", typeof(DateTime));
+            tblDirWatch.Columns.Add("FileName", typeof(String));
+            dgIOdirWatch.DataSource = new BindingSource(tblDirWatch, "");
+
+            dirWatcher.Path = tbIOdirWatch.Text = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+            dirWatcher.EnableRaisingEvents = true;
         }
 
     #region zipping 
@@ -567,7 +653,7 @@ namespace VariousTest
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Select file to zip...";
-                if (dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
                 inFile = dlg.FileName;
@@ -576,7 +662,7 @@ namespace VariousTest
             {
                 dlg.Description = "Select target directory...";
                 try { dlg.SelectedPath = Path.GetDirectoryName(inFile); } catch {}
-                if (dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
                 outFile = Path.Combine(dlg.SelectedPath, Path.GetFileNameWithoutExtension(inFile) + ".zip");
@@ -636,7 +722,7 @@ namespace VariousTest
                 dlg.Title = "Select file to unzip...";
                 dlg.Filter = "ZIP files (*.zip)|*.zip|All files (*.*) |*.*";
                 dlg.FilterIndex = 1;
-                if (dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
                 inFile = dlg.FileName;
@@ -646,7 +732,7 @@ namespace VariousTest
                 dlg.Description = "Select target directory...";
                 try { dlg.SelectedPath = Path.GetDirectoryName(inFile); }
                 catch { }
-                if (dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
                 outDir = dlg.SelectedPath;
@@ -705,12 +791,11 @@ namespace VariousTest
         {
             using ( OpenFileDialog dlg = new OpenFileDialog() )
             {
-                try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfile.Text); }
-                catch { }
-                if (dlg.ShowDialog() != DialogResult.OK)
+                try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfileWatch.Text); } catch { }
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                tbIOfile.Text = dlg.FileName;
+                tbIOfileWatch.Text = dlg.FileName;
             }
 
             WatchedFileChanged(true);
@@ -722,16 +807,16 @@ namespace VariousTest
         private void WatchedFileChanged(bool bReport)
         {
             fileWatcher.EnableRaisingEvents = false;
-            tbIOfileContent.Text = "";
-            if (!File.Exists(tbIOfile.Text))
+            tbIOfileWatchContent.Text = "";
+            if (!File.Exists(tbIOfileWatch.Text))
             {
                 if (bReport)
-                    GM.ShowErrorMessageBox(this, "File '" + tbIOfile.Text + "' doesn't exists");
+                    GM.ShowErrorMessageBox(this, "File '" + tbIOfileWatch.Text + "' doesn't exists");
                 return;
             }
 
-            fileWatcher.Path = Path.GetDirectoryName(tbIOfile.Text.Trim());
-            fileWatcher.Filter = Path.GetFileName(tbIOfile.Text.Trim());
+            fileWatcher.Path = Path.GetDirectoryName(tbIOfileWatch.Text.Trim());
+            fileWatcher.Filter = Path.GetFileName(tbIOfileWatch.Text.Trim());
             fileWatcher.EnableRaisingEvents = true;
 
             UpdateWatchedFile();
@@ -744,35 +829,98 @@ namespace VariousTest
                 return;
             }
 
-            tbIOfileContent.Text = "";
+            tbIOfileWatchContent.Text = "";
             try
             {
                 StringBuilder sb = new StringBuilder();
                 // simple solution
-                foreach (string line in File.ReadAllLines(tbIOfile.Text))
+                foreach (string line in File.ReadAllLines(tbIOfileWatch.Text))
                 {
-                    if (sb.Length > 0)
-                        sb.Append(Environment.NewLine); //" \r\n" 
+                    if (sb.Length > 0)  
+                        sb.Append(Environment.NewLine);
                     sb.Append(line);
                 }
-                /*              // stream usage solution  
-                                using (StreamReader sr = new StreamReader(tbIOfile.Text))
-                                {
-                                    dtIOfileModified.Value = File.GetLastWriteTime(tbIOfile.Text);
-                                    string line;
-                                    while ((line = sr.ReadLine()) != null)
-                                    {
-                                        if ( sb.Length > 0 )
-                                            sb.Append(Environment.NewLine);
-                                        sb.Append(line);
-                                    }
-                                }
-                */
-                tbIOfileContent.Text = sb.ToString();
+/*                // stream usage solution  
+                using (StreamReader sr = new StreamReader(tbIOfileWatch.Text))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if ( sb.Length > 0 )
+                            sb.Append(Environment.NewLine);
+                        sb.Append(line);
+                    }
+                }
+*/
+                tbIOfileWatchContent.Text = sb.ToString();
+                dtIOfileWatchModified.Value = File.GetLastWriteTime(tbIOfileWatch.Text);
             }
             catch (Exception ex)
             {
-                GM.ShowErrorMessageBox(this, string.Format("Error occured when reading file '{0}'", tbIOfile.Text), ex);
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when reading file '{0}'", tbIOfileWatch.Text), ex);
+            }
+        }
+    #endregion
+    #region dir watcher
+        private static string lastPath = "";
+        private static DateTime lastWrite;
+        private void addDirWatchEvent(string fullPath, WatcherChangeTypes eventType, string descr)
+        {
+            if(InvokeRequired)
+            {
+                BeginInvoke(new DelgDirWatchEvent(addDirWatchEvent),new object[] {fullPath, eventType, descr});
+                return;
+            }
+
+            DateTime dtHlp = DateTime.Now;
+            // handle well known FileSystemEventHandler - changed is called twice
+            if ( eventType != WatcherChangeTypes.Changed )
+                lastPath = "";
+            else
+                try
+                {
+                    dtHlp = File.GetLastWriteTime(fullPath);
+                    if ( !string.IsNullOrEmpty(lastPath) && string.Equals(lastPath, fullPath) && lastWrite == dtHlp )
+                        return;
+                    lastWrite = dtHlp;
+                    lastPath = fullPath;
+                }
+                catch {}
+
+            DataRow newRow = tblDirWatch.NewRow();
+            newRow["Time"] = dtHlp;
+            newRow["FileName"] = descr;
+            switch(eventType)
+            {
+            case WatcherChangeTypes.Created: newRow["Event"] = "Created"; break;
+            case WatcherChangeTypes.Deleted: newRow["Event"] = "Deleted"; break;
+            case WatcherChangeTypes.Renamed: newRow["Event"] = "Renamed"; break;
+            case WatcherChangeTypes.Changed: newRow["Event"] = "Changed"; break;
+            };
+            tblDirWatch.Rows.InsertAt(newRow, 0);
+
+            dgIOdirWatch.CurrentCell = dgIOdirWatch.Rows[0].Cells[0];
+            if (dgIOdirWatch.CurrentCell != null &&
+                    (dgIOdirWatch.SelectedCells == null || dgIOdirWatch.SelectedCells.Count == 0 || dgIOdirWatch.SelectedCells[0] != dgIOdirWatch.CurrentCell))
+                dgIOdirWatch.CurrentCell.Selected = true;
+            dgIOdirWatch.FirstDisplayedScrollingRowIndex = 0;
+        }
+        private void btnIOdirWatchSel_Click(object sender, EventArgs e)
+        {
+            dirWatcher.EnableRaisingEvents = false;
+
+            using(FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.SelectedPath = tbIOdirWatch.Text;
+                if(dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    tbIOdirWatch.Text = dlg.SelectedPath;
+                    if(!string.IsNullOrEmpty(tbIOdirWatch.Text))
+                    {
+                        dirWatcher.Path = tbIOdirWatch.Text;
+                        dirWatcher.EnableRaisingEvents = true;
+                    }
+                }
             }
         }
     #endregion
@@ -843,24 +991,25 @@ namespace VariousTest
             {
                 dlg.Filter = "XML files (*.xml)|*.xml|All files (*.*) |*.*";
                 dlg.FilterIndex = 1;
-			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfile.Text); } catch {}
-			    if (dlg.ShowDialog() != DialogResult.OK)
+			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbIOfileWatch.Text); } catch {}
+			    if (dlg.ShowDialog(this) != DialogResult.OK)
 				    return;
 
 			    tbXmlFile.Text = dlg.FileName;
             }
 		}
-		private void btnXMLParse_Click(object sender, EventArgs e)
+		private void onXMLParse_Click(object sender, EventArgs e)
 		{
-            if ( String.IsNullOrEmpty(tbXmlFile.Text) )
+            string strFileName = tbXmlFile.Text.Trim();
+            if ( string.IsNullOrEmpty(strFileName) )
             {
                 GM.ShowErrorMessageBox(this, "Enter XML file path!");
                 tbXmlFile.Focus();
                 return;
             }
-            if ( !File.Exists(tbXmlFile.Text) )
+            if ( !File.Exists(strFileName) )
             {
-                GM.ShowErrorMessageBox(this, string.Format("File '{0}' doesn't exist!", tbXmlFile.Text));
+                GM.ShowErrorMessageBox(this, string.Format("File '{0}' doesn't exist!", strFileName));
                 tbXmlFile.Focus();
                 return;
             }
@@ -879,10 +1028,9 @@ namespace VariousTest
                 bsXmlItems.SuspendBinding();
                 xmlData.Reset();
 
-                XElement elRoot = XElement.Load(tbXmlFile.Text);
-                foreach(XElement elItem in elRoot.Elements())
-                    xmlData.ArrItems.Add(new XmlTestItem
-                    {
+                XElement elRoot = XElement.Load(strFileName);
+                foreach(XElement elItem in elRoot.Elements("Item"))
+                    xmlData.ArrItems.Add(new XmlTestItem {
                         Name   = GM.GetXElementValue(elItem, "Name"),
                         IPaddr = GM.GetXElementValue(elItem, "IPaddr"),
                         IPport = GM.GetXElementInt(elItem, "IPport")
@@ -890,7 +1038,7 @@ namespace VariousTest
 
 /* version with DOM objects
               XmlTestItem itmData;
-                using (StreamReader stream = new StreamReader(tbXmlFile.Text))
+                using (StreamReader stream = new StreamReader(strFileName))
                 {
                     XmlDocument doc = new XmlDocument();
                     doc.Load(stream);
@@ -905,7 +1053,7 @@ namespace VariousTest
                     }
                 }
 */            }
-            catch (Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during parsing XML file '{0}'!", tbXmlFile.Text), ex); }
+            catch (Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during parsing XML file '{0}'!", strFileName), ex); }
             finally 
             {
                 bsXmlItems.ResumeBinding();
@@ -918,8 +1066,16 @@ namespace VariousTest
             }
         }
 
-        private void btnXmlSerialize_Click(object sender, EventArgs e)
+        private void onXmlSerialize_Click(object sender, EventArgs e)
 		{
+            string strFileName = tbXmlFile.Text.Trim();
+            if ( string.IsNullOrEmpty(strFileName) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter XML file path!");
+                tbXmlFile.Focus();
+                return;
+            }
+
 			try
 			{
                 bsXmlItems.EndEdit();
@@ -935,13 +1091,12 @@ namespace VariousTest
                 }
 
                 XmlSerializer xml = new XmlSerializer(typeof(XmlTestData));
-				using ( StreamWriter sw = new StreamWriter(tbXmlFile.Text) ) 
-				{
+				using ( StreamWriter sw = new StreamWriter(strFileName) ) 
 					xml.Serialize(sw, xmlData);
-    				GM.ShowInfoMessageBox(this, string.Format("XML file '{0}' saved successfully!", tbXmlFile.Text));
-				}
+
+                GM.ShowInfoMessageBox(this, string.Format("XML file '{0}' saved successfully!", strFileName));
 			}
-			catch(Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during serializing to XML file '{0}'!", tbXmlFile.Text), ex); }
+			catch(Exception ex) { GM.ShowErrorMessageBox(this, string.Format("Error occured during serializing to XML file '{0}'!", strFileName), ex); }
         }
         private void dgXMLItems_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
@@ -952,9 +1107,7 @@ namespace VariousTest
                 if (c != null)
                 {
                     string strValue = c.EditedFormattedValue.ToString();
-                    int ipPort = 0;
-
-                    if (!int.TryParse(strValue, out ipPort))
+                    if (!int.TryParse(strValue, out int ipPort))
                     {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < strValue.Length; i++)
@@ -973,24 +1126,42 @@ namespace VariousTest
         private void dgXMLItems_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             // set selection after right mouse click - to hightlight row
-            if (e.Button == MouseButtons.Right)
+            DataGridView dg = sender as DataGridView;
+            if (dg != null && e.Button == MouseButtons.Right)
             {
-                DataGridView dg = sender as DataGridView;
                 if (!dg.Focused)
                     dg.Focus();
-                if (dg != null && e.RowIndex >= 0 && e.RowIndex < dg.Rows.Count && !dg.Rows[e.RowIndex].Selected) // already selected 
-                    dg.CurrentCell = dg.Rows[e.RowIndex].Cells[0];
+                if (e.RowIndex >= 0 && e.RowIndex < dg.RowCount && 
+                    e.ColumnIndex >= 0 && e.ColumnIndex < dg.ColumnCount) // && !dg.Rows[e.RowIndex].Selected) // already selected 
+                    dg.CurrentCell = dg.Rows[e.RowIndex].Cells[e.ColumnIndex];
             }
         }
-
-        private void dgXMLItems_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void onEditXml_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < xmlData.ArrItems.Count() && (e.ColumnIndex == dgXmlItems.Columns.Count))
+            if (dgXmlItems.CurrentCell == null)
             {
-                XmlTestItem itm = xmlData.ArrItems[e.RowIndex];
-
-//                UpdateGridLines(e.RowIndex);
+                GM.ShowErrorMessageBox(this, "No cell selected!");
+                return;
             }
+            try { dgXmlItems.BeginEdit(false); }
+            catch(Exception ex) { GM.ShowErrorMessageBox(this, "Editing start failed!", ex); }
+        }
+        private void onDelXml_Click(object sender, EventArgs e)
+        {
+            int rowIdx = (dgXmlItems.CurrentRow == null) ? -1 : dgXmlItems.CurrentRow.Index;  // dgXmlItems.CurrentCell.RowIndex;
+            if (rowIdx < 0 || rowIdx >= bsXmlItems.Count) //dgXmlItems.Rows.Count)
+            {
+                GM.ShowErrorMessageBox(this, "No row selected!");
+                return;
+            }
+            try
+            {
+                dgXmlItems.EndEdit();
+                bsXmlItems.EndEdit();
+
+                bsXmlItems.RemoveAt(rowIdx);
+            }
+            catch (Exception ex) { GM.ShowErrorMessageBox(this, "Error occured when deleting selected row!", ex); }
         }
 #endregion
 
@@ -1056,7 +1227,7 @@ namespace VariousTest
                 dlg.Filter = "XML files (*.xml)|*.xml|All files (*.*) |*.*";
                 dlg.FilterIndex = 1;
 			    try { dlg.InitialDirectory = Path.GetDirectoryName(tbLINQxml.Text); } catch {}
-			    if (dlg.ShowDialog() != DialogResult.OK)
+			    if (dlg.ShowDialog(this) != DialogResult.OK)
 				    return;
 
 			    tbLINQxml.Text = dlg.FileName;
@@ -1069,7 +1240,7 @@ namespace VariousTest
             using ( FolderBrowserDialog dlg = new FolderBrowserDialog() )
             {
 			    try { dlg.SelectedPath = Path.GetDirectoryName(tbLINQobj.Text); } catch { }
-			    if (dlg.ShowDialog() != DialogResult.OK)
+			    if (dlg.ShowDialog(this) != DialogResult.OK)
 				    return;
 
 			    tbLINQobj.Text = dlg.SelectedPath;
@@ -1157,7 +1328,7 @@ namespace VariousTest
 
         private void tbServiceName_TextChanged(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(tbServiceName.Text))
+            if (!string.IsNullOrEmpty(tbServiceName.Text))
             {
                 serviceController.ServiceName = tbServiceName.Text;
 
@@ -1202,7 +1373,7 @@ namespace VariousTest
                 dlg.Title = "Select windows service executable...";
                 dlg.Filter = "exe files (*.exe)|*.exe";
                 dlg.FilterIndex = 1;
-                if (dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
                 tbServiceFile.Text = dlg.FileName;
@@ -1328,7 +1499,7 @@ namespace VariousTest
             catch (Exception ex)
             {
                 tbServiceStatus.Text = ex.Message;
-                if ( ex.InnerException != null && !String.IsNullOrEmpty(ex.InnerException.Message) )
+                if ( ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message) )
                     tbServiceStatus.Text += (Environment.NewLine+ex.InnerException.Message);
                 cbServiceAccount.Enabled = tbServiceUser.Enabled = tbServicePwd.Enabled = btnServiceInstall.Enabled = true;
                 btnServiceUninstall.Enabled = false;
@@ -1380,7 +1551,8 @@ namespace VariousTest
                 tbMailFrom.Focus();
                 return;
             }
-            if ( string.IsNullOrEmpty(tbMailSMTPserver.Text) )
+            string smtpServer = tbMailSMTPserver.Text.Trim();
+            if ( string.IsNullOrEmpty(smtpServer) )
             {
                 GM.ShowErrorMessageBox(this, "Enter SMTP server!");
                 tbMailSMTPserver.Focus();
@@ -1423,13 +1595,16 @@ namespace VariousTest
                 mail.Subject = tbMailSubject.Text;
                 mail.Body = tbMailBody.Text;
 
-                int port = (int)nudMailSMPTport.Value;
-                SmtpClient smtp = new SmtpClient(tbMailSMTPserver.Text, (port < 1)?25:port);
-                // set authentication data - are required by most smtp servers
-                if ( string.IsNullOrEmpty(tbMailSMTPuser.Text) && string.IsNullOrEmpty(tbMailSMTPpwd.Text) )
-                    smtp.Credentials = CredentialCache.DefaultNetworkCredentials;
-                else 
-                    smtp.Credentials = new System.Net.NetworkCredential(tbMailSMTPuser.Text, tbMailSMTPpwd.Text);
+                int smtpPort = (int)nudMailSMPTport.Value;
+                SmtpClient smtp = new SmtpClient(smtpServer, (smtpPort < 1)?25:smtpPort);
+                smtp.EnableSsl = chbMailSMTPSecure.Checked;
+                if ( smtp.EnableSsl && ServicePointManager.ServerCertificateValidationCallback != TurnOffRemoteCertificateValidation )
+                    ServicePointManager.ServerCertificateValidationCallback = TurnOffRemoteCertificateValidation;
+                smtp.UseDefaultCredentials = false; // !!! nastavi Credentials = null, proto nastavuj driv nez smtp.Credentials
+                if ( !string.IsNullOrEmpty(tbMailSMTPuser.Text) || !string.IsNullOrEmpty(tbMailSMTPpwd.Text) )
+                    smtp.Credentials = new NetworkCredential(tbMailSMTPuser.Text, tbMailSMTPpwd.Text);
+//              else
+//                  smtp.UseDefaultCredentials = true; // ve skutecnosti interne nastavi Credentials = CredentialCache.DefaultNetworkCredentials, coz jsou credentials pro zalogovaneho uzivatele
 
                 Cursor = Cursors.WaitCursor;
                 smtp.Send(mail);
@@ -1445,17 +1620,29 @@ namespace VariousTest
                 Cursor = Cursors.Default;
             }
         }
+        private static bool TurnOffRemoteCertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
 #endregion  
 
 #region WWW
         private void btnWWWDownload_Click(object sender, EventArgs e)
         {
+            string strURL = tbWWWURL.Text.Trim();
+            if ( string.IsNullOrEmpty(strURL) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter URL to download!");
+                tbWWWURL.Focus();
+                return;
+            }
+
             tbWWWContent.Text = "";
             Cursor = Cursors.WaitCursor;
             try
             {
                 WebClient webCli = new WebClient();
-                using (StreamReader sr = new StreamReader(webCli.OpenRead(tbWWWURL.Text)))
+                using (StreamReader sr = new StreamReader(webCli.OpenRead(strURL)))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -1467,7 +1654,7 @@ namespace VariousTest
             }
             catch (Exception ex)
             {
-                GM.ShowErrorMessageBox(this, string.Format("Error occured when reading content of URL '{0}'!", tbWWWURL.Text), ex);
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when reading content of URL '{0}'!", strURL), ex);
             }
             finally
             {
@@ -1600,12 +1787,20 @@ namespace VariousTest
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         private void btnOtherProcWnd_Click(object sender, EventArgs e)
         {
+            string strProcName = tbOtherProcName.Text.Trim(); 
+            if ( string.IsNullOrEmpty(strProcName) )
+            {
+                GM.ShowErrorMessageBox(this, "Enter process' name!");
+                tbOtherProcName.Focus();
+                return;
+            }
+
             try
             {
-                Process[] arrProc = Process.GetProcessesByName(tbOtherProcName.Text);
+                Process[] arrProc = Process.GetProcessesByName(strProcName);
                 if (arrProc.Length < 1)
                 {
-                    GM.ShowErrorMessageBox(this, string.Format("No instance of the process '{0}' found!", tbOtherProcName.Text));
+                    GM.ShowErrorMessageBox(this, string.Format("No instance of the process '{0}' found!", strProcName));
                     return;
                 }
                 foreach (Process proc in arrProc)
@@ -1614,23 +1809,23 @@ namespace VariousTest
                     {
                         if (arrProc.Length == 1)
                         {
-                            GM.ShowErrorMessageBox(this, string.Format("Process '{0}' has no main window to minimize!", tbOtherProcName.Text));
+                            GM.ShowErrorMessageBox(this, string.Format("Process '{0}' has no main window to minimize!", strProcName));
                             break;
                         }
                         continue;
                     }
 
-                    if (sender == btnOtherMinimizeProcWnd) ShowWindow(proc.MainWindowHandle, 6); // 6 ~ SW_MINIMIZE
-                    else if (sender == btnOtherMaximizeProcWnd) ShowWindow(proc.MainWindowHandle, 3); // 6 ~ SW_MAXIMIZE
-                    else if (sender == btnOtherRestoreProcWnd) ShowWindow(proc.MainWindowHandle, 9); // 9 ~ SW_RESTORE
-                    else if (sender == btnOtherCloseProcWnd 
+                    if (sender == btnOtherProcMinimize) ShowWindow(proc.MainWindowHandle, 6); // 6 ~ SW_MINIMIZE
+                    else if (sender == btnOtherProcMaximize) ShowWindow(proc.MainWindowHandle, 3); // 6 ~ SW_MAXIMIZE
+                    else if (sender == btnOtherProcRestore) ShowWindow(proc.MainWindowHandle, 9); // 9 ~ SW_RESTORE
+                    else if (sender == btnOtherProcClose 
                             && GM.ShowQuestionMessageBox(this, string.Format("Really to close window '{0}'?", proc.MainWindowTitle))==DialogResult.Yes)
                         proc.Kill();
                 }
             }
             catch (Exception ex)
             {
-                GM.ShowErrorMessageBox(this, string.Format("Error occured when trying to handle window for the process '{0}'", tbOtherProcName.Text), ex);
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when trying to handle window for the process '{0}'", strProcName), ex);
             }
         }
         #endregion
