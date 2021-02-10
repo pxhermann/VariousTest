@@ -2148,7 +2148,6 @@ namespace VariousTest
             this.tbXmlFile.ReadOnly = true;
             this.tbXmlFile.Size = new System.Drawing.Size(669, 20);
             this.tbXmlFile.TabIndex = 1;
-            this.tbXmlFile.Text = "C:\\TestData.xml";
             // 
             // btnXmlFileSel
             // 

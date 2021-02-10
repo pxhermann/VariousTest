@@ -622,7 +622,7 @@ namespace VariousTest
             fileWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.FileName;
 		    fileWatcher.Changed += new FileSystemEventHandler(fileWatch_Changed);
             
-            tbIOfileWatch.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "TestData.xml");
+            tbIOfileWatch.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "VariousTestData.xml");
 		    WatchedFileChanged(false);
 
             // dir watcher initialization
@@ -957,7 +957,7 @@ namespace VariousTest
 		    }
             public void Reset()
             {
-                Name = "TestData";
+                Name = "VariousTestData";
                 ArrItems.Clear();
             }
         }
@@ -967,7 +967,7 @@ namespace VariousTest
 
         private void initTabXML()
         {
-            tbXmlFile.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "TestData.xml");
+            tbXmlFile.Text = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName), "VariousTestData.xml");
 
             // init default data
             xmlData =  new XmlTestData();
