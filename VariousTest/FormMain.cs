@@ -38,13 +38,12 @@ namespace VariousTest
 		private void FormMain_Load(object sender, EventArgs e)
 		{
             initTabAlgoritms();
-            initTabLang();
-            initTabIO();
-            initTabXML();
-            initTabLINQ();
-            initTabUI();
-            initTabOther();
             initTabService();
+            initTabIO();
+            initTabLINQ();
+            initTabXML();
+            initTabLang();
+            initTabUI();
 
             tbComputer.Text = Environment.MachineName;
             tbUser.Text = Environment.UserName; //= System.Environment.GetEnvironmentVariable("USERNAME");
@@ -168,7 +167,7 @@ namespace VariousTest
             StringBuilder sb = new StringBuilder();
             foreach (string strLine in GM.WrapText(strWrap, (int)nudAlgWrap.Value))
             {
-                if ( sb.Length == 0 )
+                if ( sb.Length > 0 )
                     sb.Append(Environment.NewLine);
                 sb.Append(strLine);
             }
@@ -342,18 +341,6 @@ namespace VariousTest
 
         void initTabLang()
         {
-        // delegates
-            arrDelgFce.Push(delegate() {GM.ShowInfoMessageBox(this, "Delegate 1");});   // anonymous delegate
-            arrDelgFce.Push(delegate() {GM.ShowInfoMessageBox(this, "Delegate 2");});
-            arrDelgFce.Push(DelgFce3);
-
-            btnLangDelgAnonymous.Click += delegate(object sender, EventArgs e)
-			{
-				GM.ShowInfoMessageBox(this, "Hallo from anonymous delegate.");
-			};
-
-            btnLangDelgLambda.Click += ((sender,e) => GM.ShowInfoMessageBox(this, "Hallo from lambda expression.") );
-
        // fill data for reflection
             cbLangReflParam1.Items.Add("{0}");
             cbLangReflParam1.Items.Add("{0:0.0}");
@@ -380,6 +367,22 @@ namespace VariousTest
 
             cbLangReflData_Changed(null, null);
 
+        // system variables
+            tbLangAppPathExe.Text = Application.ExecutablePath;
+            tbLangAppPathStartup.Text = Application.StartupPath;
+            tbLangAppProdName.Text = Application.ProductName;
+            tbLangAppProdVer.Text = Application.ProductVersion;
+        // delegates
+            arrDelgFce.Push(delegate() {GM.ShowInfoMessageBox(this, "Delegate 1");});   // anonymous delegate
+            arrDelgFce.Push(delegate() {GM.ShowInfoMessageBox(this, "Delegate 2");});
+            arrDelgFce.Push(DelgFce3);
+
+            btnLangDelgAnonymous.Click += delegate(object sender, EventArgs e)
+			{
+				GM.ShowInfoMessageBox(this, "Hallo from anonymous delegate.");
+			};
+
+            btnLangDelgLambda.Click += ((sender,e) => GM.ShowInfoMessageBox(this, "Hallo from lambda expression.") );
         }
     #region delegates
         void DelgFce3()
@@ -1767,20 +1770,6 @@ namespace VariousTest
         }
 
 #endregion    
-
-#region other test
-        private void initTabOther()
-        {
-            tbOtherAppPathExe.Text = Application.ExecutablePath;
-            tbOtherAppPathStartup.Text = Application.StartupPath;
-            tbOtherAppProdName.Text = Application.ProductName;
-            tbOtherAppProdVer.Text = Application.ProductVersion;
-
-            tbOtherDTtoday.Text = DateTime.Today.ToString();
-            tbOtherDTnow.Text   = DateTime.Now.ToString();
-        }
-
-#endregion
 
 #region process handling
         [DllImport("user32.dll")]

@@ -32,12 +32,6 @@ namespace VariousTest
             System.Windows.Forms.Label lblUser;
             System.Windows.Forms.Label lblComputer;
             System.Windows.Forms.Label lblOtherProcName;
-            System.Windows.Forms.Label lblOtherNow;
-            System.Windows.Forms.Label lblOtherToday;
-            System.Windows.Forms.Label lblOtherAppPathStartup;
-            System.Windows.Forms.Label lblOtherAppPathExe;
-            System.Windows.Forms.Label lblOtherAppProdName;
-            System.Windows.Forms.Label lblOtherAppProdVer;
             System.Windows.Forms.GroupBox gbOtherProcess;
             System.Windows.Forms.Label lblOtherProc;
             System.Windows.Forms.TableLayoutPanel panelOtherProc;
@@ -57,21 +51,21 @@ namespace VariousTest
             System.Windows.Forms.Label lblMailSMTPserver;
             System.Windows.Forms.TableLayoutPanel panelUI;
             System.Windows.Forms.Label lblUImbox;
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Subpoložka 1");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Polozka 1", new System.Windows.Forms.TreeNode[] {
-            treeNode19});
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Subpoložka 2");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Subpoložka 3");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Subpoložka 4");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Položka 2", new System.Windows.Forms.TreeNode[] {
-            treeNode21,
-            treeNode22,
-            treeNode23});
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Subpoložka 1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Polozka 1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Subpoložka 2");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Subpoložka 3");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Subpoložka 4");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Položka 2", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Item1Col1",
             "Item1Col2",
             "Item1Col3"}, 0);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Item2Col1",
             "Item2Col2",
             "Item2Col3"}, -1);
@@ -125,14 +119,19 @@ namespace VariousTest
             System.Windows.Forms.GroupBox gbWrapText;
             System.Windows.Forms.Label lblAlgWrap;
             System.Windows.Forms.GroupBox gbAlgNum;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Label lblLangAppProdVer;
+            System.Windows.Forms.Label lblLangAppProdName;
+            System.Windows.Forms.Label lblLangAppPathExe;
+            System.Windows.Forms.Label lblLangAppPathStartup;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbOtherProcName = new System.Windows.Forms.TextBox();
             this.btnOtherProcMinimize = new System.Windows.Forms.Button();
             this.btnOtherProcMaximize = new System.Windows.Forms.Button();
             this.btnOtherProcClose = new System.Windows.Forms.Button();
             this.btnOtherProcRestore = new System.Windows.Forms.Button();
+            this.chbMailSMTPSecure = new System.Windows.Forms.CheckBox();
             this.nudMailSMPTport = new System.Windows.Forms.NumericUpDown();
             this.tbMailFrom = new System.Windows.Forms.TextBox();
             this.tbMailSMTPpwd = new System.Windows.Forms.TextBox();
@@ -148,6 +147,7 @@ namespace VariousTest
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.chbUITreeBoxEditable = new System.Windows.Forms.CheckBox();
             this.chbUITreeBoxEnabled = new System.Windows.Forms.CheckBox();
+            this.tbUI = new XXX.TreeBox();
             this.tbLangReflParam2 = new System.Windows.Forms.TextBox();
             this.cbLangReflParam1 = new System.Windows.Forms.ComboBox();
             this.tbLangReflResult = new System.Windows.Forms.TextBox();
@@ -178,12 +178,6 @@ namespace VariousTest
             this.tbComputer = new System.Windows.Forms.TextBox();
             this.serviceController = new System.ServiceProcess.ServiceController();
             this.tabOther = new System.Windows.Forms.TabPage();
-            this.tbOtherAppProdVer = new System.Windows.Forms.TextBox();
-            this.tbOtherAppProdName = new System.Windows.Forms.TextBox();
-            this.tbOtherAppPathExe = new System.Windows.Forms.TextBox();
-            this.tbOtherAppPathStartup = new System.Windows.Forms.TextBox();
-            this.tbOtherDTtoday = new System.Windows.Forms.TextBox();
-            this.tbOtherDTnow = new System.Windows.Forms.TextBox();
             this.tabWeb = new System.Windows.Forms.TabPage();
             this.tbWWWURL = new System.Windows.Forms.TextBox();
             this.tbWWWContent = new System.Windows.Forms.TextBox();
@@ -194,6 +188,11 @@ namespace VariousTest
             this.tbMailRcp = new System.Windows.Forms.TextBox();
             this.tabUI = new System.Windows.Forms.TabPage();
             this.tabLang = new System.Windows.Forms.TabPage();
+            this.tbLangSysVar = new System.Windows.Forms.GroupBox();
+            this.tbLangAppProdVer = new System.Windows.Forms.TextBox();
+            this.tbLangAppProdName = new System.Windows.Forms.TextBox();
+            this.tbLangAppPathExe = new System.Windows.Forms.TextBox();
+            this.tbLangAppPathStartup = new System.Windows.Forms.TextBox();
             this.tabXML = new System.Windows.Forms.TabPage();
             this.dgXmlItems = new System.Windows.Forms.DataGridView();
             this.colXmlItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -256,17 +255,9 @@ namespace VariousTest
             this.miAppExit = new System.Windows.Forms.ToolStripMenuItem();
             this.miHlp = new System.Windows.Forms.ToolStripMenuItem();
             this.miHlpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.chbMailSMTPSecure = new System.Windows.Forms.CheckBox();
-            this.tbUI = new XXX.TreeBox();
             lblUser = new System.Windows.Forms.Label();
             lblComputer = new System.Windows.Forms.Label();
             lblOtherProcName = new System.Windows.Forms.Label();
-            lblOtherNow = new System.Windows.Forms.Label();
-            lblOtherToday = new System.Windows.Forms.Label();
-            lblOtherAppPathStartup = new System.Windows.Forms.Label();
-            lblOtherAppPathExe = new System.Windows.Forms.Label();
-            lblOtherAppProdName = new System.Windows.Forms.Label();
-            lblOtherAppProdVer = new System.Windows.Forms.Label();
             gbOtherProcess = new System.Windows.Forms.GroupBox();
             lblOtherProc = new System.Windows.Forms.Label();
             panelOtherProc = new System.Windows.Forms.TableLayoutPanel();
@@ -335,6 +326,10 @@ namespace VariousTest
             gbWrapText = new System.Windows.Forms.GroupBox();
             lblAlgWrap = new System.Windows.Forms.Label();
             gbAlgNum = new System.Windows.Forms.GroupBox();
+            lblLangAppProdVer = new System.Windows.Forms.Label();
+            lblLangAppProdName = new System.Windows.Forms.Label();
+            lblLangAppPathExe = new System.Windows.Forms.Label();
+            lblLangAppPathStartup = new System.Windows.Forms.Label();
             gbOtherProcess.SuspendLayout();
             panelOtherProc.SuspendLayout();
             gbMailSMTP.SuspendLayout();
@@ -361,6 +356,7 @@ namespace VariousTest
             this.tabMail.SuspendLayout();
             this.tabUI.SuspendLayout();
             this.tabLang.SuspendLayout();
+            this.tbLangSysVar.SuspendLayout();
             this.tabXML.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgXmlItems)).BeginInit();
             this.contextMenuXML.SuspendLayout();
@@ -411,61 +407,6 @@ namespace VariousTest
             lblOtherProcName.TabIndex = 0;
             lblOtherProcName.Text = "Name:";
             // 
-            // lblOtherNow
-            // 
-            lblOtherNow.AutoSize = true;
-            lblOtherNow.Location = new System.Drawing.Point(49, 84);
-            lblOtherNow.Name = "lblOtherNow";
-            lblOtherNow.Size = new System.Drawing.Size(81, 13);
-            lblOtherNow.TabIndex = 8;
-            lblOtherNow.Text = "DateTime.Now:";
-            // 
-            // lblOtherToday
-            // 
-            lblOtherToday.AutoSize = true;
-            lblOtherToday.Location = new System.Drawing.Point(49, 104);
-            lblOtherToday.Name = "lblOtherToday";
-            lblOtherToday.Size = new System.Drawing.Size(89, 13);
-            lblOtherToday.TabIndex = 10;
-            lblOtherToday.Text = "DateTime.Today:";
-            // 
-            // lblOtherAppPathStartup
-            // 
-            lblOtherAppPathStartup.AutoSize = true;
-            lblOtherAppPathStartup.Location = new System.Drawing.Point(21, 35);
-            lblOtherAppPathStartup.Name = "lblOtherAppPathStartup";
-            lblOtherAppPathStartup.Size = new System.Drawing.Size(121, 13);
-            lblOtherAppPathStartup.TabIndex = 2;
-            lblOtherAppPathStartup.Text = "Application.StartupPath:";
-            // 
-            // lblOtherAppPathExe
-            // 
-            lblOtherAppPathExe.AutoSize = true;
-            lblOtherAppPathExe.Location = new System.Drawing.Point(4, 14);
-            lblOtherAppPathExe.Name = "lblOtherAppPathExe";
-            lblOtherAppPathExe.Size = new System.Drawing.Size(140, 13);
-            lblOtherAppPathExe.TabIndex = 0;
-            lblOtherAppPathExe.Text = "Application.ExecutablePath:";
-            // 
-            // lblOtherAppProdName
-            // 
-            lblOtherAppProdName.AutoSize = true;
-            lblOtherAppProdName.Location = new System.Drawing.Point(14, 58);
-            lblOtherAppProdName.Name = "lblOtherAppProdName";
-            lblOtherAppProdName.Size = new System.Drawing.Size(130, 13);
-            lblOtherAppProdName.TabIndex = 4;
-            lblOtherAppProdName.Text = "Application.ProductName:";
-            // 
-            // lblOtherAppProdVer
-            // 
-            lblOtherAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblOtherAppProdVer.AutoSize = true;
-            lblOtherAppProdVer.Location = new System.Drawing.Point(534, 58);
-            lblOtherAppProdVer.Name = "lblOtherAppProdVer";
-            lblOtherAppProdVer.Size = new System.Drawing.Size(137, 13);
-            lblOtherAppProdVer.TabIndex = 6;
-            lblOtherAppProdVer.Text = "Application.ProductVersion:";
-            // 
             // gbOtherProcess
             // 
             gbOtherProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -473,7 +414,8 @@ namespace VariousTest
             gbOtherProcess.Controls.Add(this.tbOtherProcName);
             gbOtherProcess.Controls.Add(lblOtherProc);
             gbOtherProcess.Controls.Add(panelOtherProc);
-            gbOtherProcess.Location = new System.Drawing.Point(0, 148);
+            gbOtherProcess.ForeColor = System.Drawing.SystemColors.Highlight;
+            gbOtherProcess.Location = new System.Drawing.Point(0, 3);
             gbOtherProcess.Name = "gbOtherProcess";
             gbOtherProcess.Size = new System.Drawing.Size(776, 67);
             gbOtherProcess.TabIndex = 12;
@@ -493,6 +435,7 @@ namespace VariousTest
             // lblOtherProc
             // 
             lblOtherProc.AutoSize = true;
+            lblOtherProc.ForeColor = System.Drawing.SystemColors.ControlText;
             lblOtherProc.Location = new System.Drawing.Point(13, 27);
             lblOtherProc.Name = "lblOtherProc";
             lblOtherProc.Size = new System.Drawing.Size(38, 13);
@@ -523,6 +466,7 @@ namespace VariousTest
             // 
             this.btnOtherProcMinimize.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOtherProcMinimize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOtherProcMinimize.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnOtherProcMinimize.Location = new System.Drawing.Point(1, 1);
             this.btnOtherProcMinimize.Margin = new System.Windows.Forms.Padding(1);
             this.btnOtherProcMinimize.Name = "btnOtherProcMinimize";
@@ -536,6 +480,7 @@ namespace VariousTest
             // 
             this.btnOtherProcMaximize.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOtherProcMaximize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOtherProcMaximize.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnOtherProcMaximize.Location = new System.Drawing.Point(94, 1);
             this.btnOtherProcMaximize.Margin = new System.Windows.Forms.Padding(1);
             this.btnOtherProcMaximize.Name = "btnOtherProcMaximize";
@@ -549,6 +494,7 @@ namespace VariousTest
             // 
             this.btnOtherProcClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOtherProcClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOtherProcClose.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnOtherProcClose.Location = new System.Drawing.Point(280, 1);
             this.btnOtherProcClose.Margin = new System.Windows.Forms.Padding(1);
             this.btnOtherProcClose.Name = "btnOtherProcClose";
@@ -562,6 +508,7 @@ namespace VariousTest
             // 
             this.btnOtherProcRestore.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOtherProcRestore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOtherProcRestore.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnOtherProcRestore.Location = new System.Drawing.Point(187, 1);
             this.btnOtherProcRestore.Margin = new System.Windows.Forms.Padding(1);
             this.btnOtherProcRestore.Name = "btnOtherProcRestore";
@@ -656,12 +603,27 @@ namespace VariousTest
             gbMailSMTP.Controls.Add(this.tbMailSMTPserver);
             gbMailSMTP.Controls.Add(btnMailSMTPsend);
             gbMailSMTP.Controls.Add(lblMailSMTPserver);
+            gbMailSMTP.ForeColor = System.Drawing.SystemColors.Highlight;
             gbMailSMTP.Location = new System.Drawing.Point(1, 289);
             gbMailSMTP.Name = "gbMailSMTP";
             gbMailSMTP.Size = new System.Drawing.Size(775, 134);
             gbMailSMTP.TabIndex = 8;
             gbMailSMTP.TabStop = false;
             gbMailSMTP.Text = "SMTP usage";
+            // 
+            // chbMailSMTPSecure
+            // 
+            this.chbMailSMTPSecure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbMailSMTPSecure.AutoSize = true;
+            this.chbMailSMTPSecure.Checked = true;
+            this.chbMailSMTPSecure.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbMailSMTPSecure.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chbMailSMTPSecure.Location = new System.Drawing.Point(581, 39);
+            this.chbMailSMTPSecure.Name = "chbMailSMTPSecure";
+            this.chbMailSMTPSecure.Size = new System.Drawing.Size(183, 17);
+            this.chbMailSMTPSecure.TabIndex = 6;
+            this.chbMailSMTPSecure.Text = "requires secure connection (SSL)";
+            this.chbMailSMTPSecure.UseVisualStyleBackColor = true;
             // 
             // nudMailSMPTport
             // 
@@ -685,6 +647,7 @@ namespace VariousTest
             // 
             lblMailSMPTport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblMailSMPTport.AutoSize = true;
+            lblMailSMPTport.ForeColor = System.Drawing.SystemColors.ControlText;
             lblMailSMPTport.Location = new System.Drawing.Point(338, 42);
             lblMailSMPTport.Name = "lblMailSMPTport";
             lblMailSMPTport.Size = new System.Drawing.Size(29, 13);
@@ -704,6 +667,7 @@ namespace VariousTest
             // lblMailFrom
             // 
             lblMailFrom.AutoSize = true;
+            lblMailFrom.ForeColor = System.Drawing.SystemColors.ControlText;
             lblMailFrom.Location = new System.Drawing.Point(43, 18);
             lblMailFrom.Name = "lblMailFrom";
             lblMailFrom.Size = new System.Drawing.Size(33, 13);
@@ -724,6 +688,7 @@ namespace VariousTest
             // 
             lblMailSMTPpwd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblMailSMTPpwd.AutoSize = true;
+            lblMailSMTPpwd.ForeColor = System.Drawing.SystemColors.ControlText;
             lblMailSMTPpwd.Location = new System.Drawing.Point(311, 63);
             lblMailSMTPpwd.Name = "lblMailSMTPpwd";
             lblMailSMTPpwd.Size = new System.Drawing.Size(56, 13);
@@ -742,6 +707,7 @@ namespace VariousTest
             // lblMailSMTPuser
             // 
             lblMailSMTPuser.AutoSize = true;
+            lblMailSMTPuser.ForeColor = System.Drawing.SystemColors.ControlText;
             lblMailSMTPuser.Location = new System.Drawing.Point(41, 64);
             lblMailSMTPuser.Name = "lblMailSMTPuser";
             lblMailSMTPuser.Size = new System.Drawing.Size(32, 13);
@@ -762,6 +728,7 @@ namespace VariousTest
             // 
             btnMailSMTPsend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            btnMailSMTPsend.ForeColor = System.Drawing.SystemColors.ControlText;
             btnMailSMTPsend.Location = new System.Drawing.Point(8, 94);
             btnMailSMTPsend.Name = "btnMailSMTPsend";
             btnMailSMTPsend.Size = new System.Drawing.Size(759, 32);
@@ -773,6 +740,7 @@ namespace VariousTest
             // lblMailSMTPserver
             // 
             lblMailSMTPserver.AutoSize = true;
+            lblMailSMTPserver.ForeColor = System.Drawing.SystemColors.ControlText;
             lblMailSMTPserver.Location = new System.Drawing.Point(4, 42);
             lblMailSMTPserver.Name = "lblMailSMTPserver";
             lblMailSMTPserver.Size = new System.Drawing.Size(72, 13);
@@ -821,6 +789,7 @@ namespace VariousTest
             // 
             lblUImbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUImbox.AutoSize = true;
+            lblUImbox.ForeColor = System.Drawing.SystemColors.Highlight;
             lblUImbox.Location = new System.Drawing.Point(3, 203);
             lblUImbox.Name = "lblUImbox";
             lblUImbox.Size = new System.Drawing.Size(100, 13);
@@ -849,21 +818,21 @@ namespace VariousTest
             this.treeUI.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeUI.Location = new System.Drawing.Point(391, 23);
             this.treeUI.Name = "treeUI";
-            treeNode19.Name = "Node1";
-            treeNode19.Text = "Subpoložka 1";
-            treeNode20.Name = "Node0";
-            treeNode20.Text = "Polozka 1";
-            treeNode21.Name = "Node3";
-            treeNode21.Text = "Subpoložka 2";
-            treeNode22.Name = "Node4";
-            treeNode22.Text = "Subpoložka 3";
-            treeNode23.Name = "Node5";
-            treeNode23.Text = "Subpoložka 4";
-            treeNode24.Name = "Node2";
-            treeNode24.Text = "Položka 2";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Subpoložka 1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Polozka 1";
+            treeNode3.Name = "Node3";
+            treeNode3.Text = "Subpoložka 2";
+            treeNode4.Name = "Node4";
+            treeNode4.Text = "Subpoložka 3";
+            treeNode5.Name = "Node5";
+            treeNode5.Text = "Subpoložka 4";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "Položka 2";
             this.treeUI.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode20,
-            treeNode24});
+            treeNode2,
+            treeNode6});
             this.treeUI.Size = new System.Drawing.Size(382, 170);
             this.treeUI.TabIndex = 3;
             this.treeUI.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeUI_DrawNode);
@@ -879,11 +848,11 @@ namespace VariousTest
             this.listUI.GridLines = true;
             this.listUI.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listUI.HideSelection = false;
-            listViewItem3.StateImageIndex = 0;
-            listViewItem4.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem2.StateImageIndex = 0;
             this.listUI.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
+            listViewItem1,
+            listViewItem2});
             this.listUI.Location = new System.Drawing.Point(3, 23);
             this.listUI.Name = "listUI";
             this.listUI.Size = new System.Drawing.Size(382, 170);
@@ -917,6 +886,7 @@ namespace VariousTest
             // 
             lblUIlist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUIlist.AutoSize = true;
+            lblUIlist.ForeColor = System.Drawing.SystemColors.Highlight;
             lblUIlist.Location = new System.Drawing.Point(3, 7);
             lblUIlist.Name = "lblUIlist";
             lblUIlist.Size = new System.Drawing.Size(73, 13);
@@ -928,6 +898,7 @@ namespace VariousTest
             // 
             lblUItree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lblUItree.AutoSize = true;
+            lblUItree.ForeColor = System.Drawing.SystemColors.Highlight;
             lblUItree.Location = new System.Drawing.Point(391, 7);
             lblUItree.Name = "lblUItree";
             lblUItree.Size = new System.Drawing.Size(116, 13);
@@ -938,6 +909,7 @@ namespace VariousTest
             // 
             label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             label1.AutoSize = true;
+            label1.ForeColor = System.Drawing.SystemColors.Highlight;
             label1.Location = new System.Drawing.Point(391, 203);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(227, 13);
@@ -977,9 +949,21 @@ namespace VariousTest
             this.chbUITreeBoxEnabled.UseVisualStyleBackColor = true;
             this.chbUITreeBoxEnabled.CheckedChanged += new System.EventHandler(this.chbUITreeBoxEnabled_CheckedChanged);
             // 
+            // tbUI
+            // 
+            this.tbUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbUI.DropDownHeight = 250;
+            this.tbUI.Location = new System.Drawing.Point(0, 0);
+            this.tbUI.Name = "tbUI";
+            this.tbUI.Size = new System.Drawing.Size(382, 21);
+            this.tbUI.TabIndex = 8;
+            this.tbUI.TextEditable = false;
+            this.tbUI.TextValue = "XXX";
+            // 
             // btnLangMemberAccess
             // 
-            btnLangMemberAccess.Location = new System.Drawing.Point(19, 193);
+            btnLangMemberAccess.Location = new System.Drawing.Point(14, 285);
             btnLangMemberAccess.Name = "btnLangMemberAccess";
             btnLangMemberAccess.Size = new System.Drawing.Size(174, 38);
             btnLangMemberAccess.TabIndex = 1;
@@ -989,7 +973,7 @@ namespace VariousTest
             // 
             // btnLangException
             // 
-            btnLangException.Location = new System.Drawing.Point(196, 193);
+            btnLangException.Location = new System.Drawing.Point(191, 285);
             btnLangException.Name = "btnLangException";
             btnLangException.Size = new System.Drawing.Size(174, 38);
             btnLangException.TabIndex = 2;
@@ -1009,6 +993,7 @@ namespace VariousTest
             gbLangRefl.Controls.Add(this.tbLangReflResult);
             gbLangRefl.Controls.Add(this.cbLangReflType);
             gbLangRefl.Controls.Add(lblLangRefl2);
+            gbLangRefl.ForeColor = System.Drawing.SystemColors.Highlight;
             gbLangRefl.Location = new System.Drawing.Point(0, 0);
             gbLangRefl.Name = "gbLangRefl";
             gbLangRefl.Size = new System.Drawing.Size(776, 90);
@@ -1029,6 +1014,7 @@ namespace VariousTest
             // 
             lblLangRefl4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl4.AutoSize = true;
+            lblLangRefl4.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLangRefl4.Location = new System.Drawing.Point(757, 19);
             lblLangRefl4.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl4.Name = "lblLangRefl4";
@@ -1050,6 +1036,7 @@ namespace VariousTest
             // 
             lblLangRefl3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl3.AutoSize = true;
+            lblLangRefl3.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLangRefl3.Location = new System.Drawing.Point(662, 22);
             lblLangRefl3.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl3.Name = "lblLangRefl3";
@@ -1060,6 +1047,7 @@ namespace VariousTest
             // lbLangRefl
             // 
             lbLangRefl.AutoSize = true;
+            lbLangRefl.ForeColor = System.Drawing.SystemColors.ControlText;
             lbLangRefl.Location = new System.Drawing.Point(5, 22);
             lbLangRefl.Name = "lbLangRefl";
             lbLangRefl.Size = new System.Drawing.Size(75, 13);
@@ -1092,6 +1080,7 @@ namespace VariousTest
             // 
             lblLangRefl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblLangRefl2.AutoSize = true;
+            lblLangRefl2.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLangRefl2.Location = new System.Drawing.Point(563, 21);
             lblLangRefl2.Margin = new System.Windows.Forms.Padding(0);
             lblLangRefl2.Name = "lblLangRefl2";
@@ -1104,7 +1093,8 @@ namespace VariousTest
             gbLangDelg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             gbLangDelg.Controls.Add(panelLangDelg);
-            gbLangDelg.Location = new System.Drawing.Point(0, 83);
+            gbLangDelg.ForeColor = System.Drawing.SystemColors.Highlight;
+            gbLangDelg.Location = new System.Drawing.Point(0, 176);
             gbLangDelg.Name = "gbLangDelg";
             gbLangDelg.Size = new System.Drawing.Size(776, 93);
             gbLangDelg.TabIndex = 0;
@@ -1135,6 +1125,7 @@ namespace VariousTest
             // btnLangDelgLambda
             // 
             this.btnLangDelgLambda.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLangDelgLambda.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnLangDelgLambda.Location = new System.Drawing.Point(380, 30);
             this.btnLangDelgLambda.Margin = new System.Windows.Forms.Padding(0);
             this.btnLangDelgLambda.Name = "btnLangDelgLambda";
@@ -1146,6 +1137,7 @@ namespace VariousTest
             // btnLangDelgAnonymous
             // 
             this.btnLangDelgAnonymous.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLangDelgAnonymous.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnLangDelgAnonymous.Location = new System.Drawing.Point(0, 30);
             this.btnLangDelgAnonymous.Margin = new System.Windows.Forms.Padding(0);
             this.btnLangDelgAnonymous.Name = "btnLangDelgAnonymous";
@@ -1157,6 +1149,7 @@ namespace VariousTest
             // btnLangDelgGUItest
             // 
             btnLangDelgGUItest.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnLangDelgGUItest.ForeColor = System.Drawing.SystemColors.ControlText;
             btnLangDelgGUItest.Location = new System.Drawing.Point(380, 0);
             btnLangDelgGUItest.Margin = new System.Windows.Forms.Padding(0);
             btnLangDelgGUItest.Name = "btnLangDelgGUItest";
@@ -1169,6 +1162,7 @@ namespace VariousTest
             // btnLangDelgTest
             // 
             btnLangDelgTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnLangDelgTest.ForeColor = System.Drawing.SystemColors.ControlText;
             btnLangDelgTest.Location = new System.Drawing.Point(0, 0);
             btnLangDelgTest.Margin = new System.Windows.Forms.Padding(0);
             btnLangDelgTest.Name = "btnLangDelgTest";
@@ -1241,6 +1235,7 @@ namespace VariousTest
             gbLINQobj.Controls.Add(lblLINQobj);
             gbLINQobj.Controls.Add(this.listLINQobj);
             gbLINQobj.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbLINQobj.ForeColor = System.Drawing.SystemColors.Highlight;
             gbLINQobj.Location = new System.Drawing.Point(3, 3);
             gbLINQobj.Name = "gbLINQobj";
             gbLINQobj.Size = new System.Drawing.Size(379, 411);
@@ -1251,6 +1246,7 @@ namespace VariousTest
             // btnLINQselObj
             // 
             btnLINQselObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnLINQselObj.ForeColor = System.Drawing.SystemColors.ControlText;
             btnLINQselObj.Location = new System.Drawing.Point(348, 30);
             btnLINQselObj.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             btnLINQselObj.Name = "btnLINQselObj";
@@ -1275,6 +1271,7 @@ namespace VariousTest
             // lblLINQobj
             // 
             lblLINQobj.AutoSize = true;
+            lblLINQobj.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLINQobj.Location = new System.Drawing.Point(0, 16);
             lblLINQobj.Name = "lblLINQobj";
             lblLINQobj.Size = new System.Drawing.Size(100, 13);
@@ -1297,6 +1294,7 @@ namespace VariousTest
             // 
             gbLINQtoXML.Controls.Add(splitContainer1);
             gbLINQtoXML.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbLINQtoXML.ForeColor = System.Drawing.SystemColors.Highlight;
             gbLINQtoXML.Location = new System.Drawing.Point(388, 3);
             gbLINQtoXML.Name = "gbLINQtoXML";
             gbLINQtoXML.Size = new System.Drawing.Size(379, 411);
@@ -1333,6 +1331,7 @@ namespace VariousTest
             // label3
             // 
             label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.SystemColors.ControlText;
             label3.Location = new System.Drawing.Point(3, 5);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(51, 13);
@@ -1358,6 +1357,7 @@ namespace VariousTest
             // rbLINQxmlAccnt
             // 
             this.rbLINQxmlAccnt.AutoSize = true;
+            this.rbLINQxmlAccnt.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbLINQxmlAccnt.Location = new System.Drawing.Point(209, 3);
             this.rbLINQxmlAccnt.Name = "rbLINQxmlAccnt";
             this.rbLINQxmlAccnt.Size = new System.Drawing.Size(74, 17);
@@ -1369,6 +1369,7 @@ namespace VariousTest
             // lblLinqAddr
             // 
             lblLinqAddr.AutoSize = true;
+            lblLinqAddr.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLinqAddr.Location = new System.Drawing.Point(2, 3);
             lblLinqAddr.Name = "lblLinqAddr";
             lblLinqAddr.Size = new System.Drawing.Size(123, 13);
@@ -1378,6 +1379,7 @@ namespace VariousTest
             // rbLINQxmlDeliv
             // 
             this.rbLINQxmlDeliv.AutoSize = true;
+            this.rbLINQxmlDeliv.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbLINQxmlDeliv.Location = new System.Drawing.Point(131, 3);
             this.rbLINQxmlDeliv.Name = "rbLINQxmlDeliv";
             this.rbLINQxmlDeliv.Size = new System.Drawing.Size(72, 17);
@@ -1389,6 +1391,7 @@ namespace VariousTest
             // rbLINQxmlAll
             // 
             this.rbLINQxmlAll.AutoSize = true;
+            this.rbLINQxmlAll.ForeColor = System.Drawing.SystemColors.ControlText;
             this.rbLINQxmlAll.Location = new System.Drawing.Point(289, 3);
             this.rbLINQxmlAll.Name = "rbLINQxmlAll";
             this.rbLINQxmlAll.Size = new System.Drawing.Size(35, 17);
@@ -1408,7 +1411,7 @@ namespace VariousTest
             this.listLINQxml.Location = new System.Drawing.Point(0, 26);
             this.listLINQxml.Margin = new System.Windows.Forms.Padding(0);
             this.listLINQxml.Name = "listLINQxml";
-            this.listLINQxml.Size = new System.Drawing.Size(373, 207);
+            this.listLINQxml.Size = new System.Drawing.Size(373, 201);
             this.listLINQxml.TabIndex = 4;
             this.listLINQxml.UseCompatibleStateImageBehavior = false;
             this.listLINQxml.View = System.Windows.Forms.View.Details;
@@ -1416,6 +1419,7 @@ namespace VariousTest
             // lblIOclass
             // 
             lblIOclass.AutoSize = true;
+            lblIOclass.ForeColor = System.Drawing.SystemColors.Highlight;
             lblIOclass.Location = new System.Drawing.Point(3, 6);
             lblIOclass.Name = "lblIOclass";
             lblIOclass.Size = new System.Drawing.Size(121, 13);
@@ -1462,6 +1466,7 @@ namespace VariousTest
             // label4
             // 
             label4.AutoSize = true;
+            label4.ForeColor = System.Drawing.SystemColors.Highlight;
             label4.Location = new System.Drawing.Point(2, 222);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(64, 13);
@@ -1782,6 +1787,47 @@ namespace VariousTest
             this.tbAlgNumText.Size = new System.Drawing.Size(558, 20);
             this.tbAlgNumText.TabIndex = 1;
             // 
+            // lblLangAppProdVer
+            // 
+            lblLangAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblLangAppProdVer.AutoSize = true;
+            lblLangAppProdVer.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblLangAppProdVer.Location = new System.Drawing.Point(531, 66);
+            lblLangAppProdVer.Name = "lblLangAppProdVer";
+            lblLangAppProdVer.Size = new System.Drawing.Size(137, 13);
+            lblLangAppProdVer.TabIndex = 18;
+            lblLangAppProdVer.Text = "Application.ProductVersion:";
+            // 
+            // lblLangAppProdName
+            // 
+            lblLangAppProdName.AutoSize = true;
+            lblLangAppProdName.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblLangAppProdName.Location = new System.Drawing.Point(15, 66);
+            lblLangAppProdName.Name = "lblLangAppProdName";
+            lblLangAppProdName.Size = new System.Drawing.Size(130, 13);
+            lblLangAppProdName.TabIndex = 16;
+            lblLangAppProdName.Text = "Application.ProductName:";
+            // 
+            // lblLangAppPathExe
+            // 
+            lblLangAppPathExe.AutoSize = true;
+            lblLangAppPathExe.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblLangAppPathExe.Location = new System.Drawing.Point(5, 22);
+            lblLangAppPathExe.Name = "lblLangAppPathExe";
+            lblLangAppPathExe.Size = new System.Drawing.Size(140, 13);
+            lblLangAppPathExe.TabIndex = 12;
+            lblLangAppPathExe.Text = "Application.ExecutablePath:";
+            // 
+            // lblLangAppPathStartup
+            // 
+            lblLangAppPathStartup.AutoSize = true;
+            lblLangAppPathStartup.ForeColor = System.Drawing.SystemColors.ControlText;
+            lblLangAppPathStartup.Location = new System.Drawing.Point(22, 43);
+            lblLangAppPathStartup.Name = "lblLangAppPathStartup";
+            lblLangAppPathStartup.Size = new System.Drawing.Size(121, 13);
+            lblLangAppPathStartup.TabIndex = 14;
+            lblLangAppPathStartup.Text = "Application.StartupPath:";
+            // 
             // chbOnTop
             // 
             this.chbOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1818,85 +1864,12 @@ namespace VariousTest
             // tabOther
             // 
             this.tabOther.Controls.Add(gbOtherProcess);
-            this.tabOther.Controls.Add(this.tbOtherAppProdVer);
-            this.tabOther.Controls.Add(this.tbOtherAppProdName);
-            this.tabOther.Controls.Add(this.tbOtherAppPathExe);
-            this.tabOther.Controls.Add(this.tbOtherAppPathStartup);
-            this.tabOther.Controls.Add(this.tbOtherDTtoday);
-            this.tabOther.Controls.Add(this.tbOtherDTnow);
-            this.tabOther.Controls.Add(lblOtherAppProdVer);
-            this.tabOther.Controls.Add(lblOtherAppProdName);
-            this.tabOther.Controls.Add(lblOtherAppPathExe);
-            this.tabOther.Controls.Add(lblOtherAppPathStartup);
-            this.tabOther.Controls.Add(lblOtherToday);
-            this.tabOther.Controls.Add(lblOtherNow);
             this.tabOther.Location = new System.Drawing.Point(4, 22);
             this.tabOther.Name = "tabOther";
             this.tabOther.Size = new System.Drawing.Size(776, 423);
             this.tabOther.TabIndex = 9;
             this.tabOther.Text = "Other tests";
             this.tabOther.UseVisualStyleBackColor = true;
-            // 
-            // tbOtherAppProdVer
-            // 
-            this.tbOtherAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOtherAppProdVer.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherAppProdVer.Location = new System.Drawing.Point(677, 55);
-            this.tbOtherAppProdVer.Name = "tbOtherAppProdVer";
-            this.tbOtherAppProdVer.ReadOnly = true;
-            this.tbOtherAppProdVer.Size = new System.Drawing.Size(90, 20);
-            this.tbOtherAppProdVer.TabIndex = 7;
-            // 
-            // tbOtherAppProdName
-            // 
-            this.tbOtherAppProdName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOtherAppProdName.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherAppProdName.Location = new System.Drawing.Point(145, 55);
-            this.tbOtherAppProdName.Name = "tbOtherAppProdName";
-            this.tbOtherAppProdName.ReadOnly = true;
-            this.tbOtherAppProdName.Size = new System.Drawing.Size(383, 20);
-            this.tbOtherAppProdName.TabIndex = 5;
-            // 
-            // tbOtherAppPathExe
-            // 
-            this.tbOtherAppPathExe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOtherAppPathExe.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherAppPathExe.Location = new System.Drawing.Point(145, 11);
-            this.tbOtherAppPathExe.Name = "tbOtherAppPathExe";
-            this.tbOtherAppPathExe.ReadOnly = true;
-            this.tbOtherAppPathExe.Size = new System.Drawing.Size(622, 20);
-            this.tbOtherAppPathExe.TabIndex = 1;
-            // 
-            // tbOtherAppPathStartup
-            // 
-            this.tbOtherAppPathStartup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOtherAppPathStartup.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherAppPathStartup.Location = new System.Drawing.Point(145, 32);
-            this.tbOtherAppPathStartup.Name = "tbOtherAppPathStartup";
-            this.tbOtherAppPathStartup.ReadOnly = true;
-            this.tbOtherAppPathStartup.Size = new System.Drawing.Size(622, 20);
-            this.tbOtherAppPathStartup.TabIndex = 3;
-            // 
-            // tbOtherDTtoday
-            // 
-            this.tbOtherDTtoday.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherDTtoday.Location = new System.Drawing.Point(145, 101);
-            this.tbOtherDTtoday.Name = "tbOtherDTtoday";
-            this.tbOtherDTtoday.ReadOnly = true;
-            this.tbOtherDTtoday.Size = new System.Drawing.Size(109, 20);
-            this.tbOtherDTtoday.TabIndex = 11;
-            // 
-            // tbOtherDTnow
-            // 
-            this.tbOtherDTnow.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOtherDTnow.Location = new System.Drawing.Point(145, 81);
-            this.tbOtherDTnow.Name = "tbOtherDTnow";
-            this.tbOtherDTnow.ReadOnly = true;
-            this.tbOtherDTnow.Size = new System.Drawing.Size(109, 20);
-            this.tbOtherDTnow.TabIndex = 9;
             // 
             // tabWeb
             // 
@@ -2008,6 +1981,7 @@ namespace VariousTest
             // tabLang
             // 
             this.tabLang.Controls.Add(gbLangDelg);
+            this.tabLang.Controls.Add(this.tbLangSysVar);
             this.tabLang.Controls.Add(gbLangRefl);
             this.tabLang.Controls.Add(btnLangException);
             this.tabLang.Controls.Add(btnLangMemberAccess);
@@ -2017,6 +1991,69 @@ namespace VariousTest
             this.tabLang.TabIndex = 4;
             this.tabLang.Text = "C# features";
             this.tabLang.UseVisualStyleBackColor = true;
+            // 
+            // tbLangSysVar
+            // 
+            this.tbLangSysVar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLangSysVar.Controls.Add(this.tbLangAppProdVer);
+            this.tbLangSysVar.Controls.Add(this.tbLangAppProdName);
+            this.tbLangSysVar.Controls.Add(this.tbLangAppPathExe);
+            this.tbLangSysVar.Controls.Add(this.tbLangAppPathStartup);
+            this.tbLangSysVar.Controls.Add(lblLangAppProdVer);
+            this.tbLangSysVar.Controls.Add(lblLangAppProdName);
+            this.tbLangSysVar.Controls.Add(lblLangAppPathExe);
+            this.tbLangSysVar.Controls.Add(lblLangAppPathStartup);
+            this.tbLangSysVar.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.tbLangSysVar.Location = new System.Drawing.Point(0, 82);
+            this.tbLangSysVar.Name = "tbLangSysVar";
+            this.tbLangSysVar.Size = new System.Drawing.Size(776, 102);
+            this.tbLangSysVar.TabIndex = 3;
+            this.tbLangSysVar.TabStop = false;
+            this.tbLangSysVar.Text = "System variables";
+            // 
+            // tbLangAppProdVer
+            // 
+            this.tbLangAppProdVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLangAppProdVer.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLangAppProdVer.Location = new System.Drawing.Point(674, 63);
+            this.tbLangAppProdVer.Name = "tbLangAppProdVer";
+            this.tbLangAppProdVer.ReadOnly = true;
+            this.tbLangAppProdVer.Size = new System.Drawing.Size(90, 20);
+            this.tbLangAppProdVer.TabIndex = 19;
+            // 
+            // tbLangAppProdName
+            // 
+            this.tbLangAppProdName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLangAppProdName.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLangAppProdName.Location = new System.Drawing.Point(146, 63);
+            this.tbLangAppProdName.Name = "tbLangAppProdName";
+            this.tbLangAppProdName.ReadOnly = true;
+            this.tbLangAppProdName.Size = new System.Drawing.Size(379, 20);
+            this.tbLangAppProdName.TabIndex = 17;
+            // 
+            // tbLangAppPathExe
+            // 
+            this.tbLangAppPathExe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLangAppPathExe.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLangAppPathExe.Location = new System.Drawing.Point(146, 19);
+            this.tbLangAppPathExe.Name = "tbLangAppPathExe";
+            this.tbLangAppPathExe.ReadOnly = true;
+            this.tbLangAppPathExe.Size = new System.Drawing.Size(618, 20);
+            this.tbLangAppPathExe.TabIndex = 13;
+            // 
+            // tbLangAppPathStartup
+            // 
+            this.tbLangAppPathStartup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLangAppPathStartup.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLangAppPathStartup.Location = new System.Drawing.Point(146, 40);
+            this.tbLangAppPathStartup.Name = "tbLangAppPathStartup";
+            this.tbLangAppPathStartup.ReadOnly = true;
+            this.tbLangAppPathStartup.Size = new System.Drawing.Size(618, 20);
+            this.tbLangAppPathStartup.TabIndex = 15;
             // 
             // tabXML
             // 
@@ -2036,8 +2073,8 @@ namespace VariousTest
             // 
             // dgXmlItems
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgXmlItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgXmlItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgXmlItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -2079,10 +2116,10 @@ namespace VariousTest
             // colXmlItemIPport
             // 
             this.colXmlItemIPport.DataPropertyName = "IPport";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N0";
-            dataGridViewCellStyle9.NullValue = "0";
-            this.colXmlItemIPport.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.colXmlItemIPport.DefaultCellStyle = dataGridViewCellStyle2;
             this.colXmlItemIPport.HeaderText = "IP port";
             this.colXmlItemIPport.MinimumWidth = 100;
             this.colXmlItemIPport.Name = "colXmlItemIPport";
@@ -2300,9 +2337,9 @@ namespace VariousTest
             // colTime
             // 
             this.colTime.DataPropertyName = "Time";
-            dataGridViewCellStyle6.Format = "T";
-            dataGridViewCellStyle6.NullValue = "- -";
-            this.colTime.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "T";
+            dataGridViewCellStyle3.NullValue = "- -";
+            this.colTime.DefaultCellStyle = dataGridViewCellStyle3;
             this.colTime.HeaderText = "Time";
             this.colTime.Name = "colTime";
             this.colTime.ReadOnly = true;
@@ -2345,6 +2382,7 @@ namespace VariousTest
             this.gbIOzip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbIOzip.Controls.Add(this.panelIOzip);
+            this.gbIOzip.ForeColor = System.Drawing.SystemColors.Highlight;
             this.gbIOzip.Location = new System.Drawing.Point(0, 152);
             this.gbIOzip.Name = "gbIOzip";
             this.gbIOzip.Size = new System.Drawing.Size(776, 64);
@@ -2372,6 +2410,7 @@ namespace VariousTest
             // btnIOzip
             // 
             this.btnIOzip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIOzip.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnIOzip.Location = new System.Drawing.Point(3, 3);
             this.btnIOzip.Name = "btnIOzip";
             this.btnIOzip.Size = new System.Drawing.Size(372, 30);
@@ -2383,6 +2422,7 @@ namespace VariousTest
             // btnIOunzip
             // 
             this.btnIOunzip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIOunzip.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnIOunzip.Location = new System.Drawing.Point(381, 3);
             this.btnIOunzip.Name = "btnIOunzip";
             this.btnIOunzip.Size = new System.Drawing.Size(373, 30);
@@ -2519,6 +2559,7 @@ namespace VariousTest
             this.groupBox1.Controls.Add(this.tbAlgEmailRegex);
             this.groupBox1.Controls.Add(this.cbAlgEmail);
             this.groupBox1.Controls.Add(this.btnAlgEmailRegexValidate);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.groupBox1.Location = new System.Drawing.Point(0, 321);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(776, 102);
@@ -2563,6 +2604,7 @@ namespace VariousTest
             // btnAlgEmailRegexValidate
             // 
             this.btnAlgEmailRegexValidate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAlgEmailRegexValidate.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAlgEmailRegexValidate.Location = new System.Drawing.Point(666, 19);
             this.btnAlgEmailRegexValidate.Name = "btnAlgEmailRegexValidate";
             this.btnAlgEmailRegexValidate.Size = new System.Drawing.Size(102, 32);
@@ -2786,31 +2828,6 @@ namespace VariousTest
             this.miHlpAbout.Text = "About...";
             this.miHlpAbout.Click += new System.EventHandler(this.menuItem_Click);
             // 
-            // chbMailSMTPSecure
-            // 
-            this.chbMailSMTPSecure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chbMailSMTPSecure.AutoSize = true;
-            this.chbMailSMTPSecure.Checked = true;
-            this.chbMailSMTPSecure.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbMailSMTPSecure.Location = new System.Drawing.Point(581, 39);
-            this.chbMailSMTPSecure.Name = "chbMailSMTPSecure";
-            this.chbMailSMTPSecure.Size = new System.Drawing.Size(183, 17);
-            this.chbMailSMTPSecure.TabIndex = 6;
-            this.chbMailSMTPSecure.Text = "requires secure connection (SSL)";
-            this.chbMailSMTPSecure.UseVisualStyleBackColor = true;
-            // 
-            // tbUI
-            // 
-            this.tbUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUI.DropDownHeight = 250;
-            this.tbUI.Location = new System.Drawing.Point(0, 0);
-            this.tbUI.Name = "tbUI";
-            this.tbUI.Size = new System.Drawing.Size(382, 21);
-            this.tbUI.TabIndex = 8;
-            this.tbUI.TextEditable = false;
-            this.tbUI.TextValue = "XXX";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2863,13 +2880,14 @@ namespace VariousTest
             gbAlgNum.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlgNum)).EndInit();
             this.tabOther.ResumeLayout(false);
-            this.tabOther.PerformLayout();
             this.tabWeb.ResumeLayout(false);
             this.tabWeb.PerformLayout();
             this.tabMail.ResumeLayout(false);
             this.tabMail.PerformLayout();
             this.tabUI.ResumeLayout(false);
             this.tabLang.ResumeLayout(false);
+            this.tbLangSysVar.ResumeLayout(false);
+            this.tbLangSysVar.PerformLayout();
             this.tabXML.ResumeLayout(false);
             this.tabXML.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgXmlItems)).EndInit();
@@ -2916,12 +2934,6 @@ namespace VariousTest
         private System.Windows.Forms.Button btnOtherProcMaximize;
         private System.Windows.Forms.Button btnOtherProcClose;
         private System.Windows.Forms.Button btnOtherProcRestore;
-        private System.Windows.Forms.TextBox tbOtherAppProdVer;
-        private System.Windows.Forms.TextBox tbOtherAppProdName;
-        private System.Windows.Forms.TextBox tbOtherAppPathExe;
-        private System.Windows.Forms.TextBox tbOtherAppPathStartup;
-        private System.Windows.Forms.TextBox tbOtherDTtoday;
-        private System.Windows.Forms.TextBox tbOtherDTnow;
         private System.Windows.Forms.TabPage tabWeb;
         private System.Windows.Forms.TextBox tbWWWURL;
         private System.Windows.Forms.TextBox tbWWWContent;
@@ -3035,6 +3047,11 @@ namespace VariousTest
         private System.Windows.Forms.ToolStripMenuItem cmiXmlParse;
         private System.Windows.Forms.ToolStripMenuItem cmiXmlSerialize;
         private System.Windows.Forms.CheckBox chbMailSMTPSecure;
+        private System.Windows.Forms.GroupBox tbLangSysVar;
+        private System.Windows.Forms.TextBox tbLangAppProdVer;
+        private System.Windows.Forms.TextBox tbLangAppProdName;
+        private System.Windows.Forms.TextBox tbLangAppPathExe;
+        private System.Windows.Forms.TextBox tbLangAppPathStartup;
     }    
 }
 
