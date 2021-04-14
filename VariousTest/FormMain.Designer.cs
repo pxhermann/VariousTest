@@ -90,6 +90,10 @@ namespace VariousTest
             System.Windows.Forms.Button btnXMLParse;
             System.Windows.Forms.Label lblXmlItems;
             System.Windows.Forms.TableLayoutPanel pnlLINQ;
+            System.Windows.Forms.GroupBox groupBox3;
+            System.Windows.Forms.SplitContainer splitContainer3;
+            System.Windows.Forms.Label label7;
+            System.Windows.Forms.Label label8;
             System.Windows.Forms.GroupBox gbLINQobj;
             System.Windows.Forms.Button btnLINQselObj;
             System.Windows.Forms.Label lblLINQobj;
@@ -154,11 +158,16 @@ namespace VariousTest
             this.cbLangReflType = new System.Windows.Forms.ComboBox();
             this.btnLangDelgLambda = new System.Windows.Forms.Button();
             this.btnLangDelgAnonymous = new System.Windows.Forms.Button();
+            this.tbLINQjson = new System.Windows.Forms.TextBox();
+            this.rbLINQjsonA = new System.Windows.Forms.RadioButton();
+            this.rbLINQjsonD = new System.Windows.Forms.RadioButton();
+            this.rbLINQjsonAll = new System.Windows.Forms.RadioButton();
+            this.listLINQjson = new System.Windows.Forms.ListView();
             this.tbLINQobj = new System.Windows.Forms.TextBox();
             this.listLINQobj = new System.Windows.Forms.ListBox();
             this.tbLINQxml = new System.Windows.Forms.TextBox();
-            this.rbLINQxmlAccnt = new System.Windows.Forms.RadioButton();
-            this.rbLINQxmlDeliv = new System.Windows.Forms.RadioButton();
+            this.rbLINQxmlA = new System.Windows.Forms.RadioButton();
+            this.rbLINQxmlD = new System.Windows.Forms.RadioButton();
             this.rbLINQxmlAll = new System.Windows.Forms.RadioButton();
             this.listLINQxml = new System.Windows.Forms.ListView();
             this.tbServiceUser = new System.Windows.Forms.TextBox();
@@ -297,6 +306,10 @@ namespace VariousTest
             btnXMLParse = new System.Windows.Forms.Button();
             lblXmlItems = new System.Windows.Forms.Label();
             pnlLINQ = new System.Windows.Forms.TableLayoutPanel();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            splitContainer3 = new System.Windows.Forms.SplitContainer();
+            label7 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
             gbLINQobj = new System.Windows.Forms.GroupBox();
             btnLINQselObj = new System.Windows.Forms.Button();
             lblLINQobj = new System.Windows.Forms.Label();
@@ -340,6 +353,11 @@ namespace VariousTest
             gbLangDelg.SuspendLayout();
             panelLangDelg.SuspendLayout();
             pnlLINQ.SuspendLayout();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer3)).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
             gbLINQobj.SuspendLayout();
             gbLINQtoXML.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
@@ -1214,19 +1232,146 @@ namespace VariousTest
             // 
             // pnlLINQ
             // 
-            pnlLINQ.ColumnCount = 2;
-            pnlLINQ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            pnlLINQ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            pnlLINQ.ColumnCount = 3;
+            pnlLINQ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            pnlLINQ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            pnlLINQ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
+            pnlLINQ.Controls.Add(groupBox3, 0, 0);
             pnlLINQ.Controls.Add(gbLINQobj, 0, 0);
             pnlLINQ.Controls.Add(gbLINQtoXML, 1, 0);
             pnlLINQ.Dock = System.Windows.Forms.DockStyle.Fill;
             pnlLINQ.Location = new System.Drawing.Point(3, 3);
             pnlLINQ.Name = "pnlLINQ";
             pnlLINQ.RowCount = 1;
-            pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 417F));
+            pnlLINQ.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             pnlLINQ.Size = new System.Drawing.Size(770, 417);
             pnlLINQ.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(splitContainer3);
+            groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox3.ForeColor = System.Drawing.SystemColors.Highlight;
+            groupBox3.Location = new System.Drawing.Point(257, 3);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new System.Drawing.Size(248, 411);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "LINQ to JSON";
+            // 
+            // splitContainer3
+            // 
+            splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer3.Location = new System.Drawing.Point(3, 16);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(label7);
+            splitContainer3.Panel1.Controls.Add(this.tbLINQjson);
+            splitContainer3.Panel1MinSize = 100;
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(this.rbLINQjsonA);
+            splitContainer3.Panel2.Controls.Add(label8);
+            splitContainer3.Panel2.Controls.Add(this.rbLINQjsonD);
+            splitContainer3.Panel2.Controls.Add(this.rbLINQjsonAll);
+            splitContainer3.Panel2.Controls.Add(this.listLINQjson);
+            splitContainer3.Panel2MinSize = 100;
+            splitContainer3.Size = new System.Drawing.Size(242, 392);
+            splitContainer3.SplitterDistance = 150;
+            splitContainer3.SplitterWidth = 6;
+            splitContainer3.TabIndex = 1;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = System.Drawing.SystemColors.ControlText;
+            label7.Location = new System.Drawing.Point(3, 5);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(62, 13);
+            label7.TabIndex = 0;
+            label7.Text = "JSON data:";
+            // 
+            // tbLINQjson
+            // 
+            this.tbLINQjson.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLINQjson.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLINQjson.Location = new System.Drawing.Point(0, 21);
+            this.tbLINQjson.Margin = new System.Windows.Forms.Padding(0);
+            this.tbLINQjson.Multiline = true;
+            this.tbLINQjson.Name = "tbLINQjson";
+            this.tbLINQjson.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbLINQjson.Size = new System.Drawing.Size(242, 129);
+            this.tbLINQjson.TabIndex = 1;
+            this.tbLINQjson.Text = resources.GetString("tbLINQjson.Text");
+            this.tbLINQjson.TextChanged += new System.EventHandler(this.onLINQjson_Changed);
+            // 
+            // rbLINQjsonA
+            // 
+            this.rbLINQjsonA.AutoSize = true;
+            this.rbLINQjsonA.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbLINQjsonA.Location = new System.Drawing.Point(107, 3);
+            this.rbLINQjsonA.Name = "rbLINQjsonA";
+            this.rbLINQjsonA.Size = new System.Drawing.Size(32, 17);
+            this.rbLINQjsonA.TabIndex = 2;
+            this.rbLINQjsonA.Text = "A";
+            this.rbLINQjsonA.UseVisualStyleBackColor = true;
+            this.rbLINQjsonA.CheckedChanged += new System.EventHandler(this.onLINQjson_Changed);
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.ForeColor = System.Drawing.SystemColors.ControlText;
+            label8.Location = new System.Drawing.Point(2, 3);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(60, 13);
+            label8.TabIndex = 0;
+            label8.Text = "Show type:";
+            // 
+            // rbLINQjsonD
+            // 
+            this.rbLINQjsonD.AutoSize = true;
+            this.rbLINQjsonD.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbLINQjsonD.Location = new System.Drawing.Point(68, 3);
+            this.rbLINQjsonD.Name = "rbLINQjsonD";
+            this.rbLINQjsonD.Size = new System.Drawing.Size(33, 17);
+            this.rbLINQjsonD.TabIndex = 1;
+            this.rbLINQjsonD.Text = "D";
+            this.rbLINQjsonD.UseVisualStyleBackColor = true;
+            this.rbLINQjsonD.CheckedChanged += new System.EventHandler(this.onLINQjson_Changed);
+            // 
+            // rbLINQjsonAll
+            // 
+            this.rbLINQjsonAll.AutoSize = true;
+            this.rbLINQjsonAll.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbLINQjsonAll.Location = new System.Drawing.Point(145, 3);
+            this.rbLINQjsonAll.Name = "rbLINQjsonAll";
+            this.rbLINQjsonAll.Size = new System.Drawing.Size(35, 17);
+            this.rbLINQjsonAll.TabIndex = 3;
+            this.rbLINQjsonAll.Text = "all";
+            this.rbLINQjsonAll.UseVisualStyleBackColor = true;
+            this.rbLINQjsonAll.CheckedChanged += new System.EventHandler(this.onLINQjson_Changed);
+            // 
+            // listLINQjson
+            // 
+            this.listLINQjson.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listLINQjson.GridLines = true;
+            this.listLINQjson.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listLINQjson.HideSelection = false;
+            this.listLINQjson.Location = new System.Drawing.Point(0, 26);
+            this.listLINQjson.Margin = new System.Windows.Forms.Padding(0);
+            this.listLINQjson.Name = "listLINQjson";
+            this.listLINQjson.Size = new System.Drawing.Size(242, 193);
+            this.listLINQjson.TabIndex = 4;
+            this.listLINQjson.UseCompatibleStateImageBehavior = false;
+            this.listLINQjson.View = System.Windows.Forms.View.Details;
             // 
             // gbLINQobj
             // 
@@ -1238,7 +1383,7 @@ namespace VariousTest
             gbLINQobj.ForeColor = System.Drawing.SystemColors.Highlight;
             gbLINQobj.Location = new System.Drawing.Point(3, 3);
             gbLINQobj.Name = "gbLINQobj";
-            gbLINQobj.Size = new System.Drawing.Size(379, 411);
+            gbLINQobj.Size = new System.Drawing.Size(248, 411);
             gbLINQobj.TabIndex = 0;
             gbLINQobj.TabStop = false;
             gbLINQobj.Text = "LINQ to Objects";
@@ -1247,7 +1392,7 @@ namespace VariousTest
             // 
             btnLINQselObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             btnLINQselObj.ForeColor = System.Drawing.SystemColors.ControlText;
-            btnLINQselObj.Location = new System.Drawing.Point(348, 30);
+            btnLINQselObj.Location = new System.Drawing.Point(217, 30);
             btnLINQselObj.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             btnLINQselObj.Name = "btnLINQselObj";
             btnLINQselObj.Size = new System.Drawing.Size(28, 22);
@@ -1265,7 +1410,7 @@ namespace VariousTest
             this.tbLINQobj.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.tbLINQobj.Name = "tbLINQobj";
             this.tbLINQobj.ReadOnly = true;
-            this.tbLINQobj.Size = new System.Drawing.Size(345, 20);
+            this.tbLINQobj.Size = new System.Drawing.Size(214, 20);
             this.tbLINQobj.TabIndex = 1;
             // 
             // lblLINQobj
@@ -1287,7 +1432,7 @@ namespace VariousTest
             this.listLINQobj.IntegralHeight = false;
             this.listLINQobj.Location = new System.Drawing.Point(3, 53);
             this.listLINQobj.Name = "listLINQobj";
-            this.listLINQobj.Size = new System.Drawing.Size(373, 354);
+            this.listLINQobj.Size = new System.Drawing.Size(242, 354);
             this.listLINQobj.TabIndex = 3;
             // 
             // gbLINQtoXML
@@ -1295,9 +1440,9 @@ namespace VariousTest
             gbLINQtoXML.Controls.Add(splitContainer1);
             gbLINQtoXML.Dock = System.Windows.Forms.DockStyle.Fill;
             gbLINQtoXML.ForeColor = System.Drawing.SystemColors.Highlight;
-            gbLINQtoXML.Location = new System.Drawing.Point(388, 3);
+            gbLINQtoXML.Location = new System.Drawing.Point(511, 3);
             gbLINQtoXML.Name = "gbLINQtoXML";
-            gbLINQtoXML.Size = new System.Drawing.Size(379, 411);
+            gbLINQtoXML.Size = new System.Drawing.Size(256, 411);
             gbLINQtoXML.TabIndex = 1;
             gbLINQtoXML.TabStop = false;
             gbLINQtoXML.Text = "LINQ to XML";
@@ -1317,13 +1462,13 @@ namespace VariousTest
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(this.rbLINQxmlAccnt);
+            splitContainer1.Panel2.Controls.Add(this.rbLINQxmlA);
             splitContainer1.Panel2.Controls.Add(lblLinqAddr);
-            splitContainer1.Panel2.Controls.Add(this.rbLINQxmlDeliv);
+            splitContainer1.Panel2.Controls.Add(this.rbLINQxmlD);
             splitContainer1.Panel2.Controls.Add(this.rbLINQxmlAll);
             splitContainer1.Panel2.Controls.Add(this.listLINQxml);
             splitContainer1.Panel2MinSize = 100;
-            splitContainer1.Size = new System.Drawing.Size(373, 392);
+            splitContainer1.Size = new System.Drawing.Size(250, 392);
             splitContainer1.SplitterDistance = 150;
             splitContainer1.SplitterWidth = 6;
             splitContainer1.TabIndex = 1;
@@ -1349,22 +1494,22 @@ namespace VariousTest
             this.tbLINQxml.Multiline = true;
             this.tbLINQxml.Name = "tbLINQxml";
             this.tbLINQxml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLINQxml.Size = new System.Drawing.Size(373, 129);
+            this.tbLINQxml.Size = new System.Drawing.Size(250, 129);
             this.tbLINQxml.TabIndex = 1;
             this.tbLINQxml.Text = resources.GetString("tbLINQxml.Text");
             this.tbLINQxml.TextChanged += new System.EventHandler(this.onLINQxml_Changed);
             // 
-            // rbLINQxmlAccnt
+            // rbLINQxmlA
             // 
-            this.rbLINQxmlAccnt.AutoSize = true;
-            this.rbLINQxmlAccnt.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rbLINQxmlAccnt.Location = new System.Drawing.Point(209, 3);
-            this.rbLINQxmlAccnt.Name = "rbLINQxmlAccnt";
-            this.rbLINQxmlAccnt.Size = new System.Drawing.Size(74, 17);
-            this.rbLINQxmlAccnt.TabIndex = 2;
-            this.rbLINQxmlAccnt.Text = "A-account";
-            this.rbLINQxmlAccnt.UseVisualStyleBackColor = true;
-            this.rbLINQxmlAccnt.CheckedChanged += new System.EventHandler(this.onLINQxml_Changed);
+            this.rbLINQxmlA.AutoSize = true;
+            this.rbLINQxmlA.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbLINQxmlA.Location = new System.Drawing.Point(107, 3);
+            this.rbLINQxmlA.Name = "rbLINQxmlA";
+            this.rbLINQxmlA.Size = new System.Drawing.Size(32, 17);
+            this.rbLINQxmlA.TabIndex = 2;
+            this.rbLINQxmlA.Text = "A";
+            this.rbLINQxmlA.UseVisualStyleBackColor = true;
+            this.rbLINQxmlA.CheckedChanged += new System.EventHandler(this.onLINQxml_Changed);
             // 
             // lblLinqAddr
             // 
@@ -1372,27 +1517,27 @@ namespace VariousTest
             lblLinqAddr.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLinqAddr.Location = new System.Drawing.Point(2, 3);
             lblLinqAddr.Name = "lblLinqAddr";
-            lblLinqAddr.Size = new System.Drawing.Size(123, 13);
+            lblLinqAddr.Size = new System.Drawing.Size(60, 13);
             lblLinqAddr.TabIndex = 0;
-            lblLinqAddr.Text = "Show addresses of type:";
+            lblLinqAddr.Text = "Show type:";
             // 
-            // rbLINQxmlDeliv
+            // rbLINQxmlD
             // 
-            this.rbLINQxmlDeliv.AutoSize = true;
-            this.rbLINQxmlDeliv.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rbLINQxmlDeliv.Location = new System.Drawing.Point(131, 3);
-            this.rbLINQxmlDeliv.Name = "rbLINQxmlDeliv";
-            this.rbLINQxmlDeliv.Size = new System.Drawing.Size(72, 17);
-            this.rbLINQxmlDeliv.TabIndex = 1;
-            this.rbLINQxmlDeliv.Text = "D-delivery";
-            this.rbLINQxmlDeliv.UseVisualStyleBackColor = true;
-            this.rbLINQxmlDeliv.CheckedChanged += new System.EventHandler(this.onLINQxml_Changed);
+            this.rbLINQxmlD.AutoSize = true;
+            this.rbLINQxmlD.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbLINQxmlD.Location = new System.Drawing.Point(68, 3);
+            this.rbLINQxmlD.Name = "rbLINQxmlD";
+            this.rbLINQxmlD.Size = new System.Drawing.Size(33, 17);
+            this.rbLINQxmlD.TabIndex = 1;
+            this.rbLINQxmlD.Text = "D";
+            this.rbLINQxmlD.UseVisualStyleBackColor = true;
+            this.rbLINQxmlD.CheckedChanged += new System.EventHandler(this.onLINQxml_Changed);
             // 
             // rbLINQxmlAll
             // 
             this.rbLINQxmlAll.AutoSize = true;
             this.rbLINQxmlAll.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rbLINQxmlAll.Location = new System.Drawing.Point(289, 3);
+            this.rbLINQxmlAll.Location = new System.Drawing.Point(145, 3);
             this.rbLINQxmlAll.Name = "rbLINQxmlAll";
             this.rbLINQxmlAll.Size = new System.Drawing.Size(35, 17);
             this.rbLINQxmlAll.TabIndex = 3;
@@ -1411,7 +1556,7 @@ namespace VariousTest
             this.listLINQxml.Location = new System.Drawing.Point(0, 26);
             this.listLINQxml.Margin = new System.Windows.Forms.Padding(0);
             this.listLINQxml.Name = "listLINQxml";
-            this.listLINQxml.Size = new System.Drawing.Size(373, 201);
+            this.listLINQxml.Size = new System.Drawing.Size(250, 195);
             this.listLINQxml.TabIndex = 4;
             this.listLINQxml.UseCompatibleStateImageBehavior = false;
             this.listLINQxml.View = System.Windows.Forms.View.Details;
@@ -2862,6 +3007,13 @@ namespace VariousTest
             gbLangDelg.ResumeLayout(false);
             panelLangDelg.ResumeLayout(false);
             pnlLINQ.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel1.PerformLayout();
+            splitContainer3.Panel2.ResumeLayout(false);
+            splitContainer3.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();
+            splitContainer3.ResumeLayout(false);
             gbLINQobj.ResumeLayout(false);
             gbLINQobj.PerformLayout();
             gbLINQtoXML.ResumeLayout(false);
@@ -2976,8 +3128,8 @@ namespace VariousTest
         private System.Windows.Forms.TextBox tbLINQobj;
         private System.Windows.Forms.ListBox listLINQobj;
         private System.Windows.Forms.TextBox tbLINQxml;
-        private System.Windows.Forms.RadioButton rbLINQxmlAccnt;
-        private System.Windows.Forms.RadioButton rbLINQxmlDeliv;
+        private System.Windows.Forms.RadioButton rbLINQxmlA;
+        private System.Windows.Forms.RadioButton rbLINQxmlD;
         private System.Windows.Forms.RadioButton rbLINQxmlAll;
         private System.Windows.Forms.ListView listLINQxml;
         private System.Windows.Forms.TabPage tabFileIO;
@@ -3052,6 +3204,11 @@ namespace VariousTest
         private System.Windows.Forms.TextBox tbLangAppProdName;
         private System.Windows.Forms.TextBox tbLangAppPathExe;
         private System.Windows.Forms.TextBox tbLangAppPathStartup;
+        private System.Windows.Forms.TextBox tbLINQjson;
+        private System.Windows.Forms.RadioButton rbLINQjsonA;
+        private System.Windows.Forms.RadioButton rbLINQjsonD;
+        private System.Windows.Forms.RadioButton rbLINQjsonAll;
+        private System.Windows.Forms.ListView listLINQjson;
     }    
 }
 

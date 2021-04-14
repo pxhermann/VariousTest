@@ -22,6 +22,7 @@ using System.Management;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using Newtonsoft.Json.Linq;
 
 namespace VariousTest
 {
@@ -1166,11 +1167,23 @@ namespace VariousTest
             }
             catch (Exception ex) { GM.ShowErrorMessageBox(this, "Error occured when deleting selected row!", ex); }
         }
-#endregion
+        #endregion
 
 #region LINQ related methods
         private void initTabLINQ()
         {
+            // LINQ to JSON
+            listLINQjson.Columns.Add("Name", 130);
+            listLINQjson.Columns.Add("Street", 130);
+            listLINQjson.Columns.Add("City", 100);
+            listLINQjson.Columns.Add("ZIP", 80);
+            listLINQjson.Columns.Add("Country", -2);
+
+            if ( !rbLINQjsonAll.Checked )
+                rbLINQjsonAll.Checked = true;
+            else
+                onLINQjson_Changed(null, null);
+
             // LINQ to XML
             listLINQxml.Columns.Add("Name", 130);
             listLINQxml.Columns.Add("Street", 130);
@@ -1190,6 +1203,39 @@ namespace VariousTest
 //            // LINQ to DataSet
 //            UpdateLINQtoDataSet();
         }
+        private void onLINQjson_Changed(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            listLINQjson.BeginUpdate();
+            try
+            {
+                listLINQjson.Items.Clear();
+                if ( string.IsNullOrEmpty(tbLINQjson.Text) )
+                    return;
+
+                JObject jRoot = JObject.Parse(tbLINQjson.Text);
+                IEnumerable<JToken> addrQ;
+                if ( rbLINQjsonD.Checked ) 
+                    addrQ = jRoot["AddrList"].Where(jItm => ((string)jItm["Type"])=="D").OrderBy(jItm => ((string)jItm["Name"]));
+                else if ( rbLINQjsonA.Checked )
+                    addrQ = jRoot["AddrList"].Where(jItm => ((string)jItm["Type"])=="A").OrderBy(jItm => ((string)jItm["Name"]));
+                else
+                    addrQ = jRoot["AddrList"].Children().OrderBy(jItm => ((string)jItm["Name"]));
+
+                foreach(var a in addrQ )
+                    listLINQjson.Items.Add(new ListViewItem(new string[] {(string)a["Name"], (string)a["Street"], (string)a["City"], (string)a["Zip"], (string)a["Country"]}));
+            }
+            catch(Exception ex)
+            {
+                if ( !tbLINQjson.Focused )
+                    GM.ShowErrorMessageBox(this, "Error occured when running LINQ to JSON", ex);
+            }
+            finally 
+            {
+                Cursor = Cursors.Default;
+                listLINQjson.EndUpdate();
+            }
+        }
         private void onLINQxml_Changed(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
@@ -1202,9 +1248,9 @@ namespace VariousTest
 
                 XElement root = XElement.Parse(tbLINQxml.Text);
                 IEnumerable<XElement> addrQ;
-                if ( rbLINQxmlDeliv.Checked ) 
+                if ( rbLINQxmlD.Checked ) 
                     addrQ = from a in root.Elements("Address") where (string)a.Attribute("Type")=="D" orderby (string)a.Element("Name") select a;
-                else if ( rbLINQxmlAccnt.Checked )
+                else if ( rbLINQxmlA.Checked )
                     addrQ = root.Elements("Address").Where(a=>(a.Attribute("Type").Value=="A")).OrderBy(a=>(string)a.Element("Name"));
                 else
                     addrQ = root.Elements("Address").OrderBy(a=>a.Element("Name").Value);
@@ -1276,6 +1322,7 @@ namespace VariousTest
                 listLINQobj.EndUpdate();
             }
         }
+        //////
 /*        private void UpdateLINQtoDataSet()
         {
             Cursor = Cursors.WaitCursor;

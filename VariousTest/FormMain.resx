@@ -191,7 +191,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAw
-        CAAAAk1TRnQBSQFMAwEBAAEkAQMBJAEDARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMA
+        CAAAAk1TRnQBSQFMAwEBAAE8AQMBPAEDARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMA
         AUADAAEQAwABAQEAAQgGAAEEGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEA
         AfABygGmAQABMwUAATMBAAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEA
         AYABfAH/AQACUAH/AQABkwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFm
@@ -287,6 +287,72 @@
     <value>False</value>
   </metadata>
   <metadata name="pnlLINQ.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="groupBox3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="splitContainer3.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="label7.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="tbLINQjson.Text" xml:space="preserve">
+    <value>{
+ "AddrList": [
+  {
+   "Type": "D",
+   "Name": "Ellen Adams",
+   "Street": "123 Maple Street",
+   "City": "Mill Valley",
+   "Zip": "10999",
+   "Country": "USA"
+  },
+  {
+   "Type": "A",
+   "Name": "Tai Yee",
+   "Street": "8 Oak Avenue",
+   "City": "Old Town",
+   "Zip": "95819",
+   "Country": "USA"
+  },
+  {
+   "Type": "D",
+   "Name": "NOWAC",
+   "Street": "Old bridge 12",
+   "City": "LONDON",
+   "Zip": "95819",
+   "Country": "GB"
+  },
+  {
+   "Type": "D",
+   "Name": "XName",
+   "Street": "XStreet",
+   "City": "XTown",
+   "Zip": "12345",
+   "Country": "FI"
+  },
+  {
+   "Type": "A",
+   "Name": "FaktName",
+   "Street": "FaktStreet",
+   "City": "FaktCity",
+   "Zip": "12345",
+   "Country": "CZ"
+  },
+  {
+   "Type": "A",
+   "Name": "Nerospol",
+   "Street": "Jánošíkova 17",
+   "City": "Bánská Šťavnica",
+   "Zip": "85464",
+   "Country": "SK"
+  }
+ ]
+}</value>
+  </data>
+  <metadata name="label8.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <metadata name="gbLINQobj.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
