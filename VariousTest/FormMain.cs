@@ -135,6 +135,7 @@ namespace VariousTest
             btnAlgCutDiactric_Click(null, null);
             btnAlgNumToText_Click(null, null);
             btnAlgWrapText_Click(null, null);
+            cbAlgPhone_TextChanged(null, null);
 
 //            tbAlgEmailRegex.Text = (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]);
         }
@@ -315,6 +316,120 @@ namespace VariousTest
                 GM.ShowErrorMessageBox(this, string.Format("Error occured when validating '{0}'", strEmail), ex);
             }
         }
+
+		private void cbAlgPhone_TextChanged(object sender, EventArgs e)
+		{
+            try
+			{
+                tbAlgPhone.Text = FormatTelefon(cbAlgPhone.Text, cbAlgPhoneState.Text);
+            }
+            catch(Exception ex)
+            {
+                GM.ShowErrorMessageBox(this, string.Format("Error occured when formatting '{0}'", cbAlgPhone.Text), ex);
+            }
+		}
+		private string FormatTelefon(string orgTel, string kodStatu)
+		{
+			{
+				StringBuilder sb = new StringBuilder();
+				foreach (char c in orgTel)
+					if (c >= '0' && c <= '9' || c == '+') // remove all non digit characters
+						sb.Append(c);
+                orgTel = sb.ToString();
+            }
+            if (orgTel.StartsWith("00"))
+                orgTel = "+" + orgTel.Substring(2);
+//			if ( orgTel.StartsWith("+") )
+//                return orgTel;
+
+			string[] numberParts = new string[4] { "+420", "", "", "" };    // predvolba, mistni predvolba, cislo, klapka
+			switch ( kodStatu.ToUpper() )
+			{
+			case "AT": numberParts[0] = "+43"; break;
+			case "AU": numberParts[0] = "+61"; break;
+			case "BE": numberParts[0] = "+32"; break;
+			case "BG": numberParts[0] = "+359"; break;
+			case "BY": numberParts[0] = "+375"; break;
+			case "CA": numberParts[0] = "+1"; break;
+			case "CN": numberParts[0] = "+86"; break;
+			case "CY": numberParts[0] = "+357"; break;
+			case "CZ": numberParts[0] = "+420"; break;
+			case "DE": numberParts[0] = "+49"; break;
+			case "DK": numberParts[0] = "+45"; break;
+			case "EE": numberParts[0] = "+372"; break;
+			case "ES": numberParts[0] = "+34"; break;
+			case "FI": numberParts[0] = "+358"; break;
+			case "FR": numberParts[0] = "+33"; break;
+			case "GR": numberParts[0] = "+30"; break;
+			case "HR": numberParts[0] = "+385"; break;
+			case "HU": numberParts[0] = "+36"; break;
+			case "CH": numberParts[0] = "+41"; break;
+			case "IE": numberParts[0] = "+353"; break;
+			case "IL": numberParts[0] = "+972"; break;
+			case "IS": numberParts[0] = "+354"; break;
+			case "IT": numberParts[0] = "+39"; break;
+			case "JP": numberParts[0] = "+81"; break;
+			case "LI": numberParts[0] = "+423"; break;
+			case "LT": numberParts[0] = "+370"; break;
+			case "LU": numberParts[0] = "+352"; break;
+			case "LV": numberParts[0] = "+371"; break;
+			case "MC": numberParts[0] = "+377"; break;
+			case "MT": numberParts[0] = "+356"; break;
+			case "NL": numberParts[0] = "+31"; break;
+			case "NO": numberParts[0] = "+47"; break;
+			case "PL": numberParts[0] = "+48"; break;
+			case "PT": numberParts[0] = "+351"; break;
+			case "RO": numberParts[0] = "+40"; break;
+			case "RU": numberParts[0] = "+7"; break;
+			case "SE": numberParts[0] = "+46"; break;
+			case "SI": numberParts[0] = "+386"; break;
+			case "SK": numberParts[0] = "+421"; break;
+			case "TR": numberParts[0] = "+90"; break;
+			case "TW": numberParts[0] = "+886"; break;
+			case "UA": numberParts[0] = "+380"; break;
+			case "UK": numberParts[0] = "+44"; break;
+			case "US": numberParts[0] = "+1"; break;
+			case "VN": numberParts[0] = "+84"; break;
+			}
+
+			string sourceCode = orgTel;
+			Match match = Regex.Match(sourceCode, "^(\\s*\\+\\s*\\d{1,3}\\s*)\\s*");
+			if (match.Success)
+			{
+				numberParts[0] = match.Value.Trim().Replace(" ", "");
+				sourceCode = sourceCode.Remove(0, match.Length);
+			}
+			if (new Regex("^(\\s*\\+\\s*\\d{1,3}\\s*){0,1}(\\s*(\\s*\\([0-9\\s]+\\)\\s*)){0,1}(\\s*[0-9(\\s|\\-{0,1})]*)(\\s*(x|/)\\s*[0-9\\s]+){0,1}\\s*$", RegexOptions.IgnoreCase).IsMatch(orgTel))
+			{
+				numberParts[2] = sourceCode;
+			}
+			else
+			{
+				match = Regex.Match(sourceCode, "^(\\s*\\([0-9\\s]+\\)\\s*)\\s*");
+				if (match.Success)
+				{
+					numberParts[1] = match.Value.Trim().Replace("(", "").Replace(")", "");
+					sourceCode = sourceCode.Remove(0, match.Length);
+				}
+				match = Regex.Match(sourceCode, "^(\\s*[0-9][0-9(\\s*|\\-{0,1})]+)\\s*");
+				if (match.Success)
+				{
+					numberParts[2] = match.Value.Trim();
+					sourceCode = sourceCode.Remove(0, match.Length);
+				}
+				match = Regex.Match(sourceCode, "^(x|/)\\s*");
+				if (match.Success)
+				{
+					sourceCode = sourceCode.Remove(0, match.Length);
+					match = Regex.Match(sourceCode, "^[0-9\\s]+\\s*$");
+					if (match.Success)
+					{
+						numberParts[3] = match.Value.Trim();
+					}
+				}
+			}
+			return numberParts[0] + numberParts[2];
+		}
 
         private XElement GetXElement(XElement parent, params XName[] path)
         {
@@ -1864,6 +1979,6 @@ namespace VariousTest
                 GM.ShowErrorMessageBox(this, string.Format("Error occured when trying to handle window for the process '{0}'", strProcName), ex);
             }
         }
-        #endregion
-    }
+		#endregion
+	}
 }
